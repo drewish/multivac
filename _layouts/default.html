@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% include _head.html %}
+  <body>
+    {% include _title_bar.html %}
+    <div class="row">
+      <div class="large-8 columns">
+        <h2 class="subheader">{{ page.title }}</h2>
+        {{ content }}
+      </div>
+      <div class="large-4 columns">{% include _navigation_main.html %}</div>
+    </div>
+  </body>
+  {% include _footer.html %}
+</html>
