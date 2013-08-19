@@ -1,0 +1,20 @@
+---
+layout: default
+title: CSS with vertical rhythm
+---
+<p>
+  This tool will help you compute CSS that has a consistent vertical rhythm. If you are not sure what this is all about check out this great <a href="http://webtypography.net/Rhythm_and_Proportion/Vertical_Motion/2.2.2/">article about vertical measure</a>.
+</p>
+
+<form accept-charset="UTF-8" id="vertical-rhythm" data-abide>
+  <label for="edit-font-family">Font family: </label>
+  <select name="font_family" class="form-select" id="edit-font-family"><option value="0" selected="selected">Georgia, serif</option><option value="1">Times, serif</option><option value="2">"Times New Roman", serif</option><option value="3">Arial, sans-serif</option><option value="4">Helvetica, sans-serif</option><option value="5">Impact, sans-serif</option><option value="6">Verdana, sans-serif</option><option value="7">"Lucida Console", monospace</option></select>
+  <label for="edit-base-font-size">Base font size (pixels): </label>
+  <input type="number" maxlength="128" name="base_font_size" id="edit-base-font-size" size="60" value="12" class="form-text">
+  <label for="edit-base-line-height">Base line height (pixels): </label>
+  <input type="number" maxlength="128" name="base_line_height" id="edit-base-line-height" size="60" value="18" class="form-text">
+  <label for="edit-font-size">Target font sizes (pixels): </label>
+  <input type="text" maxlength="128" name="font_size" id="edit-font-size" size="60" value="24,22,20,18,16,14" class="form-text">
+</form>
+<div id="output"></div>
+<script src="/js/vertical-rhythm.js"></script>
