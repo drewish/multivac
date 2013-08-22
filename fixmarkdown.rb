@@ -15,7 +15,7 @@ Dir.glob("*.md") do |file_name|
     content.gsub!(/<!--break-->/, "\n\n")
 
     content.gsub!(/<a href="(.*?)">(?!<img)(.*?)<\/a>/, '[\2](\1)')
-    content.gsub!(/\[flickr-photo:id=(\d+).+?\]/, 'http://www.flickr.com/photos/drewish/\1')
+    content.gsub!(/\[flickr-photo:id=(\d+).+?\]/, '{% oembed http://www.flickr.com/photos/drewish/\1 width=620 %}')
 
     content.gsub!(/^<\/?(pre|code)>$/, "\n```")
     content.gsub!(/^<\?php$/, "\n``` php\n<?php")
