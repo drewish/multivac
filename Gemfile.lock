@@ -31,9 +31,11 @@ GEM
     pygments.rb (0.5.2)
       posix-spawn (~> 0.3.6)
       yajl-ruby (~> 1.1.0)
+    rb-fsevent (0.9.3)
     redcarpet (2.2.2)
     ruby-oembed (0.8.8)
     safe_yaml (0.7.1)
+    sass (3.2.10)
     syntax (1.0.0)
     yajl-ruby (1.1.0)
 
@@ -43,4 +45,6 @@ PLATFORMS
 DEPENDENCIES
   jekyll
   jekyll-oembed
+  rb-fsevent
   redcarpet
+  sass (~> 3.2.10)
