@@ -4,14 +4,22 @@
   <body>
     {% include _title_bar.html %}
     <div class="row">
-      <div class="large-8 columns">
+      <div class="large-10 small-12 columns">
         <h2 class="subheader">
           {{ page.title }}
           <small style="white-space: nowrap;">{{ page.date | date_to_long_string }}</small>
         </h2>
+        {% if page.vimeo %}
+          <div class="flex-video widescreen vimeo">
+            {% oembed {{page.vimeo}} %}
+          </div>
+        {% endif %}
         {{ content }}
+        <p>
+          <a href="/">← Back to the top</a>
+        </p>
       </div>
-      <div class="large-4 columns">{% include _navigation_main.html %}</div>
+      <div class="large-12 small-12 columns">{% include _navigation_main.html %}</div>
     </div>
   </body>
   {% include _footer.html %}

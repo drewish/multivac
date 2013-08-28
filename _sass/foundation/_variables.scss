@@ -54,6 +54,8 @@ $default-float: left;
 // $body-bg: #fff;
 // $body-font-color: #222;
 // $body-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$body-font-family: "Merriweather", serif;
+
 // $body-font-weight: normal;
 // $body-font-style: normal;
 
@@ -161,7 +163,8 @@ $default-float: left;
 // Control header font styles
 
 // $header-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
-// $header-font-weight: bold;
+$header-font-family: "Lato", serif;
+$header-font-weight: 400;
 // $header-font-style: normal;
 // $header-font-color: #222;
 // $header-line-height: 1.4;
@@ -207,7 +210,8 @@ $default-float: left;
 
 // $code-color: darken($alert-color, 15%);
 // $code-font-family: Consolas, 'Liberation Mono', Courier, monospace;
-// $code-font-weight: bold;
+$code-font-family: 'Ubuntu Mono', sans-serif;
+$code-font-weight: normal;
 
 // Style anchors
 
@@ -679,13 +683,13 @@ $default-float: left;
 
 // We use these to control video container padding and margins
 
-// $flex-video-padding-top: emCalc(25);
-// $flex-video-padding-bottom: 67.5%;
-// $flex-video-margin-bottom: emCalc(16);
+$flex-video-padding-top: em-calc(30);
+$flex-video-padding-bottom: 75%;
+$flex-video-margin-bottom: em-calc(30);
 
 // We use this to control widescreen bottom padding
 
-// $flex-video-widescreen-padding-bottom: 57.25%;
+$flex-video-widescreen-padding-bottom: 56%;
 
 //
 // Inline List Variables

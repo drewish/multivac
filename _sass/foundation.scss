@@ -41,3 +41,19 @@
   "foundation/components/thumbs",
   "foundation/components/tooltips",
   "foundation/components/dropdown";
+
+// Parking my stuff here for now
+
+// Code styling
+div.highlight {
+  margin-bottom: 1.25em;
+  padding: 0 1.25em 0 1.1875em;
+}
+code {
+  line-height: $paragraph-line-height;
+}
+
+// Put a little space below videos
+.flex-video {
+  margin-bottom: 1.25em;
+}
