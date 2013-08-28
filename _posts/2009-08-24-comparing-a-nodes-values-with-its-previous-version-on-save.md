@@ -4,15 +4,20 @@ title: Comparing a node's values with its previous version on save
 created: 1251160147
 categories: documentation drupal 6 drupal
 ---
-There was a <a href="http://lists.drupal.org/pipermail/development/2009-August/033587.html">great question</a> on Drupal developers mailing list the other day—one to which I've "rediscovered" the solution to a few times—so I wanted to make sure that everyone was aware of it. 
+There was a [great question](http://lists.drupal.org/pipermail/development/2009-August/033587.html)
+on Drupal developers mailing list the other day—one to which I've "rediscovered"
+the solution to a few times—so I wanted to make sure that everyone was aware of
+it.
 
-The basic question is: 
-<blockquote>
-When a node is being saved, how can you see what values have changed?</blockquote>
-The short answer is: 
-<blockquote>
-Use the 'presave' operation to load a copy of the node before it's saved, stick it back into the node object, and in your 'update' operation code compare the "before" and "after" versions:
-</blockquote>
+The basic question is:
+
+> When a node is being saved, how can you see what values have changed?
+
+The short answer is:
+
+> Use the 'presave' operation to load a copy of the node before it's saved, stick it back into the node object, and in your 'update' operation code compare the "before" and "after" versions:
+
+``` php
 <?php
 
 /**
@@ -43,4 +48,5 @@ function example_nodeapi(&$node, $op, $a3, $a4) {
   }
 }
 ?>
+```
 

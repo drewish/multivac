@@ -8,8 +8,9 @@ I've been looking for a project to use to play with Ruby and OpenGL and decided 
 
 [talk about storage methods]
 
-I eventually got so distracted by the problem of how you could programmatically draw a hex grid that I wasted several pages of graph paper trying out various methods. It reminded me of some of my very first programming, using <a href="http://el.media.mit.edu/logo-foundation/logo/index.html">Logo</a> on the Apple IIs in elementary school. Directing a turtle seemed like the best way to iteratively discover an algorithm. The <a href="http://www.sonic.net/~nbs/webturtle/">Web Turtle</a> was pretty cool and gave me a good start but eventually I switched over to <a href="http://www.alancsmith.co.uk/logo/"></a> 
-<pre>
+I eventually got so distracted by the problem of how you could programmatically draw a hex grid that I wasted several pages of graph paper trying out various methods. It reminded me of some of my very first programming, using [Logo](http://el.media.mit.edu/logo-foundation/logo/index.html) on the Apple IIs in elementary school. Directing a turtle seemed like the best way to iteratively discover an algorithm. The [Web Turtle](http://www.sonic.net/~nbs/webturtle/) was pretty cool and gave me a good start but eventually I switched over to [](http://www.alancsmith.co.uk/logo/) 
+
+```
 Make "radius 7 // Configure the number of bands to draw.
 Make "count 0
 CS
@@ -29,6 +30,8 @@ Repeat :radius [
   PenUp Left 120 Repeat 2 [ Forward 20 Right 60 ] PenDown
   Make "count :count + 1
 ]
-</pre>
+```
 
-<iframe src="http://player.vimeo.com/video/18616349" width="640" height="480" frameborder="0"></iframe><p><a href="http://vimeo.com/18616349">Drawing Hex Tiles with Logo</a> from <a href="http://vimeo.com/drewish">drewish</a> on <a href="http://vimeo.com">Vimeo</a>.</p>
+<iframe src="http://player.vimeo.com/video/18616349" width="640" height="480" frameborder="0"></iframe>
+[Drawing Hex Tiles with Logo](http://vimeo.com/18616349) from [drewish](http://vimeo.com/drewish) on [Vimeo](http://vimeo.com).
+

@@ -6,6 +6,8 @@ categories: documentation panels new relic drupal
 ---
 My last week at DoSomething I spent some time working on getting better metrics on which panel pages are slow. One half of that was to use New Relic's PHP API to provide better transaction names that included the node type and panel name:
 
+
+``` php
 <?php
 /**
  * Implements hook_page_alter().
@@ -50,5 +52,6 @@ function example_page_alter(&$page) {
   }
 }
 ?>
+```
 
-So once you know which panels are slowing down your site you can use the new <a href="http://drupal.org/project/panels_why_so_slow">Panels, Why so slow?</a> module to put the blame on the specific panes.
+So once you know which panels are slowing down your site you can use the new [Panels, Why so slow?](http://drupal.org/project/panels_why_so_slow) module to put the blame on the specific panes.

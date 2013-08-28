@@ -4,9 +4,9 @@ title: Dodged the Bullet Poker Ride
 created: 1217300777
 categories: personal portland events
 ---
-<em>It's better to have an ex-fiance than an ex-wife so come help me celebrate not being married.</em>
+*It's better to have an ex-fiance than an ex-wife so come help me celebrate not being married.*
 
-<strong>Date:</strong> Saturday, August 9, 2008 - 6pm until late.
+**Date:** Saturday, August 9, 2008 - 6pm until late.
 
 Get your bike ride on. We'll be hitting up five bars all over the city. The idea of the poker ride is that you throw down $1 as your buy in to get your first card at the Good Foot (2845 SE Stark Street, Portland, OR).
 

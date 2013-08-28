@@ -4,7 +4,11 @@ title: Downloading Democracy Now! automatically
 created: 1169744918
 categories: curl php documentation kpsu
 ---
-Here's a PHP script I wrote for the radio station to download each day's copy of <a href="http://democracynow.org/">Democracy Now!</a>. This requires that the PHP <a href="http://us3.php.net/curl">cURL extension</a> be installed.<!--break-->
+Here's a PHP script I wrote for the radio station to download each day's copy
+of [Democracy Now!](http://democracynow.org/). This requires that the PHP
+[cURL extension](http://us3.php.net/curl) be installed.
+
+``` php
 <?php
 // Download today's Democracy Now! Their URLs use the format:
 // http://www.archive.org/download/dn{y4}-{m2}{d2}/{y4}-{m2}{d2}-1_vbr.mp3
@@ -40,3 +44,4 @@ if ($fh) {
     fclose($fh);
 }
 ?>
+```

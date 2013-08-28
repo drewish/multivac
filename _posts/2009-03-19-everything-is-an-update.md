@@ -10,6 +10,8 @@ Here's a few examples, I'll continue to update it as I get more good examples.
 
 <h3>Installing a module</h3>
 Simple one liner to enable several modules:
+
+``` php
 <?php
 function foo_update_6000(&$sandbox) {
   $ret = array();
@@ -17,9 +19,14 @@ function foo_update_6000(&$sandbox) {
   return $ret;
 }
 ?>
-<!--break-->
+```
+
+
+
 <h3>Batch based update to regenerate PathAuto aliases</h3>
 More elaborate update that uses the BatchAPI to avoid timeouts while regenerating the path aliases for two node types:
+
+``` php
 <?php
 function foo_update_6000(&$sandbox) {
   $ret = array();
@@ -58,9 +65,12 @@ function foo_update_6000(&$sandbox) {
   return $ret;
 }
 ?>
+```
 
 <h3>Change node settings</h3>
 Make a few changes to the node type settings:
+
+``` php
 <?php
 function foo_update_6001() {
   $ret = array();
@@ -77,9 +87,12 @@ function foo_update_6001() {
   return $ret;
 }
 ?>
+```
 
 <h3>Delete a bunch of views</h3>
 I exported the site's views into a default views and needed to remove the existing ones from the database.
+
+``` php
 <?php
 function foo_update_6001(&$sandbox) {
   $ret = array();
@@ -111,3 +124,4 @@ function foo_update_6001(&$sandbox) {
   return $ret;
 }
 ?>
+```

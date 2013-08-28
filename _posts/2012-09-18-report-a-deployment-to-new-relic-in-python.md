@@ -5,7 +5,8 @@ created: 1347998228
 categories: documentation python new relic
 ---
 I wanted to be able to have a fabric script report a code deployment to New Relic and eventually after brushing up on my python worked this snippet out:
-<code>
+
+```
 import urllib
 import urllib2
 
@@ -20,4 +21,5 @@ except urllib2.HTTPError, e:
   print 'Error reporting: ', e.code
   print e.headers
   print e.fp.read()
-</code>
+```
+

@@ -4,11 +4,12 @@ title: Simple Arduino serial communications
 created: 1244326057
 categories: documentation arduino usb serial processing
 ---
-I've been playing around with some Arduino stuff I bought from <a href="http://www.adafruit.com/">adafruit industries</a> and needed to rough out some serial communications between the Arduino and Processing. This just sets the Arduino up to echo characters back at the Processing sketch which buffers a line of output and displays the last line from the serial port. 
-<!--break-->
+I've been playing around with some Arduino stuff I bought from [adafruit industries](http://www.adafruit.com/) and needed to rough out some serial communications between the Arduino and Processing. This just sets the Arduino up to echo characters back at the Processing sketch which buffers a line of output and displays the last line from the serial port.
+
 <h3>Processing Sketch</h3>
 <img src="http://drewish.com/files/Processing - Echo.png" width="580" height="232"/>
-<code>
+
+``` java
 /**
  * Terminal client.
  */
@@ -64,14 +65,15 @@ void draw() {
   text("Type a line of text to send to the serial port:", 10, 20);
   fill(255, 255, 255);
   rect(10, 75, 480, 5);
-  text(output, 10, 55);  
+  text(output, 10, 55);
   text(input, 10, 110);
 }
-</code>
+```
 
 <h3>Arduino Sketch</h3>
 This part turned out to be trivial, it just reads a character at a time and writes it back.
-<code>
+
+``` java
 /*
  * Reflect serial input back.
  */
@@ -86,4 +88,5 @@ void loop()
     Serial.write(Serial.read());
   }
 }
-</code>
+```
+

@@ -5,7 +5,8 @@ created: 1222198787
 categories: news politics lies obama
 ---
 My mom forwarded this to me. I usually don't get too many of this type of email from other relatives since they're mostly republican--and I tend to reply back fact checking them. But it's interesting to me to see this type of stuff flying around from the dem side... and I agree with it completely.
-<code>
+
+```
 ---------- Forwarded message ----------
 From: Sacred Soaps <sacredsoaps@yahoo.com>
 Date: Mon, Sep 22, 2008 at 10:54 AM
@@ -32,5 +33,8 @@ To: My mom and 999 other people...
 OK, it's all much clearer now. 
 
 Jack Weingarten"
-</code>
-<!--break-->
+```
+
+
+
+

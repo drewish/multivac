@@ -4,10 +4,13 @@ title: Building the C2 Morse code trainer on OSX
 created: 1215075356
 categories: macports osx morse code documentation
 ---
-I was trying to install <a href="http://c2.com/morse/">Ward Cunningham and Jim Wilson's Morse code trainer</a> on OS X and it looks like their .dmg file doesn't work on the new Intel machines. Here's what I did to get it to build.
-<!--break-->
+I was trying to install [Ward Cunningham and Jim Wilson's Morse code trainer](http://c2.com/morse/)
+on OS X and it looks like their .dmg file doesn't work on the new Intel
+machines. Here's what I did to get it to build.
+
 Grab a copy of the source from the git repository:
-<code>
+
+```
 amorton@minivac:~% git clone git://github.com/WardCunningham/morse.git
 Initialized empty Git repository in /Users/amorton/morse/morse/.git/
 remote: Counting objects: 52, done.
@@ -15,10 +18,12 @@ remote: Compressing objects: 100% (37/37), done.
 remote: Total 52 (delta 12), reused 52 (delta 12)
 Receiving objects: 100% (52/52), 1.85 MiB | 253 KiB/s, done.
 Resolving deltas: 100% (12/12), done.
-</code>
+```
 
-Use <a href="http://www.macports.org/">MacPorts</a> to install the <a href="http://c2.com/morse/wiki.cgi?PortableLibraries">required libraries</a> libsdl and fntk:
-<code>
+Use [MacPorts](http://www.macports.org/) to install the [required libraries](http://c2.com/morse/wiki.cgi?PortableLibraries)
+libsdl and fntk:
+
+```
 amorton@minivac:~% sudo port install fltk libsdl
 Password:
 --->  Fetching fltk
@@ -34,15 +39,19 @@ Password:
 --->  Cleaning fltk
 Skipping org.macports.activate (libsdl ) since this port is already active
 --->  Cleaning libsdl
-</code>
+```
 
 Looks like I already had libsdl installed.
 
-The existing makefile doesn't work but <a href="http://c2.com/morse/wiki.cgi?JustinBurket">Justin Burket</a> did the hard work to get this going in 10.3. His patch seemed to be reversed so I manually applied it and updated it. My big contribution was adding the Info.plist and building a proper .app bundle so the window gets the focus when you launch it. 
+The existing makefile doesn't work but [Justin Burket](http://c2.com/morse/wiki.cgi?JustinBurket)
+did the hard work to get this going in 10.3. His patch seemed to be reversed so
+I manually applied it and updated it. My big contribution was adding the
+Info.plist and building a proper .app bundle so the window gets the focus when
+you launch it.
 
 Download the attached patch and apply it:
 
-<code>
+```
 amorton@minivac:~% cd morse/src/
 
 amorton@minivac:~/morse/src% wget http://drewish.com/files/morse_osx.patch
@@ -53,17 +62,19 @@ HTTP request sent, awaiting response... 200 OK
 Length: 3416 (3.3K) [text/plain]
 Saving to: `morse_osx.patch'
 
-100%[======================================>] 3,416       --.-K/s   in 0.1s    
+100%[======================================>] 3,416       --.-K/s   in 0.1s
 
 2008-07-03 01:59:42 (27.1 KB/s) - `morse_osx.patch' saved [3416/3416]
 
-amorton@minivac:~/morse/src% patch -p2 -i morse_osx.patch 
+amorton@minivac:~/morse/src% patch -p2 -i morse_osx.patch
 patching file Info.plist
 patching file Makefile
-</code>
+```
 
-Now compile the app and move the result into the <code>/Applications</code> directory:
-<code>
+
+Now compile the app and move the result into the `/Applications` directory:
+
+```
 amorton@minivac:~/morse/src% make
 g++ -c -Os `fltk-config --cxxflags` Bargraph.cxx
 g++ -c -Os `fltk-config --cxxflags` Codebox.cxx
@@ -83,4 +94,5 @@ cp Info.plist Morse.app/Contents/
 rm *.o m.cxx m.h
 
 amorton@minivac:~/morse/src% mv Morse.app /Applications/
-</code>
+```
+

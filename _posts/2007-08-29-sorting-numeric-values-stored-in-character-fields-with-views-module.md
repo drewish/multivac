@@ -4,11 +4,26 @@ title: Sorting numeric values stored in character fields with views.module
 created: 1188420101
 categories: drupal documentation mysql views.module
 ---
-I spent a good chunk of time this morning trying to figure out how to get the <a href="http://drupal.org/project/views">views module</a> to sort a character field with numeric data correctly. The <a href="http://drupal.org/project/audio">audio module</a> has a normalized table of meta-data meaning that there's one column for the tag name and one for the value. The value is stored as a character string which causes problem when sorting numeric data like the track numbers or years. If you've got a <code> SELECT value FROM audio_metadata ORDER BY value</code> that returns the range of numbers <code>1...13</code> it ends up sorted as <code>1,10,11,12,13,2,3...9</code>. The trick <a href="http://blog.feedmarker.com/2006/02/01/how-to-do-natural-alpha-numeric-sort-in-mysql/">as I discovered</a> is to add zero to the field to coerce it to a numeric value: <code> SELECT value + 0 AS v FROM audio_metadata ORDER BY v</code>.
+I spent a good chunk of time this morning trying to figure out how to get the
+[views module](http://drupal.org/project/views) to sort a character field with
+numeric data correctly. The [audio module](http://drupal.org/project/audio) has
+a normalized table of meta-data meaning that there's one column for the tag
+name and one for the value. The value is stored as a character string which
+causes problem when sorting numeric data like the track numbers or years. If
+you've got a `SELECT value FROM audio_metadata ORDER BY value` that returns the
+range of numbers `1...13` it ends up sorted as `1,10,11,12,13,2,3...9`. The
+trick [as I discovered](http://blog.feedmarker.com/2006/02/01/how-to-do-natural-alpha-numeric-sort-in-mysql/)
+is to add zero to the field to coerce it to a numeric value:
+`SELECT value + 0 AS v FROM audio_metadata ORDER BY v`.
 
-The problem then is to figure out how to get the views module to generate this bit SQL to get the sorting right. The solution I came upon is when defining the field set <code>'notafield'</code> to <code>TRUE</code> and provide a <code>'query_handler'</code> to generate the correct SQL. I've included the relevant parts of the audio module below to demonstrate how it works. You can see the <a href="http://cvs.drupal.org/viewvc.py/drupal/contributions/modules/audio/views_audio.inc?revision=1.11&view=markup">complete code here</a>.
+The problem then is to figure out how to get the views module to generate this
+bit SQL to get the sorting right. The solution I came upon is when defining the
+field set `'notafield'` to `TRUE` and provide a `'query_handler'` to generate
+the correct SQL. I've included the relevant parts of the audio module below to
+demonstrate how it works. You can see the [complete code here](http://cvs.drupal.org/viewvc.py/drupal/contributions/modules/audio/views_audio.inc?revision=1.11&view=markup).
 
-<!--break-->
+
+``` php
 <?php
 
 function audio_views_tables() {
@@ -76,3 +91,4 @@ function audio_views_sort_handler_numeric_tag($op, &$query, $sortinfo, $sort) {
   $query->add_orderby('', $sort['field'] .' + 0', $sort['sortorder'], $sortinfo['table'] .'_'. $sortinfo['field']);
 }
 ?>
+```

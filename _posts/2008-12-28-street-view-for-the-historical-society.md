@@ -14,4 +14,4 @@ The really interesting part that I haven't yet given any thought to would be fig
 
 But I'll file this under things I'd love to do but will never have the time for.
 
-<strong>Update:</strong> <a href="http://www.sepiatown.com/index">Sepia Town</a> seems like a really cool, related project. 
+**Update:** [Sepia Town](http://www.sepiatown.com/index) seems like a really cool, related project. 

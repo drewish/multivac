@@ -9,25 +9,25 @@ I've been banging my head against Flash for the last few days and started trying
 <h3>Can't import fl.controls</h3>
 
 For some reason Adobe didn't include them by default so you'll need to add the path to the project.
-<ol>
-<li>Open the File > Publish Settings... menu item</li>
-<li>Click the Flash tab</li>
-<li>Click the Settings... button</li>
-<li>Click the Source Path tab</li>
-<li>Click the + button and paste in: <code>$(AppConfig)/Component Source/ActionScript 3.0/User Interface</code></li>
-</ol>
+
+1. Open the File > Publish Settings... menu item
+1. Click the Flash tab
+1. Click the Settings... button
+1. Click the Source Path tab
+1. Click the + button and paste in: <code>$(AppConfig)/Component Source/ActionScript 3.0/User Interface</code>
 
 
 <h3>Can't use a Tween on a scrollRect</h3>
 
 The Tween class can only change a simple property and the scrollRect need to be changed and the reassigned before it will update. The solution is to add new property to the class and Tween that instead:
-<code>   
+
+``` as3
 public function get scrollX():Number {
   if (this.scrollRect) {
     return this.scrollRect.x;
   }
   return 0;
-}    
+}
 
 public function set scrollX(value:Number) {
   var r:Rectangle = this.scrollRect;
@@ -36,25 +36,28 @@ public function set scrollX(value:Number) {
     this.scrollRect = r;
   }
 }
-</code>
+```
 
 Then you can use a Tween:
-<code>
-  tween = new Tween(this, "scrollX", Strong.easeOut, scrollX, scrollX + 100, 1, true);
-</code>
+
+``` as3
+tween = new Tween(this, "scrollX", Strong.easeOut, scrollX, scrollX + 100, 1, true);
+```
 
 Also, you'll want to keep a reference to the Tween object so that it doesn't get garbage collected half way through the animation.
 
 
 <h3>Can't use named HTML entities</h3>
 
-Flash's <a href="http://help.adobe.com/en_US/AS3LCR/Flash_10.0/flash/text/TextField.html#htmlText">TextField only supports a small subset of named HTML entities</a> (<code>&lt; &gt; &amp; &quot; &apos;</code>). If you're displaying HTML from users or a CMS you'll find that things like <code>&amp;deg;</code> slips by so you'll need to convert the named entities to their numeric versions.
+Flash's [TextField only supports a small subset of named HTML entities](http://help.adobe.com/en_US/AS3LCR/Flash_10.0/flash/text/TextField.html#htmlText) (<code>&lt; &gt; &amp; &quot; &apos;</code>). If you're displaying HTML from users or a CMS you'll find that things like <code>&amp;deg;</code> slips by so you'll need to convert the named entities to their numeric versions.
 
-<strong>Update: </strong> I'd originally tried using PHP's HTML entity table to build some ActionScript 3 conversion code but it turned out it was missing a lot of common entities like em and en dashes. To account for these I converted the <a href="http://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references">Wikipedia's List of XML and HTML character entity references</a> into this format.
+**Update: ** I'd originally tried using PHP's HTML entity table to build some ActionScript 3 conversion code but it turned out it was missing a lot of common entities like em and en dashes. To account for these I converted the [Wikipedia's List of XML and HTML character entity references](http://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references) into this format.
 
-The framework for this code was taken from <a href="http://as-gard.googlecode.com/svn/trunk/AS3/trunk/src/asgard/net/HTMLEntities.as">here</a>.
+The framework for this code was taken from [here](http://as-gard.googlecode.com/svn/trunk/AS3/trunk/src/asgard/net/HTMLEntities.as).
 
-<code>
+
+``` php
+<?php
 public class HappyHtml {
   protected static var numberedEntities:Array = [
     '&#34;', '&#38;', '&#39;', '&#60;', '&#62;', '&#160;', '&#161;',
@@ -147,4 +150,5 @@ public class HappyHtml {
     return text;
   }
 }
-</code>
+```
+

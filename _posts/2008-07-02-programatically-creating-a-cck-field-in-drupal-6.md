@@ -4,41 +4,49 @@ title: Programatically creating a CCK field in Drupal 6
 created: 1215035203
 categories: cck drupal documentation drupal6
 ---
-I spent some time today trying to figure out how to create a CCK field as part of an <a href="http://api.drupal.org/api/function/hook_update_N/6">hook_update_N</a> function. Unlike previous versions of CCK, in 6 it's very easy to manipulate the fields from code.
+I spent some time today trying to figure out how to create a CCK field as part
+of an [`hook_update_N`](http://api.drupal.org/api/function/hook_update_N/6)
+function. Unlike previous versions of CCK, in 6 it's very easy to manipulate
+the fields from code.
 
-The first step is to create the field using CCK's UI. Once you've got the field setup the way you'd like it use PHP's <a href="http://us2.php.net/var_export"><code>var_export()</code></a> to dump the contents of the node's field as an array:
-<code>
+The first step is to create the field using CCK's UI. Once you've got the field
+setup the way you'd like it use PHP's [`var_export()`](http://us2.php.net/var_export)
+to dump the contents of the node's field as an array:
+
+``` php
 var_export(content_fields('field_translator_note', 'feature'));
-</code>
-<!--break-->
+```
+
 That'll give you some massive array definition that you can copy and paste into your code.
+
+``` php
 <?php
 $field = array (
   'field_name' => 'field_translator_note',
   'type_name' => 'feature',
-  'display_settings' => 
+  'display_settings' =>
   array (
-    4 => 
+    4 =>
     array (
       'format' => 'hidden',
     ),
-    2 => 
+    2 =>
     array (
       'format' => 'hidden',
     ),
-    3 => 
+    3 =>
     array (
       'format' => 'hidden',
     ),
-    'label' => 
+    'label' =>
     array (
       'format' => 'hidden',
     ),
-    'teaser' => 
+    'teaser' =>
     array (
       'format' => 'hidden',
     ),
-    'full' => 
+    'full' =>
     array (
       'format' => 'hidden',
     ),
@@ -50,9 +58,9 @@ $field = array (
   'db_storage' => '0',
   'module' => 'text',
   'active' => '1',
-  'columns' => 
+  'columns' =>
   array (
-    'value' => 
+    'value' =>
     array (
       'type' => 'text',
       'size' => 'big',
@@ -64,12 +72,12 @@ $field = array (
   'max_length' => '',
   'allowed_values' => '',
   'allowed_values_php' => '',
-  'widget' => 
+  'widget' =>
   array (
     'rows' => '',
-    'default_value' => 
+    'default_value' =>
     array (
-      0 => 
+      0 =>
       array (
         'value' => '',
       ),
@@ -93,5 +101,6 @@ foreach (array('athlete', 'feature', 'product', 'tech') as $type) {
   content_field_instance_create($field);
 }
 ?>
+```
 
 High-fives to all the CCK developers for making this so easy.
