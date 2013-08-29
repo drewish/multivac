@@ -2,14 +2,32 @@
 layout: default
 title: blog index
 ---
-{% if site.posts %}
-  <ul>
-    {% for post in site.posts %}
-      <li>
-        <a href="{{ post.url }}" title="{{post.title}}">
-          {{ post.title }}
-        </a>
-      </li>
-    {% endfor %}
+{% for post in paginator.posts %}
+  <a href="{{ post.url }}" title="{{post.title}}">
+    <h3>
+      {{ post.title }}&nbsp;
+      <small style="white-space: nowrap;">
+        {{ post.date | date_to_long_string }}
+      </small>
+    </h3>
+  </a>
+  {{ post.excerpt }}
+  <a href="{{ post.url }}" title="{{post.title}}">Read more →</a>
+  <hr>
+{% endfor %}
+<!-- Pagination links -->
+<div class="pagination-centered">
+  <ul class="pagination">
+    {% if paginator.previous_page %}
+      <li class="arrow"><a href="/page-{{ paginator.previous_page }}">&laquo;</a></li>
+    {% else %}
+      <li class="arrow unavailable"><a href="#">&laquo;</a></li>
+    {% endif %}
+    <li>Page {{ paginator.page }} of {{ paginator.total_pages }}</li>
+    {% if paginator.next_page %}
+      <li class="arrow"><a href="/page-{{ paginator.next_page }}">&raquo;</a></li>
+    {% else %}
+      <li class="arrow unavailable"><a href="#">&raquo;</a></li>
+    {% endif %}
   </ul>
-{% endif %}
+</div>
