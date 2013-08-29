@@ -3,6 +3,7 @@ layout: post
 title: John Deere Stolen
 created: 1161755131
 categories: bikes personal stolen john deere
+image: http://www.flickr.com/photos/drewish/8697133
 ---
 Well the good news is that I'm still drunk enough that it's still a bit funny. The bad news is that the [John Deere](http://flickr.com/photos/drewish/tags/johndeere) that you may know and love is gone. Stolen by, quite literally, by thieves in the night. I'd picked it up at the Veloshop at 5pm, rode it across the river to the Rose and Raindrop on SE Washington and Grand (for [a Drupal meetup with Dries](http://groups.drupal.org/node/1657)), and locked it up (with a U-lock) to a sign post. When I came back out around 8pm the sign post had been pulled out of the ground and the John Deere was no more.
 

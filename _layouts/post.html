@@ -13,6 +13,8 @@
           <div class="flex-video widescreen vimeo">
             {% oembed {{page.vimeo}} %}
           </div>
+        {% elsif page.image %}
+          <p>{% oembed {{page.image}} %}</p>
         {% endif %}
         {{ content }}
         <p>

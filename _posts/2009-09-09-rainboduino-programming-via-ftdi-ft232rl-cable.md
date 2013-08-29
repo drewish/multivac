@@ -3,10 +3,8 @@ layout: post
 title: Rainboduino programming via FTDI FT232RL cable
 created: 1252528654
 categories: documentation usb ftdi arduino
+image: http://www.flickr.com/photos/drewish/3904268969/
 ---
-
-{% oembed http://www.flickr.com/photos/drewish/390426896 width=620 %}
-
 I bought one of the [Rainbowduinos](http://www.seeedstudio.com/depot/rainbowduino-led-driver-platform-plug-and-shine-p-371.html)
 a while back but hadn't tried programming. Turns out it's a bit of a trick.
 They (sort of) [document the process with a Seeedunio](http://www.seeedstudio.com/blog/?p=420)

@@ -3,9 +3,8 @@ layout: post
 title: DrupalCampPDX
 created: 1210445691
 categories: personal drupal drupalcamp portland
+image: http://www.flickr.com/photos/drewish/2480990648
 ---
-{% oembed http://www.flickr.com/photos/drewish/2480990648 %}
-
 I took a break today from my work at Sticky building a website for a major
 sports apparel company that cannot be named, for [DrupalCampPDX](http://drupalpdx.org/camp08/).
 [Ben Kaplan](http://benkaplan.com/) and I did the [keynote presentation](http://drupalpdx.org/camp08/node/2)

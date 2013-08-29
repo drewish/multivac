@@ -3,9 +3,8 @@ layout: post
 title: Seeing your photos in use
 created: 1168028988
 categories: personal photography mit
+image: http://www.flickr.com/photos/drewish/4986052/
 ---
-{% oembed http://www.flickr.com/photos/drewish/4986052/ %}
-
 I put most of my photos up on Flickr under the [Creative Commons](http://creativecommons.org/)
 license because I want people to see them and use them freely for non-commercial
 purposes. A few months back, I got a message on Flickr from someone at MIT who

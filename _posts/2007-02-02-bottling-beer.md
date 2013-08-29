@@ -3,9 +3,8 @@ layout: post
 title: Bottling beer
 created: 1170457814
 categories: projects beer homebrew
+image: http://www.flickr.com/photos/drewish/377789618
 ---
-{% oembed http://www.flickr.com/photos/drewish/377789618 width=620 %}
-
 I spent a good chunk of the day bottling my first batch of beer. I'm not
 saying it turned out great, but I had really low expectations and it surpassed
 those. I started with 6 gallons, bottled a total of 67, 12-oz bottles. Four
