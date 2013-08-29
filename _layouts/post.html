@@ -4,9 +4,9 @@
   <body>
     {% include _title_bar.html %}
     <div class="row">
-      <div class="large-10 small-12 columns">
+      <div class="columns">
         <h2 class="subheader">
-          {{ page.title }}
+          {{ page.title }} &nbsp;
           <small style="white-space: nowrap;">{{ page.date | date_to_long_string }}</small>
         </h2>
         {% if page.vimeo %}
@@ -19,7 +19,6 @@
           <a href="/">← Back to the top</a>
         </p>
       </div>
-      <div class="large-12 small-12 columns">{% include _navigation_main.html %}</div>
     </div>
   </body>
   {% include _footer.html %}
