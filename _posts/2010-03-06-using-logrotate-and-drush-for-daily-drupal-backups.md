@@ -11,7 +11,7 @@ configuration is based on a [Wikibooks book](http://en.wikibooks.org/wiki/MySQL/
 that I found.
 
 
-<h3>Find the pieces</h3>
+### Find the pieces
 Make sure logrotate is installed:
 
 ``` sh
@@ -41,7 +41,7 @@ $ /usr/bin/drush -r ~/dev.rudemechanicalorchestra.org/web sql conf
 
 If it works you'll see an array with  your database connection information.
 
-<h3>Hook 'em up</h3>
+### Hook 'em up
 Create the state and configuration files:
 
 ``` sh
@@ -90,7 +90,7 @@ considering log /home/members/rmo/sites/dev.rudemechanicalorchestra.org/users/rm
 ```
 
 
-<h3>Schedule it</h3>
+### Schedule it
 Edit your crontab:
 
 ``` sh
@@ -104,7 +104,7 @@ And add the following line which will run logrotate at midnight:
 ```
 
 
-<h3>Sleep a little better</h3>
+### Sleep a little better
 That's it, you should now have two weeks of daily backups. You'll want to check
 back on it tomorrow and make sure that the backups are actually occurring and
 that the old ones are being renamed to .sql.gz.1, .sql.gz.2, etc.

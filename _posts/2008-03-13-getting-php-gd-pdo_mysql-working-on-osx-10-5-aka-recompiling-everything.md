@@ -12,22 +12,25 @@ Every time Apple releases a security update it seems to end up overwriting PHP o
 
 First, a couple of notes on the formatting of this guide. The blocks of shell command typically include the shell prompt `sh-3.2`) when you're copying-and-pasting the command make sure you don't grab that part. Since this is long enough I've omitted large blocks of the compiler output and used ` to indicated the omission.
 
-<h3>Switch to the root account</h3>
+### Switch to the root account
 To follow these instructions you need to be running as the root user using the default `sh` shell. If you've got the correct administrator permissions you can switch users using the `sudo` command and providing your password.
 
-```
+```sh
 amorton@minivac:~% sudo su
 Password:
 sh-3.2#
 ```
 
 
-<h3>Install MacPorts</h3>
+### Install MacPorts
 Follow the directions to [install Mac Ports](http://www.macports.org/install.php).
 
-Then use `port` to grab a copy of `wget` and the GD dependency, `jpeg`, as well as `freetype` and `t1lib` for rendering fonts. You'll probably be in for a half our wait while a bunch of dependencies installed if this is the first time you've installed anything with `port`:
+Then use `port` to grab a copy of `wget` and the GD dependency, `jpeg`, as well
+as `freetype` and `t1lib` for rendering fonts. You'll probably be in for a half
+our wait while a bunch of dependencies installed if this is the first time
+you've installed anything with `port`:
 
-```
+```sh
 sh-3.2# /opt/local/bin/port install wget +ssl freetype t1lib jpeg
 --->  Fetching expat
 --->  Attempting to fetch expat-2.0.1.tar.gz from http://downloads.sourceforge.net/expat
@@ -48,10 +51,10 @@ sh-3.2# /opt/local/bin/port install wget +ssl freetype t1lib jpeg
 ```
 
 
-<h3>Recompile Apache</h3>
+### Recompile Apache
 Rather than just installing Apache from MacPorts I want to rebuild in the native OS X locations so I can use the built-in support. I tried to skip over this step but after wasting a bunch of time finally [realized it was important](http://discussions.apple.com/thread.jspa?messageID=5676677&tstart=0). Grab the latest version of Apache 2.2:
 
-```
+```sh
 sh-3.2# cd /tmp
 
 sh-3.2# wget http://www.ibiblio.org/pub/mirrors/apache/httpd/httpd-2.2.13.tar.bz2
@@ -76,7 +79,7 @@ Saving to: `httpd-2.2.13.tar.bz2'
 
 Extract it:
 
-```
+```sh
 sh-3.2# bunzip2 httpd-2.2.13.tar.bz2
 
 sh-3.2# tar xf httpd-2.2.13.tar
@@ -85,7 +88,7 @@ sh-3.2# tar xf httpd-2.2.13.tar
 
 Compile it:
 
-```
+```sh
 sh-3.2# cd httpd-2.2.13
 
 sh-3.2# ./configure --enable-layout=Darwin --enable-mods-shared=all
@@ -96,12 +99,13 @@ sh-3.2# make install
 ```
 
 
-<h3>Install MySQL</h3>
-You only need to follow this step once. If you're re-installing PHP due to an OS X update you safely skip down to the Recompile PHP section.
+### Install MySQL
+You only need to follow this step once. If you're re-installing PHP due to an
+OS X update you safely skip down to the Recompile PHP section.
 
 Use port to install MySQL:
 
-```
+```sh
 sh-3.2# port install mysql5 +server
 --->  Fetching mysql5
 --->  Verifying checksum(s) for mysql5
@@ -130,7 +134,7 @@ sh-3.2# port install mysql5 +server
 
 You'll need to create the databases:
 
-```
+```sh
 sh-3.2# /opt/local/lib/mysql5/bin/mysql_install_db --user=mysql
 Installing MySQL system tables...
 080618  0:14:33 [Warning] Setting lower_case_table_names=2 because file system for /opt/local/var/db/mysql5/ is case insensitive
@@ -144,41 +148,43 @@ OK
 
 Let launchd know it should start MySQL at startup.
 
-```
+```sh
 sh-3.2# launchctl load -w /Library/LaunchDaemons/org.macports.mysql5.plist
 ```
 
-Create a symlink for the `mysql5` executable so it can be invoked as `mysql` (the way that the `mysql_secure_installation` script expects it to be named):
+Create a symlink for the `mysql5` executable so it can be invoked as `mysql`
+(the way that the `mysql_secure_installation` script expects it to be named):
 
-```
+```sh
 sh-3.2# ln -s /opt/local/bin/mysql5 /opt/local/bin/mysql
 ```
 
 Secure the server and set a new admin password:
 
-```
+```sh
 sh-3.2# /opt/local/lib/mysql5/bin/mysql_secure_installation
 ```
 
 Create a configuration file:
 
-```
+```sh
 sh-3.2# cp /opt/local/share/mysql5/mysql/my-large.cnf /etc/my.cnf
 ```
 
-Finally create some symlinks so that PHP can find the insanely installed MySQL headers and libraries:
+Finally create some symlinks so that PHP can find the insanely installed MySQL
+headers and libraries:
 
-```
+```sh
 sh-3.2# ln -s /opt/local/lib/mysql5/mysql /opt/local/lib/mysql
 
 sh-3.2# ln -s /opt/local/include/mysql5/mysql /opt/local/include/mysql
 ```
 
 
-<h3>Recompile PHP</h3>
+### Recompile PHP
 Download the latest PHP source:
 
-```
+```sh
 sh-3.2# cd /tmp
 
 sh-3.2# wget http://us3.php.net/get/php-5.2.10.tar.bz2/from/this/mirror
@@ -200,7 +206,7 @@ Saving to: `php-5.2.10.tar.bz2'
 
 Extract it:
 
-```
+```sh
 sh-3.2# bunzip2 php-5.2.10.tar.bz2
 
 sh-3.2# tar xf php-5.2.10.tar
@@ -208,7 +214,7 @@ sh-3.2# tar xf php-5.2.10.tar
 
 Compile it:
 
-```
+```sh
 sh-3.2# cd php-5.2.10
 
 sh-3.2# MACOSX_DEPLOYMENT_TARGET=10.5 CFLAGS="-arch ppc -arch ppc64 -arch i386 -arch x86_64 -g -Os -pipe -no-cpp-precomp" CCFLAGS="-arch ppc -arch ppc64 -arch i386 -arch x86_64 -g -Os -pipe" CXXFLAGS="-arch ppc -arch ppc64 -arch i386 -arch x86_64 -g -Os -pipe" LDFLAGS="-arch ppc -arch ppc64 -arch i386 -arch x86_64 -bind_at_load"
@@ -227,7 +233,7 @@ sh-3.2# make install
 
 Test that PHP has the GD and MySQL modules installed:
 
-```
+```sh
 sh-3.2#  php -m |grep "gd\|mysql"
 gd
 mysql
@@ -235,24 +241,26 @@ mysqli
 pdo_mysql
 ```
 
-If you don't already have a `php.ini` file you'll need to create one by copying the default:
+If you don't already have a `php.ini` file you'll need to create one by copying
+the default:
 
-```
+```sh
 sh-3.2# if ( ! test -e /private/etc/php.ini ) ; then cp /private/etc/php.ini.default /private/etc/php.ini; fi
 ```
 
 Restart Apache:
 
-```
+```sh
 sh-3.2# apachectl restart
 ```
 
 
-<h3>Clean up</h3>
+### Clean up
 Once you've got everything working correctly you can remove the source code:
 
-```
+```sh
 sh-3.2# rm -r /tmp/php-5.2.* /tmp/httpd-2.2.*
 ```
 
-This it actually pretty optional, when you reboot OS X cleans out the temp directory.
+This it actually pretty optional, when you reboot OS X cleans out the temp
+directory.

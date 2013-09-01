@@ -6,10 +6,10 @@ categories: documentation arduino usb serial processing
 ---
 I've been playing around with some Arduino stuff I bought from [adafruit industries](http://www.adafruit.com/) and needed to rough out some serial communications between the Arduino and Processing. This just sets the Arduino up to echo characters back at the Processing sketch which buffers a line of output and displays the last line from the serial port.
 
-<h3>Processing Sketch</h3>
+### Processing Sketch
 <img src="http://drewish.com/files/Processing - Echo.png" width="580" height="232"/>
 
-``` java
+```java
 /**
  * Terminal client.
  */
@@ -70,10 +70,10 @@ void draw() {
 }
 ```
 
-<h3>Arduino Sketch</h3>
+### Arduino Sketch
 This part turned out to be trivial, it just reads a character at a time and writes it back.
 
-``` java
+```java
 /*
  * Reflect serial input back.
  */

@@ -18,7 +18,7 @@ there were already some D7 docs so incorporated those.
 
 
 
-<h3>JavaScript closures</h3>
+### JavaScript closures
 It's best practice to wrap your code in a closure. A closure is nothing more
 than a function that helps limit the scope of variables so you don't
 accidentally overwrite global variables.
@@ -56,7 +56,7 @@ In Drupal 7 `jQuery.noConflict()` is called to make it easier to use other JS
 libraries, so you'll either have to type out `jQuery()` or have the closure
 rename it for you.
 
-<h3>JavaScript behaviors</h3>
+### JavaScript behaviors
 Drupal uses a "behaviors" system to provide a single mechanism for attaching
 JavaScript functionality to elements on a page. The benefit of having a single
 place for the behaviors is that they can be applied consistently when the page

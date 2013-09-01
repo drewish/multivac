@@ -6,7 +6,7 @@ categories: documentation programming flash as3 documentation programming flash 
 ---
 I've been banging my head against Flash for the last few days and started trying to document a few things.
 
-<h3>Can't import fl.controls</h3>
+### Can't import fl.controls
 
 For some reason Adobe didn't include them by default so you'll need to add the
 path to the project.
@@ -18,7 +18,7 @@ path to the project.
 1. Click the + button and paste in: `$(AppConfig)/Component Source/ActionScript 3.0/User Interface`
 
 
-<h3>Can't use a Tween on a scrollRect</h3>
+### Can't use a Tween on a scrollRect
 
 The Tween class can only change a simple property and the scrollRect need to be
 changed and the reassigned before it will update. The solution is to add new
@@ -51,7 +51,7 @@ Also, you'll want to keep a reference to the Tween object so that it doesn't
 get garbage collected half way through the animation.
 
 
-<h3>Can't use named HTML entities</h3>
+### Can't use named HTML entities
 
 Flash's [TextField only supports a small subset of named HTML entities](http://help.adobe.com/en_US/AS3LCR/Flash_10.0/flash/text/TextField.html#htmlText) (`&lt; &gt; &amp; &quot; &apos;`). If you're displaying HTML from users or a CMS you'll find that things like `&amp;deg;` slips by so you'll need to convert the named entities to their numeric versions.
 

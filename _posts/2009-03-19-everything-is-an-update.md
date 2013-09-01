@@ -4,14 +4,19 @@ title: Everything is an update
 created: 1237437625
 categories: documentation hook_update_n drupal6 drupal
 ---
-For some work projects we've started making all the configuration changes via update functions. These get checked into version control and from there deployed to the staging site for testing, and then eventually deployed on the production site. The nice thing about update functions is that you can test it on staging and be sure that exactly the same changes will occur on the production site. 
+For some work projects we've started making all the configuration changes via
+update functions. These get checked into version control and from there
+deployed to the staging site for testing, and then eventually deployed on the
+production site. The nice thing about update functions is that you can test it
+on staging and be sure that exactly the same changes will occur on the
+production site.
 
 Here's a few examples, I'll continue to update it as I get more good examples.
 
-<h3>Installing a module</h3>
+### Installing a module
 Simple one liner to enable several modules:
 
-``` php
+```php
 <?php
 function foo_update_6000(&$sandbox) {
   $ret = array();
@@ -21,10 +26,9 @@ function foo_update_6000(&$sandbox) {
 ?>
 ```
 
-
-
-<h3>Batch based update to regenerate PathAuto aliases</h3>
-More elaborate update that uses the BatchAPI to avoid timeouts while regenerating the path aliases for two node types:
+### Batch based update to regenerate PathAuto aliases
+More elaborate update that uses the BatchAPI to avoid timeouts while
+regenerating the path aliases for two node types:
 
 ``` php
 <?php
@@ -67,7 +71,7 @@ function foo_update_6000(&$sandbox) {
 ?>
 ```
 
-<h3>Change node settings</h3>
+### Change node settings
 Make a few changes to the node type settings:
 
 ``` php
@@ -89,8 +93,9 @@ function foo_update_6001() {
 ?>
 ```
 
-<h3>Delete a bunch of views</h3>
-I exported the site's views into a default views and needed to remove the existing ones from the database.
+### Delete a bunch of views
+I exported the site's views into a default views and needed to remove the
+existing ones from the database.
 
 ``` php
 <?php

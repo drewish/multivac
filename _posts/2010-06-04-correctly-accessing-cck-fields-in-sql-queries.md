@@ -8,7 +8,7 @@ Twice today I've had to deal with writing a SQL query that needed data in a CCK
 field. The naive approach is to just look at the table and field names and plug
 them into your query:
 
-``` php
+```php
 <?php
 $result = db_query("SELECT COUNT(*) AS count FROM {node} n
 INNER JOIN {term_node} tn ON n.vid = tn.vid
@@ -24,16 +24,16 @@ values) the query may break.
 Fortunately CCK provides functions for finding a field's table and column names
 so it's simple to do it correctly:
 
-``` php
+```php
 <?php
 $field = content_fields('field_date');
 $db_info = content_database_info($field);
 ?>
 ```
 
-A <code>var_dump($db_info)</code> gives:
+A `var_dump($db_info)` gives:
 
-```
+```php
 array(2) {
   ["table"]=>
   string(17) "content_type_date"
