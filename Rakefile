@@ -3,9 +3,9 @@ require 'rake'
 
 desc "Deploy to drewish.com"
 task :deploy do
-  system "rm -r _site/"
+  system "rm -r _deploy/"
   system "jekyll build --config _config.yml,_config_live.yml"
-  system "rsync -r --delete -v _site/* amorton@drewish.com:/var/www/multivac_beta/"
+  system "rsync -r --delete -v _deploy/* amorton@drewish.com:/var/www/multivac_beta/"
 end
 
 desc "Automatically generate site at :4000 for local dev"
