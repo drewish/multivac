@@ -10,7 +10,7 @@ I was trying theme a specific CCK field named `field_images` on all the nodes
 where it appears. The `devel_themer` module was listing
 `content-field-field_images.tpl.php` as a candidate:
 
-<img src="http://drewish.com/files/devel_theme_on_my_field.png">
+![Screen shot of devel themer](/files/devel_theme_on_my_field.png)
 
 But after copying CCK's `content-field.tpl.php` into my theme and renaming it I
 couldn't seem to get the theme to pick it up.

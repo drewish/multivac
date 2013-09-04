@@ -12,7 +12,7 @@ piece I got stuck. I'd intended to try to document all the false starts I took
 before figuring this solution out, but I waited too long before doing the
 writeup.
 
-<img src="http://drewish.com/files/pipes_game_screenshot.png" alt="screen shot of the game">
+![screen shot of the game](/files/pipes_game_screenshot.png)
 
 My map gets setup like this and I store a variable to make it easy to get to
 the board's layer where I'm placing the pieces:

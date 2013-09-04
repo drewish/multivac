@@ -14,7 +14,7 @@ I figured what the fuck I'll just buy the 4GB and stick it all in and see what
 happens. Well the good news is that—as you can see from the screen shot—it'll
 use all 4GB.
 
-<img src="http://drewish.com/files/mac_mini_with_4gb_ram.png">
+![Activity Monitor screen shot](/files/mac_mini_with_4gb_ram.png)
 
 If you do try to do the home upgrade read through [this RAM upgrade walk through](http://www.methodshop.net/gadgets/tutorials/macmini-ram//index.shtml)
 but skip their advice for getting the case off and [watch this video instead](http://www.youtube.com/watch?v=ynQKYTaJ_zA&feature=related).

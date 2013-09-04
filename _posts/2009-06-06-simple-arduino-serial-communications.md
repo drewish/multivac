@@ -7,7 +7,7 @@ categories: documentation arduino usb serial processing
 I've been playing around with some Arduino stuff I bought from [adafruit industries](http://www.adafruit.com/) and needed to rough out some serial communications between the Arduino and Processing. This just sets the Arduino up to echo characters back at the Processing sketch which buffers a line of output and displays the last line from the serial port.
 
 ### Processing Sketch
-<img src="http://drewish.com/files/Processing - Echo.png" width="580" height="232"/>
+![Screen shot](/files/Processing - Echo.png)
 
 ```java
 /**
