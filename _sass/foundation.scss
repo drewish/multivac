@@ -58,8 +58,9 @@ code {
   margin-bottom: 1.25em;
 }
 
-@media only screen and (min-width: 768px) {
-  .top-menu {
+.top-menu {
+  font-family: $header-font-family;
+  @media only screen and (min-width: 768px) {
     margin-top: 2.5em;
   }
 }
