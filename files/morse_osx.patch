@@ -1,0 +1,107 @@
+diff --git a/src/Info.plist b/src/Info.plist
+new file mode 100644
+index 0000000..0e04dca
+--- /dev/null
++++ b/src/Info.plist
+@@ -0,0 +1,24 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
++<plist version="1.0">
++<dict>
++	<key>CFBundleDevelopmentRegion</key>
++	<string>English</string>
++	<key>CFBundleExecutable</key>
++	<string>Morse</string>
++	<key>CFBundleIconFile</key>
++	<string></string>
++	<key>CFBundleIdentifier</key>
++	<string>com.c2.morse</string>
++	<key>CFBundleInfoDictionaryVersion</key>
++	<string>6.0</string>
++	<key>CFBundlePackageType</key>
++	<string>BNDL</string>
++	<key>CFBundleShortVersionString</key>
++	<string>1.01</string>
++	<key>CFBundleVersion</key>
++	<string>1.0</string>
++	<key>CSResourcesFileMapped</key>
++	<true/>
++</dict>
++</plist>
+diff --git a/src/Makefile b/src/Makefile
+index 46a964c..1c156a6 100644
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -1,43 +1,49 @@
+-# For some reason, xmake is required to make m.tgz.
+-
+-m.tgz: m m.exe
+-	rm -f m.tgz
+-	tar czvf m.tgz *
++# "make" for MacOSX
++# To compile on MacOSX I used the following:
++# System 10.5.3 with Dev tools installed and
++# MacPorts to install fltk 1.1.7 and libsdl 1.2.13 
++Morse.app: Bargraph.o Codebox.o Cw.o Knob.o Help.h m.o Info.plist
++	mkdir -p Morse.app/Contents/MacOS
++	g++ -o Morse m.o Bargraph.o Codebox.o Cw.o Knob.o \
++	  `sdl-config --static-libs`  \
++	  `fltk-config --ldstaticflags` -ldl \
++	  -framework Carbon
++	mv Morse Morse.app/Contents/MacOS/
++	fltk-config --post Morse.app/Contents/MacOS/Morse
++	cp Info.plist Morse.app/Contents/
++	rm *.o m.cxx m.h
+ 
+ # Use "xmake" to generate m.exe
+-
+-m.exe: m.fl Bargraph.cxx Bargraph.h Codebox.cxx Codebox.h Cw.cxx Cw.h \
+-    Knob.cxx Knob.h Help.h m.fl
+-	fluid -c m.fl
+-	g++ -c -Os `fltk-config --cxxflags` m.cxx
+-	g++ -c -Os `fltk-config --cxxflags` Bargraph.cxx
+-	g++ -c -Os `fltk-config --cxxflags` Codebox.cxx
+-	g++ -c -Os `fltk-config --cxxflags` Knob.cxx
++m.exe: m.fl Bargraph.o Codebox.o Cw.cxx Cw.h Knob.cxx Knob.h Help.h m.o
+ 	g++ -c -Os  -I/usr/local/include/SDL Cw.cxx
+ 	g++ -om.exe m.o Bargraph.o Codebox.o Cw.o Knob.o \
+ 	  -static `fltk-config --ldstaticflags` \
+ 	  -lSDL -lmingw32 -lmingwex -lwinmm -lSDLmain	  
+ 	strip m.exe
+ 	rm *.o m.cxx m.h
+-	
++
+ # Regular "make" is what you want for the Linux version
++m: m.fl Bargraph.o Codebox.o Cw.o Knob.o Help.h m.o
++	g++ -static -om m.o Bargraph.o Codebox.o Cw.o Knob.o \
++	  `sdl-config --static-libs` \
++	  `fltk-config --ldstaticflags` -ldl
++	strip m
++	rm *.o m.cxx m.h
+ 
+-m: m.fl Bargraph.cxx Bargraph.h Codebox.cxx Codebox.h Cw.cxx Cw.h \
+-    Knob.cxx Knob.h Help.h m.fl
++m.cxx: m.fl
+ 	fluid -c m.fl
++m.o: m.cxx m.h
+ 	g++ -c -Os `fltk-config --cxxflags` m.cxx
+-	g++ -c -Os `fltk-config --cxxflags` Bargraph.cxx	
++Bargraph.o: Bargraph.cxx Bargraph.h
++	g++ -c -Os `fltk-config --cxxflags` Bargraph.cxx
++Codebox.o: Codebox.cxx Codebox.h
+ 	g++ -c -Os `fltk-config --cxxflags` Codebox.cxx
++Knob.o: Knob.cxx Knob.h
+ 	g++ -c -Os `fltk-config --cxxflags` Knob.cxx
++Cw.o: Cw.cxx Cw.h
+ 	g++ -c -Os `sdl-config    --cflags` Cw.cxx
+-	g++ -static -om m.o Bargraph.o Codebox.o Cw.o Knob.o \
+-	  `sdl-config --static-libs` \
+-	  `fltk-config --ldstaticflags` -ldl
+-	strip m
+-	rm *.o m.cxx m.h
+ 
+ # Besemer's Python extension version
+-
+ cw.so: cw.pyx Cw.cxx Cw.h
+ 	pyrexc cw.pyx
+ 	gcc -c -fPIC -I/usr/include/python2.3 cw.c
