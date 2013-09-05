@@ -20,7 +20,7 @@ relative_permalinks: true
 
 permalink:     '/:year/:month/:day/:title'
 paginate:      20
-paginate_path: 'page-:num'
+paginate_path: '/blog/page-:num'
 
 markdown:      redcarpet
 markdown_ext:  markdown,mkd,mkdn,md
