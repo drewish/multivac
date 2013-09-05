@@ -53,8 +53,8 @@ code {
   line-height: $paragraph-line-height;
 }
 
-// Put a little space below videos
-.flex-video {
+// Put a little space below videos and images
+.flex-video, .oembed.photo {
   margin-bottom: 1.25em;
 }
 
