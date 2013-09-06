@@ -2,13 +2,27 @@
 layout: default
 title: About
 ---
-The site is built using:
+### The Author
 
-- [Jekyll](http://jekyllrb.com/) as a publishing engine.
-- [Foundation 4](http://foundation.zurb.com/) for a responsive grid and and
-  typography.
+Andrew Morton a software developer who lives in a small apartment in Berkeley,
+California with his wife, son and two dogs.
+
+<div class="row">
+  <div class="small-4 columns">{% oembed http://www.flickr.com/photos/drewish/3095122678/ %}</div>
+  <div class="small-4 columns">{% oembed http://www.flickr.com/photos/drewish/3094280371/ %}</div>
+  <div class="small-4 columns">{% oembed http://www.flickr.com/photos/drewish/3094275993/ %}</div>
+</div>
+
+He loves the way the cost of analog photography encourage deliberate composition
+and makes the results more precious.
+
+### The Site
+
+- [Jekyll](http://jekyllrb.com/) is the publishing engine.
+- [Foundation 4](http://foundation.zurb.com/) provides a responsive grid and
+  pleasant typography.
 - [Lato](http://www.google.com/fonts/specimen/Lato),
   [Merriweather](http://www.google.com/fonts/specimen/Merriweather) and
-  [Ubuntu Mono](http://www.google.com/fonts/specimen/Ubuntu%20Mono) from
-    Google Fonts—and I’m very grateful to [Beautiful Web Type](http://hellohappy.org/beautiful-web-type/)
+  [Ubuntu Mono](http://www.google.com/fonts/specimen/Ubuntu%20Mono) are the
+  fonts—and I’m very grateful to [Beautiful Web Type](http://hellohappy.org/beautiful-web-type/)
   for helping me find them.
