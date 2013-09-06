@@ -10,7 +10,7 @@ machines. Here's what I did to get it to build.
 
 Grab a copy of the source from the git repository:
 
-```sh
+```tcsh
 amorton@minivac:~% git clone git://github.com/WardCunningham/morse.git
 Initialized empty Git repository in /Users/amorton/morse/morse/.git/
 remote: Counting objects: 52, done.
@@ -23,7 +23,7 @@ Resolving deltas: 100% (12/12), done.
 Use [MacPorts](http://www.macports.org/) to install the [required libraries](http://c2.com/morse/wiki.cgi?PortableLibraries)
 libsdl and fntk:
 
-```sh
+```tcsh
 amorton@minivac:~% sudo port install fltk libsdl
 Password:
 --->  Fetching fltk
@@ -51,7 +51,7 @@ you launch it.
 
 Download the attached patch and apply it:
 
-```sh
+```tcsh
 amorton@minivac:~% cd morse/src/
 
 amorton@minivac:~/morse/src% wget http://drewish.com/files/morse_osx.patch
@@ -74,7 +74,7 @@ patching file Makefile
 
 Now compile the app:
 
-```sh
+```tcsh
 amorton@minivac:~/morse/src% make
 g++ -c -Os `fltk-config --cxxflags` Bargraph.cxx
 g++ -c -Os `fltk-config --cxxflags` Codebox.cxx
@@ -96,6 +96,6 @@ rm *.o m.cxx m.h
 
 Then you should be able to move the result into the `/Applications` directory:
 
-```
+```tcsh
 amorton@minivac:~/morse/src% mv Morse.app /Applications/
 ```
