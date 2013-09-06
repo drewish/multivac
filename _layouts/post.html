@@ -4,7 +4,7 @@
   <body>
     {% include _title_bar.html %}
     <div class="row">
-      <div class="columns">
+      <article class="columns">
         <h2 class="subheader">
           {{ page.title }} &nbsp;
           <small style="white-space: nowrap;">{{ page.date | date_to_long_string }}</small>
@@ -20,7 +20,7 @@
         <p>
           <a href="/">← Back to the top</a>
         </p>
-      </div>
+      </article>
     </div>
   </body>
   {% include _footer.html %}
