@@ -36,7 +36,7 @@ url:         http://localhost:4000
 lsi:         false
 
 redcarpet:
-  extensions: [fenced_code_blocks, autolink, strikethrough]
+  extensions: [smart, fenced_code_blocks, autolink, strikethrough]
 
 redcloth:
   hard_breaks: true
