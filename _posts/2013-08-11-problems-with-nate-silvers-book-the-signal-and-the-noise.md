@@ -16,7 +16,7 @@ computers at all times*. And they are noisy: the fans are loud enough that
 hearing protection is standard operating equipment.
 
 The emphasis is mine. I wondered why would they circulate a flammable gas
-around it? Why not something inert? So I started googling and it turns out the
+around it. Why not something inert? So I started googling and it turns out the
 computer is water cooled:
 
 > The trick to that energy efficiency is water, Andersen said. Bluefire is

@@ -7,6 +7,22 @@ GIT
       jekyll
       ruby-oembed (= 0.8.8)
 
+GIT
+  remote: https://github.com/mojombo/jekyll.git
+  revision: 214c851be5d0210c6dd499de16a8ac41168cd812
+  branch: master
+  specs:
+    jekyll (1.2.0)
+      classifier (~> 1.3)
+      colorator (~> 0.1)
+      commander (~> 4.1.3)
+      directory_watcher (~> 1.4.1)
+      liquid (~> 2.5.2)
+      maruku (~> 0.5)
+      pygments.rb (~> 0.5.0)
+      redcarpet (~> 2.3.0)
+      safe_yaml (~> 0.7.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -21,32 +37,38 @@ GEM
       fssm (>= 0.2.7)
       sass (~> 3.1)
     directory_watcher (1.4.1)
+    execjs (2.0.1)
     fast-stemmer (1.0.2)
     fssm (0.2.10)
     highline (1.6.19)
-    jekyll (1.2.0)
-      classifier (~> 1.3)
-      colorator (~> 0.1)
-      commander (~> 4.1.3)
-      directory_watcher (~> 1.4.1)
-      liquid (~> 2.5.1)
-      maruku (~> 0.5)
-      pygments.rb (~> 0.5.0)
-      redcarpet (~> 2.2.2)
-      safe_yaml (~> 0.7.0)
+    hike (1.2.3)
+    jekyll-assets (0.7.2)
+      jekyll (~> 1.0)
+      sprockets (~> 2.10)
     liquid (2.5.2)
     maruku (0.6.1)
       syntax (>= 1.0.0)
+    multi_json (1.8.0)
     posix-spawn (0.3.6)
     pygments.rb (0.5.2)
       posix-spawn (~> 0.3.6)
       yajl-ruby (~> 1.1.0)
+    rack (1.5.2)
     rb-fsevent (0.9.3)
-    redcarpet (2.2.2)
+    redcarpet (2.3.0)
     ruby-oembed (0.8.8)
     safe_yaml (0.7.1)
     sass (3.2.10)
+    sprockets (2.10.0)
+      hike (~> 1.2)
+      multi_json (~> 1.0)
+      rack (~> 1.0)
+      tilt (~> 1.1, != 1.3.0)
     syntax (1.0.0)
+    tilt (1.4.1)
+    uglifier (2.2.1)
+      execjs (>= 0.3.0)
+      multi_json (~> 1.0, >= 1.0.2)
     yajl-ruby (1.1.0)
 
 PLATFORMS
@@ -54,8 +76,10 @@ PLATFORMS
 
 DEPENDENCIES
   compass
-  jekyll
+  jekyll!
+  jekyll-assets
   jekyll-oembed!
   rb-fsevent
-  redcarpet
+  redcarpet (= 2.3.0)
   sass (~> 3.2.10)
+  uglifier

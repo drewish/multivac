@@ -1,3 +1,6 @@
 port:        80
 url:         http://beta.drewish.com
 destination: ./_deploy
+assets:
+  js_compressor:  uglifier
+  css_compressor: sass

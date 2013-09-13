@@ -7,8 +7,8 @@ title: About
 Andrew Morton is a software developer who lives in a small apartment in
 Berkeley, California with his wife, son and two dogs.
 
-He loves the way the cost of analog photography encourages deliberate
-composition and makes the results more precious.
+He loves photos of streetlights, the way analog photography encourages
+deliberate composition and makes the results more precious.
 
 <div class="row">
   <div class="small-4 columns">{% oembed http://www.flickr.com/photos/drewish/3095122678/ %}</div>
