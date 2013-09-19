@@ -28,13 +28,6 @@ your photos.
 
 ### What could be better
 
-- There's no ability to zoom in while editing the photo. I found myself
-exporting to the camera roll so I could go into the default Photos app to
-examine the color or sharpness of photos details.
-- The crop tool doesn't have guides for thirds, only halves. I love the
-[rule of thirds](http://en.wikipedia.org/wiki/Rule_of_thirds) so I find myself
-flipping into Instagram, putting my finger on the screen next to its guide,
-then flipping back to finish the crop.
 - The interface is very modal. While editing it's hard to jump back and forth
 between tools, you have to keep clicking ✔ or ✖ then picking the next tool.
 When you open a image it defaults to choosing a preset but my preference is
@@ -45,10 +38,15 @@ pages of tools until I saw the option in the settings to reorder them.
 I'd guess there are some good technical reasons for the separation but it means
 you have to import your photos you don't capture in the app and export the
 edited photos to see them in other apps.
-- It kills my battery. But I guess that's I should expect after spending an
+- It kills my battery. But I guess that's what I should expect after spending an
 hour of my commute constantly tweaking photos.
 - The Grid doesn't have [oEmbed](http://oembed.com/) support which makes it
 more of a pain to for me to link images from my blog.
+
+As I was about to post this they released 2.1 which fixed the two biggest
+annoyances I'd encountered. Now the crop tool shows indicators for thirds and
+you can zoom in on images while editing to check details. I'm excited to see
+what the next release has in store.
 
 The bottom line is it is an amazing app. I've been taking photos like I bought
 a new camera, it's just that much fun.
