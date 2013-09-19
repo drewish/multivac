@@ -7,22 +7,6 @@ GIT
       jekyll
       ruby-oembed (= 0.8.8)
 
-GIT
-  remote: https://github.com/mojombo/jekyll.git
-  revision: 214c851be5d0210c6dd499de16a8ac41168cd812
-  branch: master
-  specs:
-    jekyll (1.2.0)
-      classifier (~> 1.3)
-      colorator (~> 0.1)
-      commander (~> 4.1.3)
-      directory_watcher (~> 1.4.1)
-      liquid (~> 2.5.2)
-      maruku (~> 0.5)
-      pygments.rb (~> 0.5.0)
-      redcarpet (~> 2.3.0)
-      safe_yaml (~> 0.7.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -42,6 +26,16 @@ GEM
     fssm (0.2.10)
     highline (1.6.19)
     hike (1.2.3)
+    jekyll (1.2.1)
+      classifier (~> 1.3)
+      colorator (~> 0.1)
+      commander (~> 4.1.3)
+      directory_watcher (~> 1.4.1)
+      liquid (~> 2.5.2)
+      maruku (~> 0.5)
+      pygments.rb (~> 0.5.0)
+      redcarpet (~> 2.3.0)
+      safe_yaml (~> 0.7.0)
     jekyll-assets (0.7.2)
       jekyll (~> 1.0)
       sprockets (~> 2.10)
@@ -76,7 +70,7 @@ PLATFORMS
 
 DEPENDENCIES
   compass
-  jekyll!
+  jekyll (= 1.2.1)
   jekyll-assets
   jekyll-oembed!
   rb-fsevent
