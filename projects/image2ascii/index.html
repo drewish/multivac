@@ -6,6 +6,8 @@ title: Image to ASCII
   <div class="small-8 columns">
     <label for="file">Image File</label>
     <input type="file" id="file" accept="image/*">
+    <canvas id="canvas" width="150px" height="150px"></canvas>
+
   </div>
   <div class="small-2 columns">
     <label for="height">Height</label>
@@ -18,15 +20,32 @@ title: Image to ASCII
 </div>
 
 <div class="row">
-  <div class="large-12 columns">
-    <div class="panel radis">
-      <canvas id="canvas" width="250px" height="150px"></canvas>
-    </div>
-  </div>
-</div>
-
-<div class="row">
   <pre id="output" class="large-12 columns" style='overflow-x:auto; font-family: "Consolas", "Menlo", "Courier", monospace;'></pre>
 </div>
 
 <script src="script.js"></script>
+<script>
+  var $width = $('#width')
+    , $height = $('#height')
+    , unicoder = new Unicoder($width.val(), $height.val());
+
+  $width.change(function () {
+    unicoder.width(this.value);
+  });
+
+  $height.change(function () {
+    unicoder.height(this.value);
+  });
+
+  $('#file').change(function () {
+    var reader = new FileReader();
+    reader.onload = function(event) {
+      var img = new Image();
+      img.onload = function() {
+        unicoder.image(img);
+      };
+      img.src = event.target.result;
+    };
+    reader.readAsDataURL(this.files[0]);
+  });
+</script>
