@@ -1,22 +1,29 @@
 /*jshint laxcomma:true, forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, undef:true, unused:true, curly:true, browser:true, jquery:true, indent:2, maxerr:50 */
 
-function Unicoder() {
+function Unicoder(w, h) {
   this.img = null;
-  this.targetHeight = 38;
-  this.targetWidth = 60;
+  this.targetWidth = w;
+  this.targetHeight = h;
 
   // scaling... height 38 to width 60 seems good for squares.
-
   this.update = function() {
     if (!this.img) { return; }
 
-    // Since we endup with to pixels per character double the dimensions.
-    var height = this.targetHeight * 2
-      , width = this.targetWidth * 2
+    var img = this.img
+      , ratio = Math.min(
+          this.targetWidth / this.img.width,
+          this.targetHeight / this.img.height)
+      // Since we end up with two pixels per character double the dimensions.
+      // With the height factor in that the pixels are not square.
+      , width = Math.ceil(this.img.width * ratio * 2)
+      , height = Math.ceil(this.img.height * ratio * 1.5)
       , canvas = document.getElementById('canvas')
       , context = canvas.getContext('2d')
       , data, pixels, text
       ;
+
+    // Characters are for two rows so make sure the height is an even number.
+    height += height % 2;
 
     // Write the image to the canvas so we can read it back as an ImageData
     // instance so we have access to per pixel data.
@@ -126,7 +133,7 @@ Unicoder.prototype.image = function (val) {
 
 Unicoder.prototype.height = function (val) {
   if (val) {
-    this.targetHeight = val;
+    this.targetHeight = parseInt(val, 10)
     this.update();
   }
   return this.targetHeight;
@@ -134,24 +141,25 @@ Unicoder.prototype.height = function (val) {
 
 Unicoder.prototype.width = function (val) {
   if (val) {
-    this.targetWidth = val;
+    this.targetWidth = parseInt(val, 10);
     this.update();
   }
   return this.targetHeight;
 };
 
 
-var unicoder = new Unicoder();
 
-$('#width').change(function(){
+var $width = $('#width')
+  , $height = $('#height')
+  , unicoder = new Unicoder($width.val(), $height.val());
+
+$width.change(function(){
   unicoder.width(this.value);
-//  $('#canvas').attr('width', this.value + 'px');
-}).change();
+});
 
-$('#height').change(function(){
+$height.change(function(){
   unicoder.height(this.value);
-//  $('#canvas').attr('height', this.value + 'px');
-}).change();
+});
 
 $('#file').change(function() {
   var reader = new FileReader();

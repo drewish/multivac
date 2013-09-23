@@ -2,11 +2,10 @@
 layout: full_width
 title: Image to ASCII
 ---
-
 <div class="row">
   <div class="small-8 columns">
-    <label for="file">File</label>
-    <input type="file" id="file">
+    <label for="file">Image File</label>
+    <input type="file" id="file" accept="image/*">
   </div>
   <div class="small-2 columns">
     <label for="height">Height</label>
@@ -19,12 +18,15 @@ title: Image to ASCII
 </div>
 
 <div class="row">
-  <canvas id="canvas" class="large-12 columns" width="250px" height="150px" style="border: 1px solid pink"></canvas>
-  <img id="image" style="display: none" />
+  <div class="large-12 columns">
+    <div class="panel radis">
+      <canvas id="canvas" width="250px" height="150px"></canvas>
+    </div>
+  </div>
 </div>
 
 <div class="row">
-  <pre id="output" class="large-12 columns" style='overflow-x:scroll; font-family: "Consolas", "Menlo", "Courier", monospace;'></pre>
+  <pre id="output" class="large-12 columns" style='overflow-x:auto; font-family: "Consolas", "Menlo", "Courier", monospace;'></pre>
 </div>
 
 <script src="script.js"></script>
