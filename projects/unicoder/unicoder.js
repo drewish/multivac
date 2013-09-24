@@ -33,17 +33,18 @@ Unicoder.prototype.width = function (val) {
 Unicoder.prototype.update = function() {
   if (!this.img) { return; }
 
-  var ratio = Math.min(this.targetWidth / this.img.width, this.targetHeight / this.img.height)
-    // Since we end up with two pixels per character double the dimensions.
-    // With the height factor in that the pixels are not square.
-    , width = Math.ceil(this.img.width * ratio * 2)
-    , height = Math.ceil(this.img.height * ratio * 1.5)
-    , canvas = document.getElementById('canvas')
+  var canvas = document.getElementById('canvas')
     , context = canvas.getContext('2d')
     , data, pixels, text
     ;
 
-  // Characters are for two rows so make sure the height is an even number.
+  var ratio = Math.min(this.targetWidth / this.img.width, this.targetHeight / this.img.height)
+    // Since we end up with two pixels per character double the dimensions.
+    // With the height, pixels are taller than wide so we account for that.
+    , width = Math.ceil(this.img.width * ratio * 2)
+    , height = Math.ceil(this.img.height * ratio * 1.2)
+    ;
+  // Characters display two rows so ensure the height is an even number.
   height += height % 2;
 
   // Write the image to the canvas so we can read it back as an ImageData

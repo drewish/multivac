@@ -3,6 +3,12 @@ layout: full_width
 title: Image to ASCII
 ---
 <div class="row">
+  <div class="columns">
+    <p>Select and image and have it converted to Unicode characters.</p>
+  </div>
+</div>
+
+<div class="row">
   <div class="small-8 columns">
     <label for="file">Image File</label>
     <input type="file" id="file" accept="image/*">
@@ -23,7 +29,7 @@ title: Image to ASCII
   <pre id="output" class="large-12 columns" style='overflow-x:auto; font-family: "Consolas", "Menlo", "Courier", monospace;'></pre>
 </div>
 
-<script src="script.js"></script>
+<script src="unicoder.js"></script>
 <script>
   var $width = $('#width')
     , $height = $('#height')
