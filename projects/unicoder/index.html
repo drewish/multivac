@@ -2,6 +2,13 @@
 layout: full_width
 title: Image to ASCII
 ---
+<style media="screen" type="text/css">
+  #output {
+    overflow-x:auto;
+    font-family: "Menlo", "Ubuntu Mono", "Courier", monospace;
+  }
+</style>
+
 <div class="row">
   <div class="columns">
     <p>Select and image and have it converted to Unicode characters.</p>
@@ -12,8 +19,6 @@ title: Image to ASCII
   <div class="small-8 columns">
     <label for="file">Image File</label>
     <input type="file" id="file" accept="image/*">
-    <canvas id="canvas" width="150px" height="150px"></canvas>
-
   </div>
   <div class="small-2 columns">
     <label for="height">Height</label>
@@ -26,7 +31,13 @@ title: Image to ASCII
 </div>
 
 <div class="row">
-  <pre id="output" class="large-12 columns" style='overflow-x:auto; font-family: "Consolas", "Menlo", "Courier", monospace;'></pre>
+  <div class="columns">
+    <canvas id="canvas" width="700px" height="150px"></canvas>
+  </div>
+</div>
+
+<div class="row">
+  <pre id="output" class="large-12 columns"></pre>
 </div>
 
 <script src="unicoder.js"></script>

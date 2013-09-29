@@ -41,22 +41,46 @@ Unicoder.prototype.update = function() {
   var ratio = Math.min(this.targetWidth / this.img.width, this.targetHeight / this.img.height)
     // Since we end up with two pixels per character double the dimensions.
     // With the height, pixels are taller than wide so we account for that.
-    , width = Math.ceil(this.img.width * ratio * 2)
-    , height = Math.ceil(this.img.height * ratio * 1.2)
+    , boundedWidth  = this.img.width * ratio
+    , boundedHeight = this.img.height * ratio
+    , targetWidth  = Math.round(boundedWidth)
+    , targetHeight = Math.round(boundedHeight)
+    , sampleWidth  = targetWidth * 2
+    , sampleHeight = Math.floor(targetHeight * 1.2)
+    , topEdge = 10
+    , leftEdge = 0
     ;
   // Characters display two rows so ensure the height is an even number.
-  height += height % 2;
+  sampleHeight += sampleHeight % 2;
+
+  context.clearRect(0, 0, canvas.width, canvas.height);
+  context.font = "10px Menlo, Consolas, Courier";
+  context.textBaseline = "top";
+
+  // Draw the original image
+  context.fillText("Original", 0, 0, targetWidth * 2);
+  context.drawImage(this.img, 0, topEdge, targetWidth * 2, targetHeight * 2);
+  leftEdge += (targetWidth * 2) + 5;
 
   // Write the image to the canvas so we can read it back as an ImageData
-  // instance so we have access to per pixel data.
-  context.clearRect(0, 0, canvas.width, canvas.height);
-  context.drawImage(this.img, 0, 0, width, height);
-  data = context.getImageData(0, 0, width, height).data;
+  // instance which allows per pixel access.
+  context.fillText("Sampled", leftEdge, 0, sampleWidth);
+  context.drawImage(this.img, leftEdge, topEdge, sampleWidth, sampleHeight);
+  data = context.getImageData(leftEdge, topEdge, sampleWidth, sampleHeight).data;
+  leftEdge += sampleWidth + 5;
 
   // ...then convert it to grayscale and dither it to black and white...
-  pixels = this.ditherPixels(this.imageDataToGrayPixels(data, width, height));
+  pixels = this.ditherPixels(this.imageDataToGrayPixels(data, sampleWidth, sampleHeight));
   // ...and finally make some text.
   text = this.pixelsToText(pixels);
+
+  context.fillText("Text", leftEdge, 0);
+  context.font = "4px Menlo, Consolas, Courier";
+  lineHeight = parseInt(context.font, 10);
+  text.split("\n").forEach(function (s, i) {
+    console.log(s,i);
+    context.fillText(s, leftEdge, topEdge + (i * lineHeight));
+  });
 
   // TODO: This should be passed back to the consumer of the class...
   document.getElementById("output").textContent = "<!--\n" + text + "-->";
