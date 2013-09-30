@@ -1,0 +1,27 @@
+// Make sure the charset is set appropriately
+@charset "UTF-8";
+
+// This includes all of the foundation global elements that are needed to work with any of the other files.
+@import "foundation.scss";
+
+// Code styling
+div.highlight {
+  margin-bottom: 1.25em;
+  padding: 0 1.25em 0 1.1875em;
+}
+
+code {
+  line-height: $paragraph-line-height;
+}
+
+// Put a little space below videos and images
+.flex-video, .oembed.photo {
+  margin-bottom: 1.25em;
+}
+
+.top-menu {
+  font-family: $header-font-family;
+  @media only screen and (min-width: 768px) {
+    margin-top: 2.5em;
+  }
+}

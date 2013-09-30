@@ -41,26 +41,3 @@
   "foundation/components/thumbs",
   "foundation/components/tooltips",
   "foundation/components/dropdown";
-
-// Parking my stuff here for now
-
-// Code styling
-div.highlight {
-  margin-bottom: 1.25em;
-  padding: 0 1.25em 0 1.1875em;
-}
-code {
-  line-height: $paragraph-line-height;
-}
-
-// Put a little space below videos and images
-.flex-video, .oembed.photo {
-  margin-bottom: 1.25em;
-}
-
-.top-menu {
-  font-family: $header-font-family;
-  @media only screen and (min-width: 768px) {
-    margin-top: 2.5em;
-  }
-}
