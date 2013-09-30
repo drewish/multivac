@@ -11,5 +11,4 @@ gem 'sass', '~> 3.2.10'
 gem 'compass'
 gem 'uglifier'
 
-# development
-gem 'rb-fsevent'
+gem 'guard-jekyll-plus'
