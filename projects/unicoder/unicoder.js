@@ -1,7 +1,10 @@
 /*jshint laxcomma:true, unused:true, curly:true, browser:true, jquery:true, indent:2, maxerr:50 */
 
+
 function Unicoder(w, h) {
   this.img = null;
+  this.afterUpdate = null; // callback
+
   this.targetWidth = w;
   this.targetHeight = h;
 }
@@ -30,60 +33,49 @@ Unicoder.prototype.width = function (val) {
   return this.targetHeight;
 };
 
+// TODO these parameters might be over kill. Probably can clean them up.
+Unicoder.prototype.fitInBounds = function (width, height, maxWidth, maxHeight) {
+  width = width || this.img.width;
+  height = height || this.img.height;
+  maxWidth = maxWidth || this.targetWidth;
+  maxHeight = maxHeight || this.targetHeight;
+
+  var ratio = Math.min(maxWidth / width, maxHeight / height);
+  return {
+    width: Math.round(width * ratio),
+    height: Math.round(height * ratio)
+  };
+};
+
 Unicoder.prototype.update = function() {
   if (!this.img) { return; }
 
-  var canvas = document.getElementById('canvas')
-    , context = canvas.getContext('2d')
+  var ctx = document.getElementById('canvas-sampled').getContext('2d')
+    , bounded = this.fitInBounds()
+    // We want to double the dimensions so each character can represent 4
+    // pixels. But characters are taller than wide so we need a lower scalling
+    // factor for the height.
+    , sampleWidth  = bounded.width * 2
+    , sampleHeight = Math.floor(bounded.height * 1.2)
     , data, pixels, text
-    ;
-
-  var ratio = Math.min(this.targetWidth / this.img.width, this.targetHeight / this.img.height)
-    // Since we end up with two pixels per character double the dimensions.
-    // With the height, pixels are taller than wide so we account for that.
-    , boundedWidth  = this.img.width * ratio
-    , boundedHeight = this.img.height * ratio
-    , targetWidth  = Math.round(boundedWidth)
-    , targetHeight = Math.round(boundedHeight)
-    , sampleWidth  = targetWidth * 2
-    , sampleHeight = Math.floor(targetHeight * 1.2)
-    , topEdge = 10
-    , leftEdge = 0
     ;
   // Characters display two rows so ensure the height is an even number.
   sampleHeight += sampleHeight % 2;
 
-  context.clearRect(0, 0, canvas.width, canvas.height);
-  context.font = "10px Menlo, Consolas, Courier";
-  context.textBaseline = "top";
-
-  // Draw the original image
-  context.fillText("Original", 0, 0, targetWidth * 2);
-  context.drawImage(this.img, 0, topEdge, targetWidth * 2, targetHeight * 2);
-  leftEdge += (targetWidth * 2) + 5;
-
   // Write the image to the canvas so we can read it back as an ImageData
   // instance which allows per pixel access.
-  context.fillText("Sampled", leftEdge, 0, sampleWidth);
-  context.drawImage(this.img, leftEdge, topEdge, sampleWidth, sampleHeight);
-  data = context.getImageData(leftEdge, topEdge, sampleWidth, sampleHeight).data;
-  leftEdge += sampleWidth + 5;
+  ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+  ctx.drawImage(this.img, 0, 0, sampleWidth, sampleHeight);
+  data = ctx.getImageData(0, 0, sampleWidth, sampleHeight).data;
 
   // ...then convert it to grayscale and dither it to black and white...
   pixels = this.ditherPixels(this.imageDataToGrayPixels(data, sampleWidth, sampleHeight));
   // ...and finally make some text.
   text = this.pixelsToText(pixels);
 
-  context.fillText("Text", leftEdge, 0);
-  context.font = "4px Menlo, Consolas, Courier";
-  lineHeight = parseInt(context.font, 10);
-  text.split("\n").forEach(function (s, i) {
-    console.log(s,i);
-    context.fillText(s, leftEdge, topEdge + (i * lineHeight));
-  });
-
-  // TODO: This should be passed back to the consumer of the class...
-  document.getElementById("output").textContent = "<!--\n" + text + "-->";
+  if (typeof this.afterUpdate == 'function') {
+    this.afterUpdate(text);
+  }
 };
 
 Unicoder.prototype.imageDataToGrayPixels = function (imageData, width, height) {
@@ -102,7 +94,7 @@ Unicoder.prototype.imageDataToGrayPixels = function (imageData, width, height) {
     }
   }
   return pixels;
-}
+};
 
 // Apply Floyd–Steinberg dithering
 // http://en.wikipedia.org/wiki/Floyd%E2%80%93Steinberg_dithering
@@ -128,7 +120,7 @@ Unicoder.prototype.ditherPixels = function (pixels) {
     }
   }
   return pixels;
-}
+};
 
 // Each character represents a rectangle of 4 black or white pixels:
 //   qr
@@ -167,4 +159,4 @@ Unicoder.prototype.pixelsToText = function (pixels) {
   }
 
   return string;
-}
+};

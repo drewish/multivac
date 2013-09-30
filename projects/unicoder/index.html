@@ -5,13 +5,14 @@ title: Image to ASCII
 <style media="screen" type="text/css">
   #output {
     overflow-x:auto;
-    font-family: "Menlo", "Ubuntu Mono", "Courier", monospace;
+    font-family: "Andale Mono", Menlo, Consolas, Courier;
   }
 </style>
 
 <div class="row">
   <div class="columns">
-    <p>Select and image and have it converted to Unicode characters.</p>
+    <p>Choose an image and have it converted to a gray scale image made of
+      Unicode characters.</p>
   </div>
 </div>
 
@@ -20,38 +21,56 @@ title: Image to ASCII
     <label for="file">Image File</label>
     <input type="file" id="file" accept="image/*">
   </div>
-  <div class="small-2 columns">
-    <label for="height">Height</label>
-    <input type="number" min="1" id="height" size="60" value="60">
-  </div>
-  <div class="small-2 columns">
+  <div class="small-4 columns">
     <label for="width">Width</label>
     <input type="number" min="1" id="width" size="60" value="60">
   </div>
 </div>
 
-<div class="row">
-  <div class="columns">
-    <canvas id="canvas" width="700px" height="150px"></canvas>
+<div class="row hide">
+  <div class="columns small-4">
+    <label>Original</label>
+    <canvas id="canvas-source" width="200px" height="150px"></canvas>
+  </div>
+  <div class="columns small-4">
+    <label>Scaled for sample</label>
+    <canvas id="canvas-sampled" width="200px" height="150px"></canvas>
+  </div>
+  <div class="columns small-4">
+    <label>Text Preview</label>
+    <canvas id="canvas-text" width="200px" height="150px"></canvas>
   </div>
 </div>
 
-<div class="row">
-  <pre id="output" class="large-12 columns"></pre>
+<div class="row hide">
+  <div class="columns">
+    <label>Your Text</label>
+    <pre id="output" ></pre>
+  </div>
+</div>
+
+<div class="row hide">
+  <div class="columns">
+    <hr />
+    <p>Sadly, because some of the characters used here have different widths
+      the effect only works in certain fonts. I'm working on some improvements
+      that should use more conventional characters and work with more fonts.</p>
+  </div>
 </div>
 
 <script src="unicoder.js"></script>
 <script>
   var $width = $('#width')
-    , $height = $('#height')
-    , unicoder = new Unicoder($width.val(), $height.val());
+    , unicoder = new Unicoder($width.val(), 1000);
+
+  unicoder.afterUpdate = function(text) {
+    $('.hide').removeClass('hide');
+    drawPreview();
+    drawText(text);
+  };
 
   $width.change(function () {
     unicoder.width(this.value);
-  });
-
-  $height.change(function () {
-    unicoder.height(this.value);
   });
 
   $('#file').change(function () {
@@ -65,4 +84,28 @@ title: Image to ASCII
     };
     reader.readAsDataURL(this.files[0]);
   });
+
+  function drawPreview() {
+    var ctx = document.getElementById('canvas-source').getContext('2d')
+      , bounds = unicoder.fitInBounds();
+
+    // Draw the original image
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    ctx.drawImage(unicoder.img, 0, 0, bounds.width * 2, bounds.height * 2);
+  }
+
+  function drawText(text) {
+    var ctx = document.getElementById('canvas-text').getContext('2d');
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    ctx.textBaseline = "top";
+    ctx.font = "4px Menlo, Consolas, Courier";
+    lineHeight = parseInt(ctx.font, 10);
+    text.split("\n").forEach(function (s, i) {
+      console.log(s,i);
+      ctx.fillText(s, 0, (i * lineHeight));
+    });
+
+    $('#output').text("<!--\n" + text + "-->");
+  }
+
 </script>
