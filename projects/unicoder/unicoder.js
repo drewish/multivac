@@ -66,10 +66,10 @@ Unicoder.prototype.update = function() {
   // instance which allows per pixel access.
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
   ctx.drawImage(this.img, 0, 0, sampleWidth, sampleHeight);
-  data = ctx.getImageData(0, 0, sampleWidth, sampleHeight).data;
+  data = ctx.getImageData(0, 0, sampleWidth, sampleHeight);
 
   // ...then convert it to grayscale and dither it to black and white...
-  pixels = this.ditherPixels(this.imageDataToGrayPixels(data, sampleWidth, sampleHeight));
+  pixels = this.ditherPixels(this.imageDataToGrayPixels(data));
   // ...and finally make some text.
   text = this.pixelsToText(pixels);
 
@@ -78,19 +78,23 @@ Unicoder.prototype.update = function() {
   }
 };
 
-Unicoder.prototype.imageDataToGrayPixels = function (imageData, width, height) {
+Unicoder.prototype.imageDataToGrayPixels = function (imageData) {
   var pixels = []
-    , offset, red, green, blue, alpha
+    , data = imageData.data
+    , x, y, offset, red, green, blue, alpha, brightness
     ;
-  for (var y = 0; y < height; y++) {
+  for (y = 0; y < imageData.height; y++) {
     pixels[y] = [];
-    for (var x = 0; x < width; x++) {
-      offset = (y * width + x) * 4;
-      red   = imageData[offset];
-      green = imageData[offset + 1];
-      blue  = imageData[offset + 2];
-      alpha = imageData[offset + 3];
-      pixels[y][x] = (0.3 * red + 0.59 * green + 0.11 * blue) / 255;
+    for (x = 0; x < imageData.width; x++) {
+      offset = (y * imageData.width + x) * 4;
+      red   = data[offset];
+      green = data[offset + 1];
+      blue  = data[offset + 2];
+      alpha = data[offset + 3] / 255;
+      // Perceptive weighting for grayscaling:
+      brightness = (0.3 * red + 0.59 * green + 0.11 * blue) / 255;
+      // Alpha blending assumes a white background:
+      pixels[y][x] = brightness * alpha + (1 - alpha);
     }
   }
   return pixels;
@@ -160,3 +164,83 @@ Unicoder.prototype.pixelsToText = function (pixels) {
 
   return string;
 };
+
+
+//  - - -
+
+// Playing around trying to take a character and compute a 3x3 grid of its
+// brightness. We'll use this to find the best character with "sub-character"
+// accuracy
+
+function charsInRange() {
+  var i = 0
+    , ints = [];
+  for (i = 32; i < 127; i ++) {
+    ints.push(i);
+  }
+  return String.fromCharCode.apply(this, ints);
+}
+
+function sampleChar(size, text) {
+  // Some rough approximations based on measuring Courier New
+  var font_size = parseInt(size, 10)
+    , height = Math.ceil(font_size * (72/64))
+    , width = Math.ceil(font_size * (38/64))
+    ;
+
+  var ctx = document.getElementById('canvas-text').getContext('2d');
+  ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+  ctx.textBaseline = "top";
+  ctx.font = font_size + 'px "Courier New"';
+  ctx.fillText(text, 0, 0);
+
+  var imagedata = ctx.getImageData(0, 0, width, height);
+  var pixels = Unicoder.prototype.imageDataToGrayPixels(imagedata);
+
+  // Turn each line into three average values
+  var p = pixels.map(function(line) {
+    return into_thirds(line).map(function avg(a) {
+      var sum = 0;
+      for (var i = a.length - 1; i >= 0; i--) {
+        sum += a[i];
+      }
+      return (sum / a.length);
+    });
+  });
+  // Then create three groups of lines and average the chunks vertically.
+  var q = into_thirds(p).map(function (chunk) {
+    var sum = [0, 0, 0]
+      , length = chunk.length;
+    for (var i = length - 1; i >= 0; i--) {
+      sum[0] += chunk[i][0];
+      sum[1] += chunk[i][1];
+      sum[2] += chunk[i][2];
+    }
+    return [sum[0] / length, sum[1] / length, sum[2] / length];
+  });
+
+
+$('.hide').removeClass('hide');
+
+  return q;
+}
+
+// Divide an array into three nicely sized chunks.
+function into_thirds(array) {
+  var n = array.length
+    , r = Math.floor(n / 3)
+    , lengths = [r, r, r]
+    ;
+  // Single extra line goes in the middle.
+  if (n % 3 == 1) {
+    lengths[1] = r + 1;
+  }
+  // Two extra lines go on the ends.
+  else if (n % 3 == 2) {
+    lengths[0] = lengths[2] = r + 1;
+  }
+
+  return lengths.map(function(v) {
+    return array.splice(0, v);
+  });
+}
