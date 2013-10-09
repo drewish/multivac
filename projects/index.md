@@ -8,4 +8,5 @@ These are fun things I’ve worked on:
 - [textFlow](/projects/textFlow/)
 - [CSS with vertical rhythm](/tools/vertical-rhythm/)
 - [2-sided POV](/projects/2-sided-pov/)
-- [Image_Color2](/projects/pear/Image_Color2)
+- [Image Color2](/projects/pear/Image_Color2)
+- [Phlickr](/projects/phlickr/)
