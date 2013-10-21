@@ -4,15 +4,14 @@ title: Resume
 ---
 ## Overview
 
-I am an experienced developer who's worked in a variety of languages and contributed to many open source projects. I have
-also co-authored a book, lead trainings, written numerous how-to 
-blog posts, and presented at tech conferences.
+I am an experienced developer who's worked in a variety of languages and
+contributed to many open source projects. I have also co-authored a book, lead
+trainings, written numerous how-to blog posts, and presented at tech
+conferences.
 
-For the last eight years I have worked primarily with Drupal and
-PHP, but in the last year have started moving started devoting
-my attention to iOS and Node.js development. My first iPhone app 
-for Roommat.es is now available in the AppStore, and I've become 
-the maintainer of the exiv2 Node add-on.
+After sevearal years of working primarily with Drupal and PHP, I decided it
+was time to learn some new things and began focusing on Node JS and then Ruby
+and Rails.
 
 ## Experience
 
@@ -21,7 +20,7 @@ the maintainer of the exiv2 Node add-on.
 #### Developer
 January 2013 - Present — San Francisco, CA
 
-* Ruby on Rails 
+* Ruby on Rails
 * NodeJS
 
 ### Roommat.es
