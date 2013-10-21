@@ -7,11 +7,11 @@ library which became the PEAR [Image_Color2](http://pear.php.net/package/Image_C
 package.
 
 The impetus for this was trying to sort my Flickr favorites by color. After
-some experimentation and frustrations with RGB colors I did some research and
-discovered I really wanted to be sorting by hue and a color model like HSL
-would make it much easier. I spent some flushing out the framework with
-additional color models, and polished it up enough to be published as a PEAR
-module.
+some experimentation and frustration with the RGB color model I did some
+research and discovered that I really wanted to be sorting by hue. So
+converting to color model like HSL would make it much easier. I spent some
+building a basic color conversion framework then polished it up enough to be
+published as a PEAR module.
 
 The package supports conversions between the following color models:
 
