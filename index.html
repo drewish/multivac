@@ -11,6 +11,7 @@ title: blog index
       </small>
     </h3>
   </a>
+  {% include _page_media.html post=post %}
   {{ post.excerpt }}
   <a href="{{ post.url }}" title="{{post.title}}">Read more →</a>
   <hr>

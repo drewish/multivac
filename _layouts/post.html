@@ -9,13 +9,7 @@
           {{ page.title }} &nbsp;
           <small style="white-space: nowrap;">{{ page.date | date_to_long_string }}</small>
         </h2>
-        {% if page.vimeo %}
-          <div class="flex-video widescreen vimeo">
-            {% oembed {{page.vimeo}} %}
-          </div>
-        {% elsif page.image %}
-          <p>{% oembed {{page.image}} %}</p>
-        {% endif %}
+        {% include _page_media.html post=page %}
         {{ content }}
         <p>
           <a href="/">← Back to the top</a>

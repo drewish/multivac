@@ -1,0 +1,7 @@
+{% if include.post.vimeo %}
+  <div class="flex-video widescreen vimeo">
+    {% oembed {{include.post.vimeo}} %}
+  </div>
+{% elsif include.post.image %}
+  <p>{% oembed {{include.post.image}} %}</p>
+{% endif %}
