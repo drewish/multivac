@@ -19,6 +19,10 @@ code {
   margin-bottom: 1.25em;
 }
 
+header h1, header a {
+  font-weight: 400;
+}
+
 .top-menu {
   font-family: $header-font-family;
   @media only screen and (min-width: 768px) {

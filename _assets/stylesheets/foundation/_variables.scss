@@ -55,8 +55,7 @@ $default-float: left;
 // $body-font-color: #222;
 // $body-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 $body-font-family: "Merriweather", serif;
-
-// $body-font-weight: normal;
+$body-font-weight: 300;
 // $body-font-style: normal;
 
 // Font-smoothing
@@ -164,9 +163,9 @@ $row-width: emCalc(700);
 
 // $header-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 $header-font-family: "Lato", serif;
-$header-font-weight: 400;
+$header-font-weight: 300;
 // $header-font-style: normal;
-// $header-font-color: #222;
+$header-font-color: #222;
 // $header-line-height: 1.4;
 // $header-top-margin: .2em;
 // $header-bottom-margin: .5em;
