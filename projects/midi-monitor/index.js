@@ -64,8 +64,8 @@ function drawGrandStaff(noteNames) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   // Create the staves
-  var trebleStave = new Vex.Flow.Stave(20, 40, 300);
-  var bassStave = new Vex.Flow.Stave(20, 160, 300);
+  var trebleStave = new Vex.Flow.Stave(20, 40, 400);
+  var bassStave = new Vex.Flow.Stave(20, 160, 400);
 
   trebleStave.addClef('treble');
   bassStave.addClef('bass');
