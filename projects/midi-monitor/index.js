@@ -53,7 +53,7 @@ function sendMiddleC(indexOfPort) {
   output.send(message, window.performance.now() + 500.0); // timestamp = now + 1000ms.
 }
 
-function drawGrandStaff(noteNames) {
+function drawGrandStaff(activeNotes) {
   var canvas = document.getElementById('drawing');
   // var renderer = new Vex.Flow.Renderer(canvas, Vex.Flow.Renderer.Backends.CANVAS);
   // var canvas = document.getElementById('svg-canvas');
@@ -62,34 +62,41 @@ function drawGrandStaff(noteNames) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   // Create the staves
-  var trebleStave = new Vex.Flow.Stave(20, 40, 400);
-  var bassStave = new Vex.Flow.Stave(20, 160, 400);
+  var trebleStave = new Vex.Flow.Stave(20, 40, 400)
+    .addClef('treble').setContext(ctx).draw();
+  var bassStave = new Vex.Flow.Stave(20, 160, 400)
+    .addClef('bass').setContext(ctx).draw();
 
-  trebleStave.addClef('treble');
-  bassStave.addClef('bass');
+  new Vex.Flow.StaveConnector(trebleStave, bassStave)
+    .setType(3).setContext(ctx).draw();
+  new Vex.Flow.StaveConnector(trebleStave, bassStave)
+    .setType(1).setContext(ctx).draw();
+  new Vex.Flow.StaveConnector(trebleStave, bassStave)
+    .setType(6).setContext(ctx).draw();
 
-  var brace = new Vex.Flow.StaveConnector(trebleStave, bassStave).setType(3);
-  var lineLeft = new Vex.Flow.StaveConnector(trebleStave, bassStave).setType(1);
-  var lineRight = new Vex.Flow.StaveConnector(trebleStave, bassStave).setType(6);
+  var trebleNotes = [];
+  var bassNotes = [];
 
-  brace.setContext(ctx).draw();
-  lineLeft.setContext(ctx).draw();
-  lineRight.setContext(ctx).draw();
+  Object.keys(activeNotes).forEach(function(key) {
+    var note = activeNotes[key];
+    if (note.octave() > 2) {
+      trebleNotes.push(key);
+    }
+    if (note.octave() < 5) {
+      bassNotes.push(key);
+    }
+  });
 
-  trebleStave.setContext(ctx).draw();
-  bassStave.setContext(ctx).draw();
-
-  if (!noteNames.length) {
-    return;
+  if (trebleNotes.length) {
+    drawNotes(trebleStave, [
+      new Vex.Flow.StaveNote({clef: 'treble', keys: trebleNotes, duration: "w" })
+    ]);
   }
-
-  // Add notes to voice
-  drawNotes(trebleStave, [
-    new Vex.Flow.StaveNote({clef: 'treble', keys: noteNames, duration: "w" })
-  ]);
-  drawNotes(bassStave, [
-    new Vex.Flow.StaveNote({clef: 'bass', keys: noteNames, duration: "w" })
-  ]);
+  if (bassNotes.length) {
+    drawNotes(bassStave, [
+      new Vex.Flow.StaveNote({clef: 'bass', keys: bassNotes, duration: "w" })
+    ]);
+  }
 }
 
 function drawNotes(stave, notes) {
@@ -125,20 +132,18 @@ $().ready(function() {
   });
 
   midiEmitter.on('note-on', function(event) {
-    var note = event.note.toString();
-    activeNotes.push(note);
+    var note = event.note;
+    activeNotes[note.toString()] = note;
 
     console.log(activeNotes);
     drawGrandStaff(activeNotes);
   });
 
   midiEmitter.on('note-off', function(event) {
-    var note = event.note.toString();
+    var note = event.note;
     var index;
 
-    while ((index = activeNotes.indexOf(note)) > -1) {
-      activeNotes.splice(index, 1);
-    }
+    delete activeNotes[note.toString()];
 
     console.log(activeNotes);
     drawGrandStaff(activeNotes);
