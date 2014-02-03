@@ -4,17 +4,15 @@ var midiEmitter = new Emitter();
 function onMidiSuccess(midiAccess) {
   midi = midiAccess;  // store in the global (in real usage, would probably keep in an object instance)
 
-  inputs = midi.inputs();
-  for (var i=0;i<inputs.length;i++) {
-    midiEmitter.trigger('input-found', inputs[i]);
-
+  var inputs = midi.inputs();
+  for (var i = 0;i < inputs.length; i++) {
     inputs[i].onmidimessage = onMidiMessage;
+    midiEmitter.trigger('input-found', inputs[i]);
   }
 }
 
 function onMidiError(err) {
   console.log("Error code: " + err.code);
-  document.getElementById("output").textContent(message);
 }
 
 function onMidiMessage(event) {
@@ -128,7 +126,7 @@ $().ready(function() {
 
   midiEmitter.on('input-found', function(input) {
     $('.midi-device-help').hide();
-    console.log(inputs);
+    console.log(input);
   });
 
   midiEmitter.on('note-on', function(event) {
@@ -153,5 +151,3 @@ $().ready(function() {
 
   drawGrandStaff(activeNotes);
 });
-
-
