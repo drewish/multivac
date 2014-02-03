@@ -83,37 +83,32 @@ function drawGrandStaff(noteNames) {
     return;
   }
 
-  // Create a voice in 4/4
-  var trebleVoice = new Vex.Flow.Voice({
-    num_beats: 4,
-    beat_value: 4,
-    resolution: Vex.Flow.RESOLUTION
-  });
+  // Add notes to voice
+  drawNotes(trebleStave, [
+    new Vex.Flow.StaveNote({clef: 'treble', keys: noteNames, duration: "w" })
+  ]);
+  drawNotes(bassStave, [
+    new Vex.Flow.StaveNote({clef: 'bass', keys: noteNames, duration: "w" })
+  ]);
+}
 
+function drawNotes(stave, notes) {
   // Create a voice in 4/4
-  var bassVoice = new Vex.Flow.Voice({
+  var Voice = new Vex.Flow.Voice({
     num_beats: 4,
     beat_value: 4,
     resolution: Vex.Flow.RESOLUTION
   });
 
   // Add notes to voice
-  trebleVoice.addTickables([
-    new Vex.Flow.StaveNote({clef: 'treble', keys: noteNames, duration: "w" })
-  ]);
-  bassVoice.addTickables([
-    new Vex.Flow.StaveNote({clef: 'bass', keys: noteNames, duration: "w" })
-  ]);
+  Voice.addTickables(notes);
 
   // Format and justify the notes
-  new Vex.Flow.Formatter().joinVoices([trebleVoice]).format([trebleVoice], 300);
-  new Vex.Flow.Formatter().joinVoices([bassVoice]).format([bassVoice], 300);
+  new Vex.Flow.Formatter().joinVoices([Voice]).format([Voice], 300);
 
   // Render voice
-  trebleVoice.draw(ctx, trebleStave);
-  bassVoice.draw(ctx, bassStave);
+  Voice.draw(stave.getContext(), stave);
 }
-
 
 
 $().ready(function() {
