@@ -57,9 +57,9 @@ function sendMiddleC(indexOfPort) {
 
 function drawGrandStaff(noteNames) {
   var canvas = document.getElementById('drawing');
-  var renderer = new Vex.Flow.Renderer(canvas, Vex.Flow.Renderer.Backends.CANVAS);
+  // var renderer = new Vex.Flow.Renderer(canvas, Vex.Flow.Renderer.Backends.CANVAS);
   // var canvas = document.getElementById('svg-canvas');
-  // var renderer = new Vex.Flow.Renderer(canvas, Vex.Flow.Renderer.Backends.RAPHAEL);
+  var renderer = new Vex.Flow.Renderer(canvas, Vex.Flow.Renderer.Backends.RAPHAEL);
   var ctx = renderer.getContext();
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
