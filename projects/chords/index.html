@@ -1,0 +1,42 @@
+---
+layout: full_width
+title: Chords
+---
+<div class="row">
+  <div class="large-4 push-8 columns">
+    <h3>How to use this…</h3>
+    <ul>
+      <li class="midiapi-help">
+        Install <a href="https://www.google.com/intl/en/chrome/browser/">Chrome</a>
+        then the <a href="chrome://flags/#enable-web-midi">Web MIDI API</a> flag.
+      </li>
+      <li class="midiapi-help">
+        Or, install <a href="http://jazz-soft.net/">Jazz-Soft's browser plugin</a>
+        and the <a href="https://github.com/cwilso/WebMIDIAPIShim">Web MIDI API shim</a>
+        will be used.
+      </li>
+      <li class="midi-device-help">
+        Plug in a MIDI keyboard or install <a href="http://www.manyetas.com/creed/midikeys.html">MidiKeys</a>
+      </li>
+      <li class="midi-device-help">
+        Restart your browswer.
+      </li>
+      <li>
+        Play some notes on your MIDI device.
+      </li>
+    </ul>
+  </div>
+
+  <div class="large-8 pull-4 columns">
+    <div id="drawing"></div>
+  </div>
+</div>
+
+<script src="raphael-min.js"></script>
+<script src="WebMIDIAPI.js"></script>
+<script src="vexflow-min.js"></script>
+<script src="display.js"></script>
+<script src="emitter.js"></script>
+<script src="midi.js"></script>
+<script src="note.js"></script>
+<script src="index.js"></script>
