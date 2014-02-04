@@ -76,26 +76,43 @@ function drawGrandStaff(activeNotes) {
 
   var trebleNotes = [];
   var bassNotes = [];
+  var trebleAccidentals = [];
+  var bassAccidentals = [];
 
   Object.keys(activeNotes).forEach(function(key) {
     var note = activeNotes[key];
-    if (note.octave() > 2) {
-      trebleNotes.push(key);
+    var accidental;
+    if (note.accidental()) {
+      accidental = new Vex.Flow.Accidental(note.accidental());
     }
-    if (note.octave() < 5) {
+    if (note.octave > 2) {
+      trebleNotes.push(key);
+      if (accidental) {
+        trebleAccidentals.push(accidental);
+      }
+    }
+    if (note.octave < 5) {
       bassNotes.push(key);
+      if (accidental) {
+        bassAccidentals.push(accidental);
+      }
     }
   });
 
+  var staveNote;
   if (trebleNotes.length) {
-    drawNotes(trebleStave, [
-      new Vex.Flow.StaveNote({clef: 'treble', keys: trebleNotes, duration: "w" })
-    ]);
+    staveNote = new Vex.Flow.StaveNote({clef: 'treble', keys: trebleNotes, duration: "w" });
+    trebleAccidentals.forEach(function(accidental, i) {
+      staveNote.addAccidental(i, accidental);
+    });
+    drawNotes(trebleStave, [staveNote]);
   }
   if (bassNotes.length) {
-    drawNotes(bassStave, [
-      new Vex.Flow.StaveNote({clef: 'bass', keys: bassNotes, duration: "w" })
-    ]);
+    staveNote = new Vex.Flow.StaveNote({clef: 'bass', keys: bassNotes, duration: "w" });
+    bassAccidentals.forEach(function(accidental, i) {
+      staveNote.addAccidental(i, accidental);
+    });
+    drawNotes(bassStave, [staveNote]);
   }
 }
 

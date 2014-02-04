@@ -2,18 +2,20 @@
 function Note(number, direction) {
   this.number = number;
   this.direction = direction || 'up';
+  this.octave = Math.floor(this.number / 12) - 1;
+  this.semitone = this.number % 12;
 }
 
 Note.prototype.letter = function () {
   // There's probably a more elegant way to do this… but this gets it done.
   var notes = '';
   if (this.direction == 'up') {
-      notes = 'CCDDEFFGGAAB';
+    notes = 'CCDDEFFGGAAB';
   }
   if (this.direction == 'down') {
-      notes = 'CDDEEFGGAABB';
+    notes = 'CDDEEFGGAABB';
   }
-  return notes[this.number % 12];
+  return notes[this.semitone];
 };
 
 Note.prototype.accidental = function () {
@@ -27,14 +29,6 @@ Note.prototype.accidental = function () {
   return "";
 };
 
-Note.prototype.octave = function () {
-  return Math.floor(this.number / 12) - 1;
-};
-
-Note.prototype.semitone = function () {
-  return this.number % 12;
-};
-
 Note.prototype.toString = function () {
-  return this.letter() + this.accidental() + '/' + this.octave();
+  return this.letter() + this.accidental() + '/' + this.octave;
 };
