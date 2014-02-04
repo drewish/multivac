@@ -55,11 +55,11 @@ function sendMiddleC(indexOfPort) {
 
 function drawGrandStaff(activeNotes) {
   var canvas = document.getElementById('drawing');
-  // var renderer = new Vex.Flow.Renderer(canvas, Vex.Flow.Renderer.Backends.CANVAS);
-  // var canvas = document.getElementById('svg-canvas');
+  while (canvas.lastChild) {
+    canvas.removeChild(canvas.lastChild);
+  }
   var renderer = new Vex.Flow.Renderer(canvas, Vex.Flow.Renderer.Backends.RAPHAEL);
   var ctx = renderer.getContext();
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   // Create the staves
   var trebleStave = new Vex.Flow.Stave(20, 40, 400)
