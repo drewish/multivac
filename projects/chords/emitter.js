@@ -19,20 +19,21 @@ Emitter.prototype.off = function(event, callback) {
 
 Emitter.prototype.once = function(event, callback) {
   this.events[event] = this.events[event] || [];
-  // Not the most efficent way with the new function but the simplest to
-  // implement.
-  this.events[event].push(function() {
-    this.off(event, callback);
-    callback.apply(this, arguments);
-  });
+  // Yeah, sticking this variable on the callback is tacky but it beats
+  // sticking it into a hash and then having to find the callback in the array.
+  callback.only_once = true;
+  this.events[event].push(callback);
   return this;
 };
 
 Emitter.prototype.trigger = function(event /* ...args */) {
   if (event in this.events) {
-    for (var i = 0, len = this.events[event].length; i < len; i++) {
-      this.events[event][i].apply(this, Array.prototype.slice.call(arguments, 1));
-    }
+    // There will probably be trouble if one of the callback changes the args.
+    var args = Array.prototype.slice.call(arguments, 1);
+    this.events[event] = this.events[event].filter(function(callback) {
+      callback.apply(this, args);
+      return !callback.only_once;
+    });
   }
   return this;
 };
