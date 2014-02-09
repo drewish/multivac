@@ -8,7 +8,7 @@ $().ready(function() {
     .once('started', function() {
       $('li.midiapi-help').hide();
     })
-    .once('input-found', function() {
+    .once('input-found', function(input) {
       $('li.midi-device-help').hide();
     });
 
