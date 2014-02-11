@@ -1,4 +1,3 @@
-
 function Note(number, direction) {
   this.number = number;
   this.direction = direction || 'up';
@@ -19,14 +18,13 @@ Note.prototype.letter = function () {
 };
 
 Note.prototype.accidental = function () {
-  var index = this.number % 12;
-  if (index == 1 || index == 3 || index == 6 || index == 8 || index == 10) {
-    if (this.direction == 'up') {
-      return "#";
-    }
-    return "b";
+  if ([1, 3, 6, 8, 10].indexOf(this.semitone) == -1) {
+    return "";
   }
-  return "";
+  if (this.direction == 'up') {
+    return "#";
+  }
+  return "b";
 };
 
 Note.prototype.toString = function () {
