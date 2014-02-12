@@ -1,5 +1,6 @@
 function Midi() {
   this.midi = null;
+  this.activeNotes = [];
 }
 
 Midi.prototype = new Emitter();
@@ -30,6 +31,7 @@ Midi.prototype.start = function() {
 
   function onMidiMessage(event) {
     var status;
+    var note;
     var body;
 
     // Ignore the CLOCK and TICK events
@@ -43,17 +45,30 @@ Midi.prototype.start = function() {
     }
 
     status = event.data[0] >> 4;
+    note = new Note(event.data[1]);
     body = {
       channel: event.data[0] & 0xF,
-      note: new Note(event.data[1]),
+      note: note,
       velocity: event.data[2]
     };
 
     if (status == 0x8 || (status == 0x9 && body.velocity === 0)) {
+      delete this.activeNotes[note.toString()];
       self.trigger('note-off', body);
+      self.trigger('note-change', this.activeNotes);
     }
     else if (status == 0x9) {
+      this.activeNotes[note.toString()] = note;
       self.trigger('note-on', body);
+      self.trigger('note-change', this.activeNotes);
     }
   }
+};
+
+Midi.prototype.stop = function() {
+  var inputs = this.midi.inputs();
+  for (var i = 0;i < inputs.length; i++) {
+    inputs[i].onmidimessage = null;
+  }
+  this.midi = null;
 };
