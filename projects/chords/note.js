@@ -1,7 +1,34 @@
-function Note(number, direction) {
-  this.number = number;
-  this.direction = direction || 'up';
-  this.octave = Math.floor(this.number / 12) - 1;
+function Note(note, direction) {
+  var note_indexes = 'C|D|EF|G|A|B';
+  var parts;
+
+  if (!isNaN(parseInt(note, 10))) {
+    this.number = parseInt(note, 10);
+    this.octave = Math.floor(this.number / 12) - 1;
+    this.direction = direction || 'up';
+    this.semitone = this.number % 12;
+  }
+  else if (typeof note === "string" || note instanceof String) {
+    parts = note.toUpperCase().match(/^([A-G])(B|#)?\/?([0-9]?)$/);
+    if (parts) {
+      this.letter = parts[1];
+      this.semitone = note_indexes.indexOf(parts[1]);
+      if (parts[2] == '#') {
+        this.semitone += 1;
+        this.direction = 'up';
+      }
+      else if (parts[2] == 'b') {
+        this.semitone -= 1;
+        this.direction = 'down';
+      }
+      this.number = this.semitone;
+      if (parts[3]) {
+        this.octave = parseInt(parts[3], 10);
+        this.number += this.octave * 12;
+      }
+    }
+  }
+
   this.semitone = this.number % 12;
 }
 
@@ -14,7 +41,7 @@ Note.prototype.letter = function () {
   if (this.direction == 'down') {
     notes = 'CDDEEFGGAABB';
   }
-  return notes[this.semitone];
+  return notes.charAt(this.semitone);
 };
 
 Note.prototype.accidental = function () {
@@ -28,5 +55,9 @@ Note.prototype.accidental = function () {
 };
 
 Note.prototype.toString = function () {
-  return this.letter() + this.accidental() + '/' + this.octave;
+  var parts = [this.letter(), this.accidental()];
+  if (this.octave) {
+    parts.push('/' + this.octave);
+  }
+  return parts.join('');
 };
