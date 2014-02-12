@@ -49,7 +49,10 @@ Keyboard.prototype.stop = function() {
 };
 
 Keyboard.prototype.addNote = function(name) {
-  this.activeNotes[name] = name;
+  if (name in this.activeNotes) {
+    return;
+  }
+  this.activeNotes[name] = new Note(name);
   this.trigger('note-change', this.activeNotes);
 };
 
