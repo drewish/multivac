@@ -1,10 +1,21 @@
+function Display(id) {
+  this.canvas = document.getElementById('drawing');
+}
 
-function drawGrandStaff(activeNotes) {
-  var canvas = document.getElementById('drawing');
-  while (canvas.lastChild) {
-    canvas.removeChild(canvas.lastChild);
+Display.prototype.show = function(notes) {
+  this.drawGrandStaff(notes);
+};
+
+Display.prototype.clear = function() {
+  while (this.canvas.lastChild) {
+    this.canvas.removeChild(this.canvas.lastChild);
   }
-  var renderer = new Vex.Flow.Renderer(canvas, Vex.Flow.Renderer.Backends.RAPHAEL);
+};
+
+Display.prototype.drawGrandStaff = function(activeNotes) {
+  this.clear();
+
+  var renderer = new Vex.Flow.Renderer(this.canvas, Vex.Flow.Renderer.Backends.RAPHAEL);
   var ctx = renderer.getContext();
 
   // Create the staves
@@ -32,13 +43,13 @@ function drawGrandStaff(activeNotes) {
       accidental = new Vex.Flow.Accidental(note.accidental());
     }
     if (note.octave > 2) {
-      trebleNotes.push(key);
+      trebleNotes.push(note.toString());
       if (accidental) {
         trebleAccidentals.push(accidental);
       }
     }
     if (note.octave < 5) {
-      bassNotes.push(key);
+      bassNotes.push(note.toString());
       if (accidental) {
         bassAccidentals.push(accidental);
       }
@@ -51,18 +62,18 @@ function drawGrandStaff(activeNotes) {
     trebleAccidentals.forEach(function(accidental, i) {
       staveNote.addAccidental(i, accidental);
     });
-    drawNotes(trebleStave, [staveNote]);
+    this.drawNotes(trebleStave, [staveNote]);
   }
   if (bassNotes.length) {
     staveNote = new Vex.Flow.StaveNote({clef: 'bass', keys: bassNotes, duration: "w" });
     bassAccidentals.forEach(function(accidental, i) {
       staveNote.addAccidental(i, accidental);
     });
-    drawNotes(bassStave, [staveNote]);
+    this.drawNotes(bassStave, [staveNote]);
   }
-}
+};
 
-function drawNotes(stave, notes) {
+Display.prototype.drawNotes = function(stave, notes) {
   // Create a voice in 4/4
   var Voice = new Vex.Flow.Voice({
     num_beats: 4,
@@ -78,5 +89,5 @@ function drawNotes(stave, notes) {
 
   // Render voice
   Voice.draw(stave.getContext(), stave);
-}
+};
 

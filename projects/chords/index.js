@@ -12,10 +12,9 @@ $().ready(function() {
 
   midi.start();
 
-
+  var display = new Display();
   var kbd = new Keyboard();
+  var controller = new Controller(kbd, display);
   kbd.start();
-  var controller = new Controller(kbd);
-
   controller.run();
 });

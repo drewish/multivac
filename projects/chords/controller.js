@@ -1,7 +1,12 @@
-function Controller(input) {
+function Controller(input, output) {
   this.input = input;
+  this.output = output;
   this.lesson = new Lesson();
   this.note = null;
+
+  this.on('playing', function(note) { output.show([note]); });
+  this.on('right', function(note) { output.show([]); });
+  //this.on('wrong', function(note) { output.show([]); });
 }
 
 Controller.prototype = new Emitter();
@@ -14,14 +19,14 @@ Controller.prototype.run = function() {
 
   // Pick a new note, then we'll play it.
   function pick() {
-    self.note = self.lesson.next();
+    self.note = new Note(self.lesson.next());
     self.trigger('picked', self.note);
     setTimeout(play, 250);
   }
 
   // Play the note, then we'll wait for them.
   function play() {
-console.log("playing", (new Note(self.note)).toString());
+console.log("playing", self.note.toString());
     self.trigger('playing', self.note);
     // Let them guess while it's still playing.
     setTimeout(wait, 100);

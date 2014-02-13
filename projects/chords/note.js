@@ -4,7 +4,7 @@ function Note(note, direction) {
 
   if (!isNaN(parseInt(note, 10))) {
     this.number = parseInt(note, 10);
-    this.octave = Math.floor(this.number / 12) - 1;
+    this.octave = Math.floor(this.number / 12);
     this.direction = direction || 'up';
     this.semitone = this.number % 12;
   }
