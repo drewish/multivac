@@ -70,16 +70,20 @@ Lesson.prototype.next = function() {
   // Use the score to determine how many copies of the note to put into the hat
   // higher scores should be drawn more frequently.
   var hat = [];
-  console.log('picking from  ');
+  var message = 'picking from  ';
   var heights = [' ', '▁','▂','▄','▅','▇','█︎'];
   _.forOwn(this.scores, function(score, n) {
-    console.log(n + ':' + heights[Math.floor(score / 2)] + ' (' + score + ') ');
+    message += (new Note(n)) + '(' + heights[Math.floor(score / 2)] + score + ') ';
     for (var i = 0; i < score; i++) { hat.push(n); }
   });
-  console.log("\n");
+  console.log(message);
 
   this.lastNote = pickRandom(hat);
   return this.lastNote;
+};
+
+Lesson.prototype.check = function(selected) {
+  return (selected.semitone == (this.lastNote % 12));
 };
 
 Lesson.prototype.right = function() {
@@ -97,8 +101,6 @@ console.log("biggest score", biggestScore);
 };
 
 Lesson.prototype.wrong = function(picked) {
-  console.log(picked + " ");
-
   // When they guess wrong increase the score of both notes.
   this.adjust(this.lastNote, +1);
   this.adjust(picked, +1);

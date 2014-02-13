@@ -1,6 +1,4 @@
-
 $().ready(function() {
-  var activeNotes = [];
 
   var midi = new Midi();
 
@@ -12,23 +10,12 @@ $().ready(function() {
       $('li.midi-device-help').hide();
     });
 
-  midi.on('note-on', function(event) {
-    var note = event.note;
-    activeNotes[note.toString()] = note;
-
-    console.log(activeNotes);
-    drawGrandStaff(activeNotes);
-  });
-
-  midi.on('note-off', function(event) {
-    var note = event.note;
-    delete activeNotes[note.toString()];
-
-    console.log(activeNotes);
-    drawGrandStaff(activeNotes);
-  });
-
   midi.start();
 
-  drawGrandStaff(activeNotes);
+
+  var kbd = new Keyboard();
+  kbd.start();
+  var controller = new Controller(kbd);
+
+  controller.run();
 });
