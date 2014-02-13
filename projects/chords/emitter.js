@@ -27,13 +27,24 @@ Emitter.prototype.once = function(event, callback) {
 };
 
 Emitter.prototype.trigger = function(event /* ...args */) {
-  if (event in this.events) {
-    // There will probably be trouble if one of the callback changes the args.
-    var args = Array.prototype.slice.call(arguments, 1);
-    this.events[event] = this.events[event].filter(function(callback) {
-      callback.apply(this, args);
-      return !callback.only_once;
-    });
+  if (!(event in this.events)) {
+    return;
   }
+
+  var self = this;
+  // There will probably be trouble if one of the callback changes the args.
+  var args = Array.prototype.slice.call(arguments, 1);
+
+  // Make a copy of the callbacks then remove any one time callbacks, we
+  // don't want them called twice if another callback causes the event to
+  // fire again.
+  var callbacks = this.events[event].slice(0);
+  this.events[event] = this.events[event].filter(function(callback) {
+    return !callback.only_once;
+  });
+  callbacks.forEach(function(callback) {
+    callback.apply(self, args);
+  });
+
   return this;
 };
