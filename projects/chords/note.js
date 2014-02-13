@@ -11,7 +11,6 @@ function Note(note, direction) {
   else if (typeof note === "string" || note instanceof String) {
     parts = note.toUpperCase().match(/^([A-G])(B|#)?\/?([0-9]?)$/);
     if (parts) {
-      this.letter = parts[1];
       this.semitone = note_indexes.indexOf(parts[1]);
       if (parts[2] == '#') {
         this.semitone += 1;
