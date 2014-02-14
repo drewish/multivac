@@ -4,7 +4,7 @@ function Controller(input, output) {
   this.lesson = new Lesson();
   this.note = null;
 
-  this.on('playing', function(note) { output.show([note]); });
+  this.on('playing', function(note) { output.show([note], note.letter() + note.accidental()); });
   this.on('right', function(note) { output.show([]); });
   //this.on('wrong', function(note) { output.show([]); });
 }

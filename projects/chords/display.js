@@ -1,88 +1,66 @@
 function Display(id) {
-  this.canvas = document.getElementById('drawing');
 }
 
-Display.prototype.show = function(notes) {
-  this.drawGrandStaff(notes);
+Display.prototype.show = function(notes, label) {
+  this.canvas = document.getElementById('drawing');
+  this.clear();
+
+  var staves = this.drawGrandStaff();
+
+  var treble = notes.filter(function(note) { return (note.octave > 2); });
+  var bass = notes.filter(function(note) { return (note.octave < 5); });
+
+  this.drawNotes(staves.treble, treble);
+  this.drawNotes(staves.bass, bass, label);
 };
 
 Display.prototype.clear = function() {
   while (this.canvas.lastChild) {
     this.canvas.removeChild(this.canvas.lastChild);
   }
+  this.renderer = new Vex.Flow.Renderer(this.canvas, Vex.Flow.Renderer.Backends.RAPHAEL);
+  this.ctx = this.renderer.getContext();
 };
 
-Display.prototype.drawGrandStaff = function(activeNotes) {
-  this.clear();
+Display.prototype.drawGrandStaff = function() {
+  var trebleStave = new Vex.Flow.Stave(20, 40, 400).addClef('treble').setContext(this.ctx).draw();
+  var bassStave = new Vex.Flow.Stave(20, 160, 400).addClef('bass').setContext(this.ctx).draw();
 
-  var renderer = new Vex.Flow.Renderer(this.canvas, Vex.Flow.Renderer.Backends.RAPHAEL);
-  var ctx = renderer.getContext();
+  new Vex.Flow.StaveConnector(trebleStave, bassStave).setType(3).setContext(this.ctx).draw();
+  new Vex.Flow.StaveConnector(trebleStave, bassStave).setType(1).setContext(this.ctx).draw();
+  new Vex.Flow.StaveConnector(trebleStave, bassStave).setType(6).setContext(this.ctx).draw();
 
-  // Create the staves
-  var trebleStave = new Vex.Flow.Stave(20, 40, 400)
-    .addClef('treble').setContext(ctx).draw();
-  var bassStave = new Vex.Flow.Stave(20, 160, 400)
-    .addClef('bass').setContext(ctx).draw();
+  return {treble: trebleStave, bass: bassStave};
+};
 
-  new Vex.Flow.StaveConnector(trebleStave, bassStave)
-    .setType(3).setContext(ctx).draw();
-  new Vex.Flow.StaveConnector(trebleStave, bassStave)
-    .setType(1).setContext(ctx).draw();
-  new Vex.Flow.StaveConnector(trebleStave, bassStave)
-    .setType(6).setContext(ctx).draw();
+Display.prototype.drawNotes = function(stave, notes, label) {
+  if (!notes.length) return;
 
-  var trebleNotes = [];
-  var bassNotes = [];
-  var trebleAccidentals = [];
-  var bassAccidentals = [];
+  var staveNote = new Vex.Flow.StaveNote({
+    clef: stave.clef, duration: "w",
+    keys: notes.map(function(n) { return n.toString(); })
+  });
 
-  Object.keys(activeNotes).forEach(function(key) {
-    var note = activeNotes[key];
-    var accidental;
+  notes.forEach(function(note, i) {
     if (note.accidental()) {
-      accidental = new Vex.Flow.Accidental(note.accidental());
-    }
-    if (note.octave > 2) {
-      trebleNotes.push(note.toString());
-      if (accidental) {
-        trebleAccidentals.push(accidental);
-      }
-    }
-    if (note.octave < 5) {
-      bassNotes.push(note.toString());
-      if (accidental) {
-        bassAccidentals.push(accidental);
-      }
+      staveNote.addAccidental(i, new Vex.Flow.Accidental(note.accidental()));
     }
   });
 
-  var staveNote;
-  if (trebleNotes.length) {
-    staveNote = new Vex.Flow.StaveNote({clef: 'treble', keys: trebleNotes, duration: "w" });
-    trebleAccidentals.forEach(function(accidental, i) {
-      staveNote.addAccidental(i, accidental);
-    });
-    this.drawNotes(trebleStave, [staveNote]);
+  if (label) {
+    staveNote.addAnnotation(0, (new Vex.Flow.Annotation(label))
+      .setFont("Times", 12)
+      .setVerticalJustification(Vex.Flow.Annotation.VerticalJustify.BOTTOM)
+    );
   }
-  if (bassNotes.length) {
-    staveNote = new Vex.Flow.StaveNote({clef: 'bass', keys: bassNotes, duration: "w" });
-    bassAccidentals.forEach(function(accidental, i) {
-      staveNote.addAccidental(i, accidental);
-    });
-    this.drawNotes(bassStave, [staveNote]);
-  }
-};
 
-Display.prototype.drawNotes = function(stave, notes) {
   // Create a voice in 4/4
   var Voice = new Vex.Flow.Voice({
-    num_beats: 4,
-    beat_value: 4,
-    resolution: Vex.Flow.RESOLUTION
+    num_beats: 4, beat_value: 4, resolution: Vex.Flow.RESOLUTION
   });
 
   // Add notes to voice
-  Voice.addTickables(notes);
+  Voice.addTickables([staveNote]);
 
   // Format and justify the notes
   new Vex.Flow.Formatter().joinVoices([Voice]).format([Voice], 300);
@@ -90,4 +68,3 @@ Display.prototype.drawNotes = function(stave, notes) {
   // Render voice
   Voice.draw(stave.getContext(), stave);
 };
-
