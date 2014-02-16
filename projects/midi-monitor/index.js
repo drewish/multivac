@@ -137,6 +137,7 @@ function drawNotes(stave, notes) {
 
 $().ready(function() {
   var activeNotes = [];
+  var display = new Display();
 
   if (window.navigator.requestMIDIAccess) {
     $('.midiapi-help').hide();
@@ -150,21 +151,27 @@ $().ready(function() {
 
   midiEmitter.on('note-on', function(event) {
     var note = event.note;
-    activeNotes[note.toString()] = note;
+
+    // Make sure we don't put this in twice.
+    activeNotes = activeNotes.filter(function(n) {
+      return n.number != note.number;
+    });
+    activeNotes.push(note);
 
     console.log(activeNotes);
-    drawGrandStaff(activeNotes);
+    display.show(activeNotes);
   });
 
   midiEmitter.on('note-off', function(event) {
     var note = event.note;
-    var index;
 
-    delete activeNotes[note.toString()];
+    activeNotes = activeNotes.filter(function(n) {
+      return n.number != note.number;
+    });
 
     console.log(activeNotes);
-    drawGrandStaff(activeNotes);
+    display.show(activeNotes);
   });
 
-  drawGrandStaff(activeNotes);
+  display.show(activeNotes);
 });
