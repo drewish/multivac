@@ -2,10 +2,11 @@ function Note(note, direction) {
   var note_indexes = 'C|D|EF|G|A|B';
   var parts;
 
+  this.direction = direction || 'up';
+
   if (!isNaN(parseInt(note, 10))) {
     this.number = parseInt(note, 10);
     this.octave = Math.floor(this.number / 12);
-    this.direction = direction || 'up';
     this.semitone = this.number % 12;
   }
   else if (typeof note === "string" || note instanceof String) {
@@ -26,9 +27,8 @@ function Note(note, direction) {
         this.number += this.octave * 12;
       }
     }
+    this.semitone = this.number % 12;
   }
-
-  this.semitone = this.number % 12;
 }
 
 Note.prototype.letter = function () {
@@ -37,7 +37,7 @@ Note.prototype.letter = function () {
   if (this.direction == 'up') {
     notes = 'CCDDEFFGGAAB';
   }
-  if (this.direction == 'down') {
+  else {
     notes = 'CDDEEFGGAABB';
   }
   return notes.charAt(this.semitone);

@@ -10,8 +10,16 @@ Display.prototype.show = function(notes, label) {
   var treble = notes.filter(function(note) { return (note.octave > 2); });
   var bass = notes.filter(function(note) { return (note.octave < 5); });
 
-  this.drawNotes(staves.treble, treble);
+  this.drawNotes(staves.treble, treble, label);
   this.drawNotes(staves.bass, bass, label);
+};
+
+Display.prototype.right = function(note) {
+  console.log('right');
+};
+
+Display.prototype.wrong = function(actual, expected) {
+  console.log('wrong', actual.toString());
 };
 
 Display.prototype.clear = function() {
@@ -48,9 +56,11 @@ Display.prototype.drawNotes = function(stave, notes, label) {
   });
 
   if (label) {
+    var just = Vex.Flow.Annotation.VerticalJustify[stave.clef == 'bass' ? 'BOTTOM' : 'TOP'];
     staveNote.addAnnotation(0, (new Vex.Flow.Annotation(label))
       .setFont("Times", 12)
-      .setVerticalJustification(Vex.Flow.Annotation.VerticalJustify.BOTTOM)
+      .setJustification(Vex.Flow.Annotation.Justify.CENTER)
+      .setVerticalJustification(just)
     );
   }
 

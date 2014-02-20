@@ -4,6 +4,7 @@ title: Chords
 ---
 <div class="row">
   <div class="large-4 push-8 columns">
+<!--
     <h3>How to use this…</h3>
     <ul>
       <li class="midiapi-help">
@@ -24,6 +25,14 @@ title: Chords
       <li>
         Play some notes on your MIDI device.
       </li>
+    </ul>
+    <hr/>
+-->
+    <label for="octave">Octave: </label>
+    <input type="number" id="octave" min="0" max="9" value="5" />
+    <button id="start">Start</button>
+    <button id="stop" style="display:none;">Stop</button>
+    <ul id="scores">
     </ul>
   </div>
 

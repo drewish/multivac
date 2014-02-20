@@ -2,7 +2,7 @@ function Keyboard() {
   var self = this;
   var lastCharacter = "";
 
-  this.activeNotes = {};
+  this.activeNotes = [];
   this.key = function(event) {
     var code = event.charCode || event.keyCode;
     var character;
@@ -41,7 +41,6 @@ Keyboard.prototype = new Emitter();
 
 Keyboard.prototype.start = function() {
   window.addEventListener('keyup', this.key);
-  this.on('note-change', function(a) {console.log('pressing', a);});
 };
 
 Keyboard.prototype.stop = function() {
@@ -49,19 +48,33 @@ Keyboard.prototype.stop = function() {
 };
 
 Keyboard.prototype.addNote = function(name) {
-  if (name in this.activeNotes) {
-    return;
-  }
-  this.activeNotes[name] = new Note(name);
+  // Make sure we don't put this in twice.
+  this.activeNotes = this.activeNotes.filter(function(n) {
+    return n.toString() != name;
+  });
+  this.activeNotes.push(new Note(name));
+
   this.trigger('note-change', this.activeNotes);
 };
 
-// Keyboard.prototype.removeNote = function(name) {
-//   delete self.activeNotes[name];
-//   this.trigger('note-change', this.activeNotes);
-// };
+Keyboard.prototype.removeNote = function(name) {
+  this.activeNotes = this.activeNotes.filter(function(n) {
+    return n.toString() != name;
+  });
+  this.trigger('note-change', this.activeNotes);
+};
 
 Keyboard.prototype.clearNotes = function(name) {
-  this.activeNotes = {};
+  this.activeNotes = [];
   this.trigger('note-change', this.activeNotes);
+};
+
+// Compare the specified note to the active notes.
+// TODO: should allow for incomplete answers (e.g. A is incomplete match for A#)
+Keyboard.prototype.matches = function(note) {
+  // Ignore octave and accidentals
+  var letter = note.letter();
+  return this.activeNotes.some(function(n) {
+    return n.letter() == letter;
+  });
 };
