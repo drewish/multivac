@@ -1,0 +1,53 @@
+---
+layout: full_width
+title: Learn Chords
+---
+<div class="row">
+  <div class="large-4 push-8 columns">
+<!--
+    <h3>How to use this…</h3>
+    <ul>
+      <li class="midiapi-help">
+        Install <a href="https://www.google.com/intl/en/chrome/browser/">Chrome</a>
+        then the <a href="chrome://flags/#enable-web-midi">Web MIDI API</a> flag.
+      </li>
+      <li class="midiapi-help">
+        Or, install <a href="http://jazz-soft.net/">Jazz-Soft's browser plugin</a>
+        and the <a href="https://github.com/cwilso/WebMIDIAPIShim">Web MIDI API shim</a>
+        will be used.
+      </li>
+      <li class="midi-device-help">
+        Plug in a MIDI keyboard or install <a href="http://www.manyetas.com/creed/midikeys.html">MidiKeys</a>
+      </li>
+      <li class="midi-device-help">
+        Restart your browser.
+      </li>
+      <li>
+        Play some notes on your MIDI device.
+      </li>
+    </ul>
+    <hr/>
+-->
+    <label for="octave">Octave: </label>
+    <input type="number" id="octave" min="0" max="9" value="5" />
+    <button id="start">Start</button>
+    <button id="stop" style="display:none;">Stop</button>
+    <ul id="scores">
+    </ul>
+  </div>
+
+  <div class="large-8 pull-4 columns">
+    <div id="drawing"></div>
+  </div>
+</div>
+
+{% javascript chords %}
+<script src="emitter.js"></script>
+<script src="display.js"></script>
+<script src="midi.js"></script>
+<script src="keyboard.js"></script>
+<script src="note.js"></script>
+<script src="chord.js"></script>
+<script src="lesson.js"></script>
+<script src="controller.js"></script>
+<script src="index.js"></script>
