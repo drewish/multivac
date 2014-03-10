@@ -14,7 +14,11 @@ $().ready(function() {
 
   display.show([]);
 
-  input.on('input-found', function(input) {
+  if (window.navigator.requestMIDIAccess) {
+    $('.midiapi-help').hide();
+  }
+
+  input.once('input-found', function(input) {
     $('.midi-device-help').hide();
     console.log(input);
   });
@@ -23,5 +27,4 @@ $().ready(function() {
   });
 
   input.start();
-
 });
