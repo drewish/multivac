@@ -14,15 +14,17 @@ $().ready(function() {
 
   var display = new Display();
   var kbd = new Keyboard();
-  var controller = new Controller(kbd, display);
+  var controller = new Controller(kbd);
 
   $('#start').click(function() {
-    $('#start, #stop').toggle();
+    var lesson = new Lesson(display, {'octave': $('#octave').val()});
+    $('#start, #stop, #settings').toggle();
     kbd.start();
-    controller.start($('#octave').val());
+    controller.start(lesson);
   });
   $('#stop').click(function() {
-    $('#start, #stop').toggle();
+    $('#start, #stop, #settings').toggle();
+    display.clear();
     kbd.stop();
     controller.stop();
   });

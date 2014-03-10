@@ -2,6 +2,11 @@ function Display(id) {
 }
 
 Display.prototype.show = function(notes, label) {
+  // Hack to support Notes or a Chord
+  if (notes.length && notes[0].notes instanceof Function) {
+    notes = notes[0].notes();
+  }
+
   this.canvas = document.getElementById('drawing');
   this.clear();
 
@@ -19,7 +24,11 @@ Display.prototype.right = function(note) {
 };
 
 Display.prototype.wrong = function(actual, expected) {
-  console.log('wrong', actual.toString());
+  if (actual === null) {
+    console.log('wrong', 'timedout');
+  } else {
+    console.log('wrong', actual.toString());
+  }
 };
 
 Display.prototype.clear = function() {

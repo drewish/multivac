@@ -2,16 +2,15 @@ function Controller(input, output) {
   this.input = input;
   this.output = output;
   this.lesson = null;
-  this.note = null;
   this.timer = null;
 }
 
 Controller.prototype = new Emitter();
 
-Controller.prototype.start = function(octave) {
+Controller.prototype.start = function(lesson) {
   var self = this;
 
-  self.lesson = new Lesson(this.output, {'octave': octave});
+  self.lesson = lesson;
 
   // Start state
   pick();
@@ -21,7 +20,7 @@ Controller.prototype.start = function(octave) {
 
   // Pick a new note, then we'll play it.
   function pick() {
-    self.note = self.lesson.next();
+    self.lesson.next();
     self.timer = setTimeout(wait, 250);
   }
 
@@ -38,7 +37,7 @@ Controller.prototype.start = function(octave) {
     clearTimeout(self.timer);
 
     // TODO: should allow for incomplete answers
-    if (self.input.matches(self.note)) {
+    if (self.input.matches(self.lesson.currentItem)) {
       self.lesson.right(message[0]);
       self.timer = setTimeout(pick, 500);
     }
@@ -54,12 +53,12 @@ Controller.prototype.start = function(octave) {
     self.input.off('note-change', acceptGuess);
     clearTimeout(self.timer);
 
+    self.lesson.wrong(null);
+
     wait();
   }
 };
 
 Controller.prototype.stop = function() {
   clearTimeout(self.timer);
-
-  this.output.clear();
 };

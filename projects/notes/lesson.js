@@ -10,7 +10,6 @@ function Lesson(display, options) {
   }
 
   this.notes = majorScale(parseInt(options.octave, 10), 0);
-  this.intro = this.notes.slice(0);
   this.sequence = this.notes.slice(0);
 
   // make the first two notes active
@@ -18,12 +17,10 @@ function Lesson(display, options) {
   this.add();
   this.add();
 
-  this.lastNote = null;
+  this.currentItem = null;
 }
 
 Lesson.prototype.add = function() {
-
-
 console.log("adding!", this.sequence);
   if (this.sequence.length > 0) {
     this.scores[this.sequence.shift()] = 3;
@@ -34,52 +31,52 @@ console.log("adding!", this.sequence);
   }
 };
 
-Lesson.prototype.random = function(notes, last) {
-  last = last || notes[0];
-  // Pick randomly from the notes.
+Lesson.prototype.random = function(items, last) {
+  last = last || items[0];
+  // Pick randomly from the items.
   var index;
   // Don't give them the same note two times in a row.
   do {
-    index = Math.floor(Math.random() * notes.length);
-  } while (last == notes[index]);
-  return notes[index];
+    index = Math.floor(Math.random() * items.length);
+  } while (last == items[index]);
+  return items[index];
 };
 
 Lesson.prototype.next = function() {
   var label = null;
 
-  if (this.intro.length) {
-    this.lastNote = new Note(this.intro.shift());
-    label = this.lastNote.letter() + this.lastNote.accidental();
+  // Use the score to determine how many copies of the note to put into the hat
+  // higher scores should be drawn more frequently.
+  var hat = [];
+//  var message = '';
+  _.forOwn(this.scores, function(score, n) {
+//    message += '<li>' + (new Note(n).toString()) + ' (' + score + ')</li>';
+    for (var i = 0; i < score; i++) { hat.push(n); }
+  });
+//  $('#scores').html(message);
+
+  this.currentItem = this.random(hat, (this.currentItem || this.notes[0]).number);
+
+  // First time they see a note show them the label.
+  if (!this.currentItem.introduced) {
+    this.currentItem.introduced = true;
+    label = "New: " + this.currentItem.letter() + this.currentItem.accidental();
   }
-  else {
-    // Use the score to determine how many copies of the note to put into the hat
-    // higher scores should be drawn more frequently.
-    var hat = [];
-    var message = '';
-    _.forOwn(this.scores, function(score, n) {
-      message += '<li>' + (new Note(n).toString()) + ' (' + score + ')</li>';
-      for (var i = 0; i < score; i++) { hat.push(n); }
-    });
-    $('#scores').html(message);
 
-    this.lastNote = new Note(this.random(hat, this.lastNote.number));
-    this.display.show([this.lastNote]);
-  }
+  this.display.show([this.currentItem], label);
 
-  this.display.show([this.lastNote], label);
-
-  return this.lastNote;
+  return this.currentItem;
 };
 
 Lesson.prototype.right = function() {
-  this.display.right(this.lastNote);
+  // TODO: Probably should remove this.
+  this.display.right(this.currentItem);
+  this.display.show([]);
 
-  if (this.intro.length) { return; }
 
   // Decrease the score
-  if (this.scores[this.lastNote.number] > 1) {
-    this.adjust(this.lastNote.number, -1);
+  if (this.scores[this.currentItem.number] > 1) {
+    this.adjust(this.currentItem.number, -1);
   }
 
   // If they're doing well introduce a new score
@@ -90,13 +87,26 @@ console.log("biggest score", biggestScore);
   }
 };
 
+// picked may be null for timeouts
 Lesson.prototype.wrong = function(picked) {
-  this.display.wrong(picked, this.lastNote);
+  // Keep track of how many times they've gotten it wrong.
+  this.currentItem.missed = (this.currentItem.missed || 0) + 1;
 
-  if (this.intro.length) { return; }
+  // Tell them if they miss it more than twice.
+  if (this.currentItem.missed > 2) {
+    var label = "Try: " + this.currentItem.letter() + this.currentItem.accidental();
+    this.display.show([this.currentItem], label);
+  }
+  else {
+    this.display.show([this.currentItem], "✖");
+  }
+
+
+  // TODO: Probably should remove this.
+  this.display.wrong(picked, this.currentItem, this.currentItem.missed);
 
   // When they guess wrong increase the score of both notes.
-  this.adjust(this.lastNote.toString(), +1);
+  this.adjust(this.currentItem.toString(), +1);
   this.adjust(picked, +1);
 };
 
