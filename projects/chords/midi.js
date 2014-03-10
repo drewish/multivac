@@ -1,35 +1,27 @@
 function Midi() {
   this.midi = null;
   this.activeNotes = [];
-}
 
-Midi.prototype = new Emitter();
+  this.listen = (function (midiAccess) {
+    this.midi = midiAccess;
+    this.trigger('started');
 
-Midi.prototype.start = function() {
-  var self = this;
+    var inputs = this.midi.inputs();
+    console.log("MIDI connected", inputs.length);
 
-  if (window.navigator.requestMIDIAccess) {
-    window.navigator.requestMIDIAccess().then(onMidiSuccess, onMidiError);
-  }
-
-  function onMidiSuccess(midiAccess) {
-    self.midi = midiAccess;
-
-    self.trigger('started');
-
-    var inputs = midiAccess.inputs();
-    for (var i = 0;i < inputs.length; i++) {
-      inputs[i].onmidimessage = onMidiMessage;
-      self.trigger('input-found', inputs[i]);
+    for (var i = 0; i < inputs.length; i++) {
+      inputs[i].onmidimessage = this.onMessage;
+      this.trigger('input-found', inputs[i]);
+      console.log("Listening to", inputs[i].manufacturer, inputs[i].name);
     }
-  }
+  }).bind(this);
 
-  function onMidiError(err) {
-    self.trigger('error', err);
+  this.onError = (function(err) {
+    this.trigger('error', err);
     console.log("MIDI connection error, code: " + err.code);
-  }
+  }.bind(this));
 
-  function onMidiMessage(event) {
+  this.onMessage = (function (event) {
     var status;
     var note;
     var body;
@@ -44,6 +36,8 @@ Midi.prototype.start = function() {
       return;
     }
 
+    //console.log('midi event', event.data);
+
     status = event.data[0] >> 4;
     note = new Note(event.data[1]);
     body = {
@@ -53,22 +47,106 @@ Midi.prototype.start = function() {
     };
 
     if (status == 0x8 || (status == 0x9 && body.velocity === 0)) {
-      delete this.activeNotes[note.toString()];
-      self.trigger('note-off', body);
-      self.trigger('note-change', this.activeNotes);
+      this.activeNotes = this.activeNotes.filter(function(n) {
+        return n.number != note.number;
+      });
+
+      this.trigger('note-off', body);
+      this.trigger('note-change', this.activeNotes);
     }
     else if (status == 0x9) {
-      this.activeNotes[note.toString()] = note;
-      self.trigger('note-on', body);
-      self.trigger('note-change', this.activeNotes);
+      // Make sure we don't put this in twice.
+      this.activeNotes = this.activeNotes.filter(function(n) {
+        return n.number != note.number;
+      });
+      this.activeNotes.push(note);
+
+      this.trigger('note-on', body);
+      this.trigger('note-change', this.activeNotes);
     }
+  }).bind(this);
+}
+
+Midi.prototype = new Emitter();
+
+Midi.prototype.start = function() {
+  if (window.navigator.requestMIDIAccess) {
+    window.navigator.requestMIDIAccess().then(this.listen, this.onError);
   }
 };
 
 Midi.prototype.stop = function() {
+  if (!this.midi) return;
+
   var inputs = this.midi.inputs();
   for (var i = 0;i < inputs.length; i++) {
     inputs[i].onmidimessage = null;
   }
   this.midi = null;
 };
+
+
+// Promies that resolves when no notes are being played.
+function promiseNoNotes(midi) {
+  return new Promise(function(resolve, reject) {
+    var compare = function (notes) {
+      if (notes.length > 0) {
+        return false;
+      }
+
+      midi.off('note-change', compare);
+      resolve();
+      return true;
+    };
+
+    // Check the current value before setting up the listener
+    if (!compare(midi.activeNotes)) {
+      midi.on('note-change', compare);
+    }
+  });
+}
+
+// Promise that resolves when the midi numbers are pressed, or rejects when an
+// incorrect note is played or the timeout is reached.
+function promiseMatchNotes(midi, numbers, timeout) {
+  // Matching relative positions right now.
+  var expected = numbers.map(function(n) { return n % 12; });
+
+  return new Promise(function(resolve, reject) {
+    // Only wait this long before rejecting.
+    var timer = setTimeout(timedout, timeout);
+
+    function timedout() {
+      reject(null);
+    }
+
+    function compare(notes) {
+      var pressed = notes.map(function(n) { return n.semitone; });
+      var wrong = _.difference(pressed, expected);
+      var result;
+
+      console.log('expecting', expected, 'tried', pressed);
+      // If they're pressing something that's not in the list, fail.
+      if (wrong.length) {
+        midi.off('note-change', compare);
+        clearTimeout(timer);
+        reject(notes);
+        return true;
+      }
+      // If they're pressing the same number of notes it must be right then.
+      else if (pressed.length === expected.length) {
+        midi.off('note-change', compare);
+        clearTimeout(timer);
+        resolve(notes);
+        return false;
+      }
+      // Otherwise keep waiting.
+      return null;
+    }
+
+    // Check the current note incase it matches before setting up a listener.
+    if (compare(midi.activeNotes) === null) {
+      midi.on('note-change', compare);
+    }
+  });
+}
