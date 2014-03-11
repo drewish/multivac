@@ -55,14 +55,14 @@ Lesson.prototype.right = function() {
   this.display.show([]);
 
   // Decrease the score
-  if (this.scores[this.currentItem.number] > 1) {
-    this.adjust(this.currentItem, -1);
-  }
+  this.adjust(this.currentItem, -1);
 
   // If they're doing well introduce a new score
-  var biggestScore = _.values(this.scores).sort().reverse()[0];
+  var biggestScore = this.scores.sort(function(a, b) {
+    return a.score - b.score;
+  })[0];
 console.log("biggest score", biggestScore);
-  if(biggestScore < 3 ) {
+  if(biggestScore.score < 3 ) {
     this.add();
   }
 };

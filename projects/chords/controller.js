@@ -27,15 +27,15 @@ Controller.prototype.start = function(octave) {
   function wait() {
     var timeout = 5000;
 
-    promiseMatchNotes(self.input, self.lesson.currentItem.midi, timeout)
+    self.input.promiseMatches(self.lesson.currentItem.midi, timeout)
       .then(
         function(pressed) {
           self.lesson.right(pressed);
-          return promiseNoNotes(self.input).then(pick);
+          return self.input.promiseNoNotes().then(pick);
         },
         function(pressed) {
           self.lesson.wrong(pressed);
-          return promiseNoNotes(self.input).then(wait);
+          return self.input.promiseNoNotes().then(wait);
         }
       );
   }

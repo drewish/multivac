@@ -86,31 +86,35 @@ Midi.prototype.stop = function() {
 };
 
 
-// Promies that resolves when no notes are being played.
-function promiseNoNotes(midi) {
+// Promise that resolves when no notes are being played.
+Midi.prototype.promiseNoNotes = function() {
+  var input = this;
+
   return new Promise(function(resolve, reject) {
     var compare = function (notes) {
       if (notes.length > 0) {
         return false;
       }
 
-      midi.off('note-change', compare);
+      input.off('note-change', compare);
       resolve();
       return true;
     };
 
     // Check the current value before setting up the listener
-    if (!compare(midi.activeNotes)) {
-      midi.on('note-change', compare);
+    if (!compare(input.activeNotes)) {
+      input.on('note-change', compare);
     }
   });
-}
+};
 
 // Promise that resolves when the midi numbers are pressed, or rejects when an
 // incorrect note is played or the timeout is reached.
-function promiseMatchNotes(midi, numbers, timeout) {
+Midi.prototype.promiseMatches = function(expected, timeout) {
+  var input = this;
+
   // Matching relative positions right now.
-  var expected = numbers.map(function(n) { return n % 12; });
+  expected = expected.map(function(n) { return n % 12; });
 
   return new Promise(function(resolve, reject) {
     // Only wait this long before rejecting.
@@ -123,19 +127,18 @@ function promiseMatchNotes(midi, numbers, timeout) {
     function compare(notes) {
       var pressed = notes.map(function(n) { return n.semitone; });
       var wrong = _.difference(pressed, expected);
-      var result;
 
       console.log('expecting', expected, 'tried', pressed);
       // If they're pressing something that's not in the list, fail.
       if (wrong.length) {
-        midi.off('note-change', compare);
+        input.off('note-change', compare);
         clearTimeout(timer);
         reject(notes);
         return true;
       }
       // If they're pressing the same number of notes it must be right then.
       else if (pressed.length === expected.length) {
-        midi.off('note-change', compare);
+        input.off('note-change', compare);
         clearTimeout(timer);
         resolve(notes);
         return false;
@@ -145,8 +148,8 @@ function promiseMatchNotes(midi, numbers, timeout) {
     }
 
     // Check the current note incase it matches before setting up a listener.
-    if (compare(midi.activeNotes) === null) {
-      midi.on('note-change', compare);
+    if (compare(input.activeNotes) === null) {
+      input.on('note-change', compare);
     }
   });
-}
+};
