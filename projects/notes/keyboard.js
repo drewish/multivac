@@ -78,3 +78,49 @@ Keyboard.prototype.matches = function(note) {
     return n.letter() == letter;
   });
 };
+
+
+// Promise that resolves when the letter are pressed, rejects when an
+// incorrect letter is entered or the timeout is reached.
+Keyboard.prototype.promiseMatches = function(expected, timeout) {
+  var input = this;
+
+  // Matching relative positions right now.
+  expected = expected.map(function(n) { return n.letter(); });
+
+  return new Promise(function(resolve, reject) {
+    // Only wait this long before rejecting.
+    var timer = setTimeout(timedout, timeout);
+
+    function timedout() {
+      reject(null);
+    }
+
+    function compare(notes) {
+      var pressed = notes.map(function(n) { return n.letter(); });
+      var wrong = _.difference(pressed, expected);
+
+      // If they're pressing something that's not in the list, fail.
+      if (wrong.length) {
+        input.off('note-change', compare);
+        clearTimeout(timer);
+        reject(notes);
+        return true;
+      }
+      // If they're pressing the same number of notes it must be right then.
+      else if (pressed.length === expected.length) {
+        input.off('note-change', compare);
+        clearTimeout(timer);
+        resolve(notes);
+        return false;
+      }
+      // Otherwise keep waiting.
+      return null;
+    }
+
+    // Check the current note incase it matches before setting up a listener.
+    if (compare(input.activeNotes) === null) {
+      input.on('note-change', compare);
+    }
+  });
+};

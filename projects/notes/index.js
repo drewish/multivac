@@ -13,19 +13,17 @@ $().ready(function() {
   // midi.start();
 
   var display = new Display();
-  var kbd = new Keyboard();
-  var controller = new Controller(kbd);
+  var input = new Keyboard();
+  var controller = new Controller(input, display);
 
   $('#start').click(function() {
-    var lesson = new Lesson(display, {'octave': $('#octave').val()});
-    $('#start, #stop, #settings').toggle();
-    kbd.start();
-    controller.start(lesson);
+    $('#start, #stop').toggle();
+    input.start();
+    controller.start($('#octave').val());
   });
   $('#stop').click(function() {
-    $('#start, #stop, #settings').toggle();
-    display.clear();
-    kbd.stop();
+    $('#start, #stop').toggle();
+    input.start();
     controller.stop();
   });
 

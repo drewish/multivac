@@ -1,64 +1,48 @@
 function Controller(input, output) {
   this.input = input;
   this.output = output;
-  this.lesson = null;
-  this.timer = null;
+  this.lesson = new NoteLesson();
+  this.lesson.display = output;
 }
 
 Controller.prototype = new Emitter();
 
-Controller.prototype.start = function(lesson) {
+Controller.prototype.start = function(octave) {
   var self = this;
 
-  self.lesson = lesson;
+  this.playing = true;
+  this.lesson.setOptions({octave: octave});
 
   // Start state
   pick();
 
-  // This is roughtly setup as a state machine with each function being a state.
-  // Timeouts and MIDI events are used to transition between the states.
-
   // Pick a new note, then we'll play it.
   function pick() {
+    if (!self.playing) return;
+
     self.lesson.next();
-    self.timer = setTimeout(wait, 250);
-  }
-
-  // Wait for a guess, mark it as right or wrong and if we wait too long let's
-  // play the note again.
-  function wait() {
-    // Accept a guess...
-    self.input.once('note-change', acceptGuess);
-    // ...but don't wait too long.
-    self.timer = setTimeout(timedout, 5000);
-  }
-
-  function acceptGuess(message) {
-    clearTimeout(self.timer);
-
-    // TODO: should allow for incomplete answers
-    if (self.input.matches(self.lesson.currentItem)) {
-      self.lesson.right(message[0]);
-      self.timer = setTimeout(pick, 500);
-    }
-    else {
-      self.lesson.wrong(message[0]);
-      self.timer = setTimeout(wait, 1000);
-    }
-    self.input.clearNotes();
-  }
-
-  function timedout() {
-    // Remove timer/handler from wait()
-    self.input.off('note-change', acceptGuess);
-    clearTimeout(self.timer);
-
-    self.lesson.wrong(null);
-
     wait();
+  }
+
+  function wait() {
+    var timeout = 5000;
+
+    self.input.promiseMatches([self.lesson.currentItem], timeout)
+      .then(
+        function(pressed) {
+          self.lesson.right(pressed);
+          self.input.clearNotes();
+          pick();
+        },
+        function(pressed) {
+          self.lesson.wrong(pressed);
+          self.input.clearNotes();
+          wait();
+        }
+      );
   }
 };
 
 Controller.prototype.stop = function() {
-  clearTimeout(self.timer);
+  this.playing = false;
 };

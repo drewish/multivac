@@ -1,33 +1,15 @@
-function Lesson(display, options) {
-  options = options || {'octave': 3};
-
-  this.display = display;
-
-  // offset of 0 is a C scale, 1 C#, etc
-  function majorScale(octave, offset) {
-    var n = octave * 12 + (offset || 0);
-    return [n, n+2, n+4, n+5, n+7, n+9, n+11, n+12];
-  }
-
-  this.notes = majorScale(parseInt(options.octave, 10), 0);
-  this.sequence = this.notes.slice(0);
-
-  // make the first two notes active
-  this.scores = {};
-  this.add();
-  this.add();
-
+function Lesson() {
   this.currentItem = null;
 }
 
 Lesson.prototype.add = function() {
 console.log("adding!", this.sequence);
   if (this.sequence.length > 0) {
-    this.scores[this.sequence.shift()] = 3;
+    var next = this.sequence.shift();
+    next.score = 3;
+    this.scores.push(next);
     // Bump all the remaining notes up
-    _.forOwn(this.scores, function(v, i, a) {
-      a[i] += 1;
-    });
+    this.scores.forEach(function(o) { o.score += 1; });
   }
 };
 
@@ -48,21 +30,20 @@ Lesson.prototype.next = function() {
   // Use the score to determine how many copies of the note to put into the hat
   // higher scores should be drawn more frequently.
   var hat = [];
-//  var message = '';
-  _.forOwn(this.scores, function(score, n) {
-//    message += '<li>' + (new Note(n).toString()) + ' (' + score + ')</li>';
-    for (var i = 0; i < score; i++) { hat.push(n); }
+  var message = '';
+  _.forOwn(this.scores, function(item) {
+    message += '<li>' + (item.toString()) + ' (' + item.score + ')</li>';
+    for (var i = 0; i < item.score; i++) { hat.push(item); }
   });
-//  $('#scores').html(message);
+  $('#scores').html(message);
 
-  this.currentItem = this.random(hat, (this.currentItem || this.notes[0]).number);
+  this.currentItem = this.random(hat, (this.currentItem || this.sequence[0]));
 
   // First time they see a note show them the label.
   if (!this.currentItem.introduced) {
     this.currentItem.introduced = true;
-    label = "New: " + this.currentItem.letter() + this.currentItem.accidental();
+    label = "New: " + this.currentItem.toString();
   }
-
   this.display.show([this.currentItem], label);
 
   return this.currentItem;
@@ -73,16 +54,15 @@ Lesson.prototype.right = function() {
   this.display.right(this.currentItem);
   this.display.show([]);
 
-
   // Decrease the score
-  if (this.scores[this.currentItem.number] > 1) {
-    this.adjust(this.currentItem.number, -1);
-  }
+  this.adjust(this.currentItem, -1);
 
   // If they're doing well introduce a new score
-  var biggestScore = _.values(this.scores).sort().reverse()[0];
+  var biggestScore = this.scores.sort(function(a, b) {
+    return a.score - b.score;
+  })[0];
 console.log("biggest score", biggestScore);
-  if(biggestScore < 3 ) {
+  if(biggestScore.score < 3 ) {
     this.add();
   }
 };
@@ -94,7 +74,7 @@ Lesson.prototype.wrong = function(picked) {
 
   // Tell them if they miss it more than twice.
   if (this.currentItem.missed > 2) {
-    var label = "Try: " + this.currentItem.letter() + this.currentItem.accidental();
+    var label = "Try: " + this.currentItem.toString();
     this.display.show([this.currentItem], label);
   }
   else {
@@ -106,15 +86,13 @@ Lesson.prototype.wrong = function(picked) {
   this.display.wrong(picked, this.currentItem, this.currentItem.missed);
 
   // When they guess wrong increase the score of both notes.
-  this.adjust(this.currentItem.toString(), +1);
-  this.adjust(picked, +1);
+  this.adjust(this.currentItem, 1);
+  //this.adjust(picked, +1);
 };
 
+// TODO move this to the note/chord?
 Lesson.prototype.adjust = function(note, adjustment) {
-console.log('adjust', note, adjustment);
-  if (note in this.scores) {
-    this.scores[note] = Math.min(Math.max(this.scores[note] + adjustment, 0), 12);
-  }
+  note.score = Math.min(Math.max(note.score + adjustment, 0), 12);
 };
 
 
