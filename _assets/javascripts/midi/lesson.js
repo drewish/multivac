@@ -30,19 +30,19 @@ Lesson.prototype.next = function() {
   // Use the score to determine how many copies of the note to put into the hat
   // higher scores should be drawn more frequently.
   var hat = [];
-  var message = '';
-  _.forOwn(this.scores, function(item) {
-    message += '<li>' + (item.toString()) + ' (' + item.score + ')</li>';
+  var messages = [];
+  this.scores.forEach(function(item) {
+    messages.push({name: this.label(item), score: item.score});
     for (var i = 0; i < item.score; i++) { hat.push(item); }
-  });
-  $('#scores').html(message);
+  }, this);
+  this.display.updateScores(messages);
 
   this.currentItem = this.random(hat, (this.currentItem || this.sequence[0]));
 
   // First time they see a note show them the label.
   if (!this.currentItem.introduced) {
     this.currentItem.introduced = true;
-    label = "New: " + this.currentItem.toString();
+    label = "New: " + this.label(this.currentItem);
   }
   this.display.show([this.currentItem], label);
 

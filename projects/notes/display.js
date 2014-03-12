@@ -39,6 +39,15 @@ Display.prototype.clear = function() {
   this.ctx = this.renderer.getContext();
 };
 
+Display.prototype.updateScores = function(scores) {
+  var message = '';
+  scores.forEach(function(item) {
+    message += '<li>' + item.name + ' (' + item.score + ')</li>';
+  });
+  // TODO: get the jquery out of here... and the hard coded id selector.
+  $('#scores').html(message);
+};
+
 Display.prototype.drawGrandStaff = function() {
   var trebleStave = new Vex.Flow.Stave(20, 40, 400).addClef('treble').setContext(this.ctx).draw();
   var bassStave = new Vex.Flow.Stave(20, 160, 400).addClef('bass').setContext(this.ctx).draw();

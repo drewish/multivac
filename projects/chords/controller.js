@@ -18,14 +18,14 @@ Controller.prototype.start = function(octave) {
 
   // Pick a new note, then we'll play it.
   function pick() {
-    if (!self.playing) return;
-
     self.lesson.next();
     wait();
   }
 
   function wait() {
     var timeout = 5000;
+
+    if (!self.playing) return;
 
     self.input.promiseMatches(self.lesson.currentItem.midi, timeout)
       .then(
