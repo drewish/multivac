@@ -5,5 +5,4 @@
 //= require midi/emitter.js
 //= require midi/midi.js
 //= require midi/note.js
-//= require midi/chord.js
 //= require midi/lesson.js

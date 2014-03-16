@@ -5,8 +5,8 @@ $().ready(function() {
   // let this leak for debugging
   //var
   input = new Midi();
-
-  var controller = new Controller(input, display);
+  //var
+  controller = new Controller(input, display);
 
   // input
   //   .once('started', function() {

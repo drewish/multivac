@@ -113,8 +113,8 @@ Midi.prototype.promiseNoNotes = function() {
 Midi.prototype.promiseMatches = function(expected, timeout) {
   var input = this;
 
-  // Matching relative positions right now.
-  expected = expected.map(function(n) { return n % 12; });
+  // // Matching relative positions right now.
+  // expected = expected.map(function(n) { return n % 12; });
 
   return new Promise(function(resolve, reject) {
     // Only wait this long before rejecting.
@@ -125,7 +125,7 @@ Midi.prototype.promiseMatches = function(expected, timeout) {
     }
 
     function compare(notes) {
-      var pressed = notes.map(function(n) { return n.semitone; });
+      var pressed = notes.map(function(n) { return n.number; });
       var wrong = _.difference(pressed, expected);
 
       console.log('expecting', expected, 'tried', pressed);

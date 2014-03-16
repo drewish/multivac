@@ -10,8 +10,8 @@ trainings, written numerous how-to blog posts, and presented at tech
 conferences.
 
 After sevearal years of working primarily with Drupal and PHP, I decided it
-was time to learn some new things and began focusing on Node JS and then Ruby
-and Rails.
+was time to learn some new things and began focusing on NodeJS and then after
+Ruby and Rails.
 
 ## Experience
 

@@ -11,6 +11,7 @@ function Chord(name, octave) {
     throw new Error("Invalid note: " + letter);
   }
   this.letter = letter;
+  this.inversion = 0;
 
   // TODO figure out a nice way to incorporate the 7th offsets.
   var modifiers = {
@@ -32,10 +33,28 @@ function Chord(name, octave) {
     return ((root + i) + (12 * octave));
   });
   this.description = modifiers[this.modifier].description;
- }
+}
+
+Chord.prototype.invert = function() {
+  this.inversion += 1;
+  this.midi.push(this.midi.shift() + 12);
+  return this;
+};
+
+Chord.prototype.offsetOctave = function(i) {
+  this.midi = this.midi.map(function(n) { return n + (i * 12); });
+  return this;
+};
 
 Chord.prototype.toString = function() {
-  return [this.letter, this.modifier].join(' ');
+  var name = this.letter + this.modifier;
+  if (this.inversion == 1) {
+    name += ' 1st inversion';
+  }
+  else if (this.inversion == 2) {
+    name += ' 2nd inversion';
+  }
+  return name;
 };
 
 Chord.prototype.notes = function() {

@@ -11,6 +11,9 @@ console.log("adding!", this.sequence);
     // Bump all the remaining notes up
     this.scores.forEach(function(o) { o.score += 1; });
   }
+  else {
+    // TODO Finished?
+  }
 };
 
 Lesson.prototype.random = function(items, last) {
@@ -32,7 +35,7 @@ Lesson.prototype.next = function() {
   var hat = [];
   var messages = [];
   this.scores.forEach(function(item) {
-    messages.push({name: this.label(item), score: item.score});
+    messages.push({name: this.description(item), score: item.score});
     for (var i = 0; i < item.score; i++) { hat.push(item); }
   }, this);
   this.display.updateScores(messages);
@@ -74,7 +77,7 @@ Lesson.prototype.wrong = function(picked) {
 
   // Tell them if they miss it more than twice.
   if (this.currentItem.missed > 2) {
-    var label = "Try: " + this.currentItem.toString();
+    var label = "Hint " + this.label(this.currentItem);
     this.display.show([this.currentItem], label);
   }
   else {

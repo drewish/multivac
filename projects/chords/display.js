@@ -42,7 +42,7 @@ Display.prototype.clear = function() {
 Display.prototype.updateScores = function(scores) {
   var message = '';
   scores.forEach(function(item) {
-    message += '<li>' + item.name + ' (' + item.score + ')</li>';
+    message += '<li>' + item.name + ' — ' + item.score + '</li>';
   });
   // TODO: get the jquery out of here... and the hard coded id selector.
   $('#scores').html(message);
