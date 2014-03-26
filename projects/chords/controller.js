@@ -7,11 +7,20 @@ function Controller(input, output) {
 
 Controller.prototype = new Emitter();
 
-Controller.prototype.start = function(octave) {
+Controller.prototype.preview = function(stave, octave) {
+  this.lesson.setOptions({stave: stave, octave: octave});
+
+  this.output.preview(this.lesson.stave, this.lesson.sequence);
+};
+
+Controller.prototype.start = function() {
   var self = this;
 
   this.playing = true;
-  this.lesson.setOptions({octave: octave});
+
+  // make the first two notes active
+  this.lesson.add();
+  this.lesson.add();
 
   // Start state
   pick();

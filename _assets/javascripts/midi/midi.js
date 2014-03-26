@@ -73,16 +73,19 @@ Midi.prototype.start = function() {
   if (window.navigator.requestMIDIAccess) {
     window.navigator.requestMIDIAccess().then(this.listen, this.onError);
   }
+  return this;
 };
 
 Midi.prototype.stop = function() {
-  if (!this.midi) return;
+  if (!this.midi) return this;
 
   var inputs = this.midi.inputs();
   for (var i = 0;i < inputs.length; i++) {
     inputs[i].onmidimessage = null;
   }
   this.midi = null;
+
+  return this;
 };
 
 

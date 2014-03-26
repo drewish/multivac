@@ -41,10 +41,12 @@ Keyboard.prototype = new Emitter();
 
 Keyboard.prototype.start = function() {
   window.addEventListener('keyup', this.key);
+  return this;
 };
 
 Keyboard.prototype.stop = function() {
   window.removeEventListener('keyup', this.key);
+  return this;
 };
 
 Keyboard.prototype.addNote = function(name) {

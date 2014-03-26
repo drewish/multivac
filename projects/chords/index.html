@@ -4,7 +4,7 @@ title: Learn Chords
 ---
 <div class="row">
   <div class="large-4 push-8 columns">
-<!--
+
     <h3>How to use this…</h3>
     <ul>
       <li class="midiapi-help">
@@ -23,15 +23,25 @@ title: Learn Chords
         Restart your browser.
       </li>
       <li>
-        Play some notes on your MIDI device.
+        Play the chord.
       </li>
     </ul>
     <hr/>
--->
-    <label for="octave">Octave: </label>
-    <input type="number" id="octave" min="0" max="9" value="3" />
-    <button id="start">Start</button>
-    <button id="stop" style="display:none;">Stop</button>
+
+    <div id="settings">
+      <label for="stave-treble">
+        <input type="radio" name="stave" id="stave-treble" value="treble" id="stave-treble" /> Treble
+      </label>
+      <label for="stave-bass">
+        <input type="radio" name="stave" id="stave-bass" value="bass" id="stave-bass" checked="checked" /> Bass
+      </label>
+
+      <label for="octave">Octave</label>
+      <input type="number" id="octave" min="0" max="8" value="4" />
+
+      <button id="start">Start</button>
+      <button id="stop" style="display:none;">Stop</button>
+    </div>
     <ul id="scores">
     </ul>
   </div>

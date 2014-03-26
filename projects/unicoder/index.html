@@ -101,7 +101,6 @@ title: Image to Unicode
     ctx.font = "4px Menlo, Consolas, Courier";
     lineHeight = parseInt(ctx.font, 10);
     text.split("\n").forEach(function (s, i) {
-      console.log(s,i);
       ctx.fillText(s, 0, (i * lineHeight));
     });
 

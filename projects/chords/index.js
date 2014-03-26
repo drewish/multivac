@@ -8,13 +8,32 @@ $().ready(function() {
   //var
   controller = new Controller(input, display);
 
-  // input
-  //   .once('started', function() {
-  //     $('li.midiapi-help').hide();
-  //   })
-  //   .once('input-found', function(input) {
-  //     $('li.midi-device-help').hide();
-  //   });
+  input
+    .once('started', function() {
+      $('li.midiapi-help').hide();
+    })
+    .once('input-found', function(input) {
+      $('li.midi-device-help').hide();
+    })
+    .start()
+    .stop();
+
+  function preview() {
+    controller.preview($('[name="stave"]:checked').val(), $('#octave').val());
+  }
+
+  $('input[type="radio"]').change(function() {
+    var stave = $('[name="stave"]:checked').val();
+    var octave = parseInt($('#octave').val(), 10);
+    if (stave == 'treble' && octave < 5) $('#octave').val(5);
+    if (stave == 'bass' && octave > 4) $('#octave').val(4);
+    preview();
+  });
+  $('input[type="number"]').change(function() {
+    preview();
+  });
+
+  preview();
 
   $('#start').click(function() {
     $('#start, #stop').toggle();
@@ -23,8 +42,9 @@ $().ready(function() {
   });
   $('#stop').click(function() {
     $('#start, #stop').toggle();
-    input.start();
+    input.stop();
     controller.stop();
+    preview();
   });
 
 });

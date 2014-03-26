@@ -1,6 +1,4 @@
-function NoteLesson() {
-
-}
+function NoteLesson() { }
 
 NoteLesson.prototype = new Lesson();
 
@@ -8,7 +6,7 @@ NoteLesson.prototype = new Lesson();
 //    self.input.clearNotes();
 
 NoteLesson.prototype.setOptions = function(options) {
-  options = options || {'octave': 3};
+  options = options || {stave: 'bass', octave: 3};
 
   // offset of 0 is a C scale, 1 C#, etc
   function majorScale(octave, offset) {
@@ -18,15 +16,16 @@ NoteLesson.prototype.setOptions = function(options) {
     });
   }
 
+  this.stave = options.stave == 'bass' ? 'bass' : 'treble';
   this.notes = majorScale(parseInt(options.octave, 10), 0);
   this.sequence = this.notes.slice(0);
-
-  // make the first two notes active
   this.scores = [];
-  this.add();
-  this.add();
 };
 
 NoteLesson.prototype.label = function(item) {
+  return [item.letter(), item.accidental()].join(' ');
+};
+
+NoteLesson.prototype.description = function(item) {
   return [item.letter(), item.accidental()].join(' ');
 };

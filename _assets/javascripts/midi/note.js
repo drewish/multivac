@@ -6,7 +6,7 @@ function Note(note, direction) {
 
   if (!isNaN(parseInt(note, 10))) {
     this.number = parseInt(note, 10);
-    this.octave = Math.floor(this.number / 12);
+    this.octave = Math.floor(this.number / 12) - 1;
     this.semitone = this.number % 12;
   }
   else if (typeof note === "string" || note instanceof String) {
@@ -24,7 +24,7 @@ function Note(note, direction) {
       this.number = this.semitone;
       if (parts[3]) {
         this.octave = parseInt(parts[3], 10);
-        this.number += this.octave * 12;
+        this.number += (this.octave - 1) * 12;
       }
     }
     this.semitone = this.number % 12;
@@ -55,7 +55,7 @@ Note.prototype.accidental = function () {
 
 Note.prototype.toString = function () {
   var parts = [this.letter(), this.accidental()];
-  if (this.octave) {
+  if (this.octave !== null) {
     parts.push('/' + this.octave);
   }
   return parts.join('');

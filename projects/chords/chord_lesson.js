@@ -1,12 +1,13 @@
-function ChordLesson() {
-
-}
+function ChordLesson() { }
 
 ChordLesson.prototype = new Lesson();
 
 ChordLesson.prototype.setOptions = function(options) {
-  options = options || {'octave': 3};
+  options = options || {stave: 'bass', octave: 3};
   var octave = options.octave;
+
+  this.stave = options.stave == 'bass' ? 'bass' : 'treble';
+  this.octave = octave;
 
   this.sequence = [
     // // C Major
@@ -27,8 +28,6 @@ ChordLesson.prototype.setOptions = function(options) {
 
   // make the first two notes active
   this.scores = [];
-  this.add();
-  this.add();
 };
 
 ChordLesson.prototype.label = function(item) {

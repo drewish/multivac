@@ -5,10 +5,10 @@ Display.prototype.show = function(notes, label) {
   this.canvas = document.getElementById('drawing');
   this.clear();
 
-  var staves = this.drawGrandStaff();
+  var treble = notes.filter(function(note) { return (note.octave >= 4); });
+  var bass = notes.filter(function(note) { return (note.octave < 4); });
 
-  var treble = notes.filter(function(note) { return (note.octave > 2); });
-  var bass = notes.filter(function(note) { return (note.octave < 5); });
+  var staves = this.drawGrandStaff();
 
   this.drawNotes(staves.treble, treble, label);
   this.drawNotes(staves.bass, bass, label);
@@ -22,9 +22,21 @@ Display.prototype.clear = function() {
   this.ctx = this.renderer.getContext();
 };
 
+Display.prototype.drawTrebleStaff = function(x) {
+  var y = 110;
+  x = x || 20;
+  return new Vex.Flow.Stave(x, y, 400).addClef('treble').setContext(this.ctx).draw();
+};
+
+Display.prototype.drawBassStaff = function(x) {
+  var y = 170;
+  x = x || 20;
+  return new Vex.Flow.Stave(x, y, 400).addClef('bass').setContext(this.ctx).draw();
+};
+
 Display.prototype.drawGrandStaff = function() {
-  var trebleStave = new Vex.Flow.Stave(20, 40, 400).addClef('treble').setContext(this.ctx).draw();
-  var bassStave = new Vex.Flow.Stave(20, 160, 400).addClef('bass').setContext(this.ctx).draw();
+  var trebleStave = this.drawTrebleStaff();
+  var bassStave = this.drawBassStaff();
 
   new Vex.Flow.StaveConnector(trebleStave, bassStave).setType(3).setContext(this.ctx).draw();
   new Vex.Flow.StaveConnector(trebleStave, bassStave).setType(1).setContext(this.ctx).draw();

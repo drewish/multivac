@@ -47,7 +47,7 @@ Lesson.prototype.next = function() {
     this.currentItem.introduced = true;
     label = "New: " + this.label(this.currentItem);
   }
-  this.display.show([this.currentItem], label);
+  this.display.show(this.stave, this.currentItem, label);
 
   return this.currentItem;
 };
@@ -55,7 +55,7 @@ Lesson.prototype.next = function() {
 Lesson.prototype.right = function() {
   // TODO: Probably should remove this.
   this.display.right(this.currentItem);
-  this.display.show([]);
+  this.display.show(this.stave, []);
 
   // Decrease the score
   this.adjust(this.currentItem, -1);
@@ -78,10 +78,10 @@ Lesson.prototype.wrong = function(picked) {
   // Tell them if they miss it more than twice.
   if (this.currentItem.missed > 2) {
     var label = "Hint " + this.label(this.currentItem);
-    this.display.show([this.currentItem], label);
+    this.display.show(this.stave, [this.currentItem], label);
   }
   else {
-    this.display.show([this.currentItem], "✖");
+    this.display.show(this.stave, [this.currentItem], "✖");
   }
 
 
