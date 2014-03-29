@@ -18,8 +18,14 @@ $().ready(function() {
     .start()
     .stop();
 
+
   function preview() {
-    controller.preview($('[name="stave"]:checked').val(), $('#octave').val());
+    var stave = $('[name="stave"]:checked').val();
+    var octave = $('#octave').val();
+    localStorage.setItem('octave', octave);
+    localStorage.setItem('stave', stave);
+
+    controller.preview(stave, octave);
   }
 
   $('input[type="radio"]').change(function() {
@@ -33,12 +39,15 @@ $().ready(function() {
     preview();
   });
 
-  preview();
+  $('#octave').val(localStorage.getItem('octave') || "5");
+  $('[name="stave"][value="' + (localStorage.getItem('stave') || "treble") + '"]')
+    .prop('checked', true)
+    .change()
 
   $('#start').click(function() {
     $('#start, #stop').toggle();
     input.start();
-    controller.start($('#octave').val());
+    controller.start();
   });
   $('#stop').click(function() {
     $('#start, #stop').toggle();
