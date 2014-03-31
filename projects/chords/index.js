@@ -42,7 +42,7 @@ $().ready(function() {
   $('#octave').val(localStorage.getItem('octave') || "5");
   $('[name="stave"][value="' + (localStorage.getItem('stave') || "treble") + '"]')
     .prop('checked', true)
-    .change()
+    .change();
 
   $('#start').click(function() {
     $('#start, #stop').toggle();

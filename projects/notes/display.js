@@ -14,6 +14,8 @@ Display.prototype.preview = function(staveType, notes) {
     num_beats: 4, beat_value: 4, resolution: Vex.Flow.RESOLUTION
   });
 
+  voice.setStrict(false); // Avoid error about not enough notes
+
   var staveNotes = notes.map(function(n) {
     var staveNote = new Vex.Flow.StaveNote({
       clef: stave.clef, duration: "8",
@@ -37,24 +39,25 @@ Display.prototype.preview = function(staveType, notes) {
   voice.draw(stave.getContext(), stave);
 };
 
-Display.prototype.show = function(staveType, notes, label) {
+Display.prototype.show = function(staveType, note, label) {
   this.canvas = document.getElementById('drawing');
   this.clear();
 
   var stave = (staveType == 'bass') ? this.drawBassStaff() : this.drawTrebleStaff();
+  if (!note) return;
 
-  this.drawNotes(stave, notes, label);
+  this.drawNotes(stave, [note], label);
 };
 
 Display.prototype.right = function(note) {
-  console.log('right');
+  console.log('right', note);
 };
 
 Display.prototype.wrong = function(actual, expected) {
   if (actual === null) {
     console.log('wrong', 'timedout');
   } else {
-    console.log('wrong', actual.toString());
+    console.log('wrong', actual.toString(), expected);
   }
 };
 

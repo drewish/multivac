@@ -32,6 +32,7 @@ Controller.prototype.start = function() {
   }
 
   function wait() {
+    var start = performance.now();
     var timeout = 5000;
 
     if (!self.playing) return;
@@ -39,11 +40,11 @@ Controller.prototype.start = function() {
     self.input.promiseMatches(self.lesson.currentItem.midi, timeout)
       .then(
         function(pressed) {
-          self.lesson.right(pressed);
+          self.lesson.right(performance.now() - start, pressed);
           return self.input.promiseNoNotes().then(pick);
         },
         function(pressed) {
-          self.lesson.wrong(pressed);
+          self.lesson.wrong(performance.now() - start, pressed);
           return self.input.promiseNoNotes().then(wait);
         }
       );

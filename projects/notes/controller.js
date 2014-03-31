@@ -32,6 +32,7 @@ Controller.prototype.start = function() {
   }
 
   function wait() {
+    var start = performance.now();
     var timeout = 5000;
 
     if (!self.playing) return;
@@ -39,12 +40,12 @@ Controller.prototype.start = function() {
     self.input.promiseMatches([self.lesson.currentItem], timeout)
       .then(
         function resolved(pressed) {
-          self.lesson.right(pressed);
+          self.lesson.right(performance.now() - start, pressed);
           self.input.clearNotes();
-          pick();
+          setTimeout(pick, 100);
         },
         function rejected(pressed) {
-          self.lesson.wrong(pressed);
+          self.lesson.wrong(performance.now() - start, pressed);
           self.input.clearNotes();
           wait();
         }

@@ -44,14 +44,14 @@ Display.prototype.preview = function(staveType, chords) {
 };
 
 Display.prototype.show = function(staveType, chord, label) {
-  var notes = chord.notes();
-
   this.canvas = document.getElementById('drawing');
   this.clear();
 
   var stave = (staveType == 'bass') ? this.drawBassStaff() : this.drawTrebleStaff();
 
-  this.drawNotes(stave, notes, label);
+  if (!chord) return;
+
+  this.drawNotes(stave, chord.notes(), label);
 };
 
 Display.prototype.right = function(note) {

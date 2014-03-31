@@ -7,17 +7,15 @@ NoteLesson.prototype = new Lesson();
 
 NoteLesson.prototype.setOptions = function(options) {
   options = options || {stave: 'bass', octave: 3};
-
-  // offset of 0 is a C scale, 1 C#, etc
-  function majorScale(octave, offset) {
-    var n = octave * 12 + (offset || 0);
-    return [n, n+2, n+4, n+5, n+7, n+9, n+11, n+12].map(function(n) {
-      return new Note(n);
-    });
-  }
-
   this.stave = options.stave == 'bass' ? 'bass' : 'treble';
-  this.notes = majorScale(parseInt(options.octave, 10), 0);
+
+  var majorScale  = [0, 2, 4, 5, 7, 9, 11, 12];
+  var linesSpaces = [0, 4, 7, 11, 14, 17, 21, 24, 2, 5, 9, 12, 16, 19, 23];
+  var n = parseInt(options.octave, 10) * 12 + (parseInt(options.offset, 10) || 0);
+  this.notes = linesSpaces.map(function(i) {
+    return new Note(n + i);
+  });
+
   this.sequence = this.notes.slice(0);
   this.scores = [];
 };

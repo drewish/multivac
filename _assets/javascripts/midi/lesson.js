@@ -1,128 +1,114 @@
 function Lesson() {
   this.currentItem = null;
+  this.overallError = 40;
 }
 
 Lesson.prototype.add = function() {
 console.log("adding!", this.sequence);
-  if (this.sequence.length > 0) {
-    var next = this.sequence.shift();
-    next.score = 3;
-    this.scores.push(next);
-    // Bump all the remaining notes up
-    this.scores.forEach(function(o) { o.score += 1; });
-  }
-  else {
+  if (this.sequence.length === 0) {
     // TODO Finished?
+    console.log("nothign left");
+    return null;
   }
+
+  var next = this.sequence.shift();
+  next.score = 255;
+  this.scores.push(next);
+
+  return next;
 };
 
-Lesson.prototype.random = function(items, last) {
-  last = last || items[0];
-  // Pick randomly from the items.
-  var index;
-  // Don't give them the same note two times in a row.
-  do {
-    index = Math.floor(Math.random() * items.length);
-  } while (last == items[index]);
-  return items[index];
+Lesson.prototype.grade = function(right) {
+  var num = 0;
+  var good = 0;
+  var bad = 255;
+
+  var told = right ? good : bad;
+
+  function weight(oldVal, newVal) {
+    var percent = 0.125;
+    return Math.round((1.0 - percent) * oldVal + percent * newVal);
+  }
+
+  this.overallError = weight(this.overallError, told);
+  this.currentItem.score = weight(this.currentItem.score, told);
+  if (this.overallError < 0.30 * bad) {
+    if (this.overallError < 0.10 * bad) {
+      this.currentItem.score = weight(this.currentItem.score, told);  /* twice */
+    }
+
+    var readyToAdd = this.scores.every(function(item) {
+      return item.score <= 0.40 * bad;
+    });
+
+    if (readyToAdd) {
+      this.add();
+    }
+  }
 };
 
 Lesson.prototype.next = function() {
-  var label = null;
-
-  // Use the score to determine how many copies of the note to put into the hat
-  // higher scores should be drawn more frequently.
-  var hat = [];
-  var messages = [];
-  this.scores.forEach(function(item) {
-    messages.push({name: this.description(item), score: item.score});
-    for (var i = 0; i < item.score; i++) { hat.push(item); }
+  var messages = this.scores.map(function(item) {
+    return {name: this.description(item), score: item.score};
   }, this);
+  messages.push({name: 'overall', score: this.overallError});
   this.display.updateScores(messages);
 
-  this.currentItem = this.random(hat, (this.currentItem || this.sequence[0]));
+  // Sum up all the error rates...
+  var sum = this.scores.reduce(function(sum, item) {
+    return sum + item.score + 1;
+  }, 0);
+  // ...then find a random number between 0 and the sum...
+  sum = Math.floor(Math.random() * 255 * this.scores.length) % sum;
+  // ...subtract each error rate from the sum until it goes negative and then
+  // use that number. Bigger error rates will be more likely to trigger it.
+  var i = -1;
+  var l = this.scores.length;
+  while (sum >= 0) {
+    i = i + 1 % l;
+    sum = sum - this.scores[i].score - 1;
+  }
+  this.currentItem = this.scores[i];
 
   // First time they see a note show them the label.
+  var label = null;
   if (!this.currentItem.introduced) {
     this.currentItem.introduced = true;
     label = "New: " + this.label(this.currentItem);
   }
+
   this.display.show(this.stave, this.currentItem, label);
 
   return this.currentItem;
 };
 
-Lesson.prototype.right = function() {
+Lesson.prototype.right = function(duration) {
   // TODO: Probably should remove this.
   this.display.right(this.currentItem);
-  this.display.show(this.stave, []);
 
-  // Decrease the score
-  this.adjust(this.currentItem, -1);
+  this.grade(this.currentItem.missed === 0);
+  this.currentItem.missed = 0;
 
-  // If they're doing well introduce a new score
-  var biggestScore = this.scores.sort(function(a, b) {
-    return a.score - b.score;
-  })[0];
-console.log("biggest score", biggestScore);
-  if(biggestScore.score < 3 ) {
-    this.add();
-  }
+  this.display.show(this.stave, null);
 };
 
 // picked may be null for timeouts
-Lesson.prototype.wrong = function(picked) {
-  // Keep track of how many times they've gotten it wrong.
-  this.currentItem.missed = (this.currentItem.missed || 0) + 1;
-
-  // Tell them if they miss it more than twice.
-  if (this.currentItem.missed > 2) {
-    var label = "Hint " + this.label(this.currentItem);
-    this.display.show(this.stave, [this.currentItem], label);
-  }
-  else {
-    this.display.show(this.stave, [this.currentItem], "✖");
-  }
-
+Lesson.prototype.wrong = function(duration, picked) {
+  var label = null;
 
   // TODO: Probably should remove this.
   this.display.wrong(picked, this.currentItem, this.currentItem.missed);
 
-  // When they guess wrong increase the score of both notes.
-  this.adjust(this.currentItem, 1);
-  //this.adjust(picked, +1);
-};
+  // Keep track of how many times they've gotten it wrong.
+  this.currentItem.missed = (this.currentItem.missed || 0) + 1;
 
-// TODO move this to the note/chord?
-Lesson.prototype.adjust = function(note, adjustment) {
-  note.score = Math.min(Math.max(note.score + adjustment, 0), 12);
-};
-
-
-
-/*
-
-// This is the range of my keyboard
-var low = 36;
-var hight = 96;
-
-function octaves(low, high) {
-  var n = [];
-  for (var i = low; i <= high; i += 12) {
-    n.push(i);
+  // If they didn't guess or tried more than twice, give a hint.
+  if (picked === null || this.currentItem.missed > 2) {
+    label = "Hint " + this.label(this.currentItem);
   }
-  return n;
-}
+  else if (picked) {
+    label = "✖";
+  }
 
-// Loop through the sequence from the beginning.
-function pickNext(sequence) {
-  var n = sequence.shift();
-  sequence.push(n);
-  return n;
-}
-
-function sequenceUpDown(notes) {
-  var copy = notes.slice(0).sort();
-  return copy.concat(copy.slice(0).reverse());
-}
-*/
+  this.display.show(this.stave, this.currentItem, label);
+};
