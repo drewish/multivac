@@ -16,7 +16,7 @@ Display.prototype.preview = function(staveType, notes) {
 
   voice.setStrict(false); // Avoid error about not enough notes
 
-  var staveNotes = notes.map(function(n) {
+  var staveNotes = notes.map(function(n, i) {
     var staveNote = new Vex.Flow.StaveNote({
       clef: stave.clef, duration: "8",
       keys: [n.toString()]
@@ -72,7 +72,8 @@ Display.prototype.clear = function() {
 Display.prototype.updateScores = function(scores) {
   var message = '';
   scores.forEach(function(item) {
-    message += '<li>' + item.name + ' (' + item.score + ')</li>';
+    // TODO get foundation classes/markup out of here
+    message += item.name + ' <div class="progress large-2"><span class="meter" style="width: ' + item.percent + '%"></span></div>';
   });
   // TODO: get the jquery out of here... and the hard coded id selector.
   $('#scores').html(message);

@@ -27,6 +27,8 @@ Controller.prototype.start = function() {
 
   // Pick a new note, then we'll play it.
   function pick() {
+    if (!self.playing) return;
+
     self.lesson.next();
     wait();
   }
@@ -35,15 +37,17 @@ Controller.prototype.start = function() {
     var start = performance.now();
     var timeout = 5000;
 
-    if (!self.playing) return;
-
     self.input.promiseMatches(self.lesson.currentItem.midi, timeout)
       .then(
         function(pressed) {
+          if (!self.playing) return;
+
           self.lesson.right(performance.now() - start, pressed);
           return self.input.promiseNoNotes().then(pick);
         },
         function(pressed) {
+          if (!self.playing) return;
+
           self.lesson.wrong(performance.now() - start, pressed);
           return self.input.promiseNoNotes().then(wait);
         }
