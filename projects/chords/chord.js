@@ -1,17 +1,26 @@
 /**
  *
  */
-function Chord(name, octave) {
+function Chord(name, octave, direction) {
   octave = parseInt(octave, 10);
+  // TODO: I'm not sure I really like having the direction in here, I'd rather
+  // have it figure out a key signature and do sharps/flats from that.
+  this.direction = (direction == 'up') ? 'up' : 'down';
+
+  var parts = name.match(/^([A-Ga-g])(b|B|#)?(m|M|dim|\+)?(7)?/);
+  if (!parts) {
+    throw new Error("Could not parse chord from: " + name);
+  }
 
   var note_indexes = 'C|D|EF|G|A|B';
-  var letter = name.substr(0, 1).toUpperCase();
-  var root = note_indexes.indexOf(letter);
-  if (root == -1) {
-    throw new Error("Invalid note: " + letter);
+  var number = note_indexes.indexOf(parts[1]) + (octave + 1) * 12;
+  if (parts[2] == '#') {
+    number += 1;
   }
-  this.letter = letter;
-  this.inversion = 0;
+  else if ((parts[2] || '').toLowerCase() == 'b') {
+    number -= 1;
+  }
+  this.letter = parts.slice(1,3).join('');
 
   // TODO figure out a nice way to incorporate the 7th offsets.
   var modifiers = {
@@ -24,15 +33,16 @@ function Chord(name, octave) {
     'm':    { offsets: [0, 3, 7],  description: 'minor' },
     'm7':   { offsets: [0, 3, 10], description: 'minor 7th' },
   };
-  var modifier = name.substr(1);
+  var modifier = parts.slice(3,5).join('');
   if (!modifiers[modifier]) {
     throw new Error("Invalid modifier: " + modifier);
   }
   this.modifier = modifier;
   this.midi = modifiers[modifier].offsets.map(function(i) {
-    return ((root + i) + (12 * octave));
+    return (number + i);
   });
   this.description = modifiers[this.modifier].description;
+  this.inversion = 0;
 }
 
 Chord.prototype.invert = function() {
@@ -58,5 +68,7 @@ Chord.prototype.toString = function() {
 };
 
 Chord.prototype.notes = function() {
-  return this.midi.map(function(n) { return new Note(n); });
+  return this.midi.map(function(n) {
+    return new Note(n, this.direction);
+  }, this);
 };
