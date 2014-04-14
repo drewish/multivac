@@ -11,21 +11,23 @@ function Note(note, direction) {
   }
   else if (typeof note === "string" || note instanceof String) {
     parts = note.toUpperCase().match(/^([A-G])(B|#)?\/?([0-9]?)$/);
-    if (parts) {
-      this.semitone = note_indexes.indexOf(parts[1]);
-      if (parts[2] == '#') {
-        this.semitone += 1;
-        this.direction = 'up';
-      }
-      else if (parts[2] == 'b') {
-        this.semitone -= 1;
-        this.direction = 'down';
-      }
-      this.number = this.semitone;
-      if (parts[3]) {
-        this.octave = parseInt(parts[3], 10);
-        this.number += (this.octave - 1) * 12;
-      }
+    if (!parts) {
+      throw new Error("Could not parse note from: " + note);
+    }
+
+    this.semitone = note_indexes.indexOf(parts[1]);
+    if (parts[2] == '#') {
+      this.semitone += 1;
+      this.direction = 'up';
+    }
+    else if (parts[2] == 'b') {
+      this.semitone -= 1;
+      this.direction = 'down';
+    }
+    this.number = this.semitone;
+    if (parts[3]) {
+      this.octave = parseInt(parts[3], 10);
+      this.number += (this.octave - 1) * 12;
     }
     this.semitone = this.number % 12;
   }
