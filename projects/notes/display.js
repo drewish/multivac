@@ -1,52 +1,45 @@
 function Display(id) {
 }
 
-Display.prototype.preview = function(staveType, notes) {
+Display.prototype.preview = function(staveType, levels) {
   this.canvas = document.getElementById('drawing');
   this.clear();
 
-  var stave = (staveType == 'bass') ? this.drawBassStaff() : this.drawTrebleStaff();
+  if (!levels.length) return;
 
-  if (!notes.length) return;
+  levels.forEach(function(notes, index) {
+    var stave = (staveType == 'bass') ?
+      this.drawBassStaff(index, 'Level ' + index) :
+      this.drawTrebleStaff(index, 'Level ' + index);
 
-  // Create a voice in 4/4
-  var voice = new Vex.Flow.Voice({
-    num_beats: 4, beat_value: 4, resolution: Vex.Flow.RESOLUTION
-  });
+    var staveNotes = [];
 
-  voice.setStrict(false); // Avoid error about not enough notes
+    notes.forEach(function(n, i) {
+      var staveNote = new Vex.Flow.StaveNote({
+        clef: stave.clef, duration: "8",
+        keys: [n.toString()]
+      });
 
-  var staveNotes = notes.map(function(n, i) {
-    var staveNote = new Vex.Flow.StaveNote({
-      clef: stave.clef, duration: "8",
-      keys: [n.toString()]
+      if (n.accidental()) {
+        staveNote.addAccidental(i, new Vex.Flow.Accidental(n.accidental()));
+      }
+
+      staveNotes.push(staveNote);
     });
 
-    if (n.accidental()) {
-      staveNote.addAccidental(i, new Vex.Flow.Accidental(n.accidental()));
-    }
+    Vex.Flow.Formatter.FormatAndDraw(this.ctx, stave, staveNotes, {auto_beam: true});
 
-    return staveNote;
-  });
-
-  // Add notes to voice
-  voice.addTickables(staveNotes);
-
-  // Format and justify the notes
-  new Vex.Flow.Formatter().joinVoices([voice]).format([voice], 300);
-
-  // Render voice
-  voice.draw(stave.getContext(), stave);
+  }, this);
 };
 
-Display.prototype.show = function(staveType, note, label) {
+Display.prototype.show = function(staveType, note) {
   this.canvas = document.getElementById('drawing');
   this.clear();
 
-  var stave = (staveType == 'bass') ? this.drawBassStaff() : this.drawTrebleStaff();
+  var stave = (staveType == 'bass') ? this.drawBassStaff(label) : this.drawTrebleStaff(label);
   if (!note) return;
 
-  this.drawNotes(stave, [note], label);
+  this.drawNotes(stave, [note]);
 };
 
 Display.prototype.right = function(note) {
@@ -79,16 +72,26 @@ Display.prototype.updateScores = function(scores) {
   $('#scores').html(message);
 };
 
-Display.prototype.drawTrebleStaff = function(x) {
+Display.prototype.drawTrebleStaff = function(measureNumber, label) {
+  var width = 200;
   var y = 110;
-  x = x || 20;
-  return new Vex.Flow.Stave(x, y, 400).addClef('treble').setContext(this.ctx).draw();
+  var x = (measureNumber || 0) * width + 20;
+  var stave = new Vex.Flow.Stave(x, y, width).setContext(this.ctx);
+  stave.clef = 'treble';
+  if (!measureNumber) stave.addModifier(new Vex.Flow.Clef(stave.clef));
+  if (label) stave.setText(label, Vex.Flow.Modifier.Position.BELOW);
+  return stave.draw();
 };
 
-Display.prototype.drawBassStaff = function(x) {
+Display.prototype.drawBassStaff = function(measureNumber, label) {
+  var width = 200;
   var y = 170;
-  x = x || 20;
-  return new Vex.Flow.Stave(x, y, 400).addClef('bass').setContext(this.ctx).draw();
+  var x = (measureNumber || 0) * width + 20;
+  var stave = new Vex.Flow.Stave(x, y, width).setContext(this.ctx);
+  stave.clef = 'bass';
+  if (!measureNumber) stave.addModifier(new Vex.Flow.Clef(stave.clef));
+  if (label) stave.setText(label, Vex.Flow.Modifier.Position.BELOW);
+  return stave.draw();
 };
 
 Display.prototype.drawGrandStaff = function() {

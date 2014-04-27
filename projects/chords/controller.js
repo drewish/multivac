@@ -10,7 +10,7 @@ Controller.prototype = new Emitter();
 Controller.prototype.preview = function(stave, octave) {
   this.lesson.setOptions({stave: stave, octave: octave});
 
-  this.output.preview(this.lesson.stave, this.lesson.sequence);
+  this.output.preview(this.lesson.stave, this.lesson.levels);
 };
 
 Controller.prototype.start = function() {
@@ -39,13 +39,13 @@ Controller.prototype.start = function() {
 
     self.input.promiseMatches(self.lesson.currentItem.midi, timeout)
       .then(
-        function(pressed) {
+        function right(pressed) {
           if (!self.playing) return;
 
           self.lesson.right(performance.now() - start, pressed);
           return self.input.promiseNoNotes().then(pick);
         },
-        function(pressed) {
+        function wrong(pressed) {
           if (!self.playing) return;
 
           self.lesson.wrong(performance.now() - start, pressed);

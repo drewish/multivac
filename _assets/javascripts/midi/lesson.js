@@ -7,16 +7,20 @@ Lesson.prototype.setup = function() {
   this.overallError = 0.4;
 };
 
-Lesson.prototype.add = function() {
-  if (this.sequence.length === 0) {
-    // TODO Finished?
-    console.log("nothing left");
-    return null;
+Lesson.prototype.add = function(readyToLevelUp) {
+  if (!this.levels.length) {
+    return;
   }
 
-  var next = this.sequence.shift();
-  next.score = 1.0;
-  this.scores.push(next);
+  if (readyToLevelUp && !this.levels[0].length) {
+    this.levels.shift();
+  }
+
+  var next = this.levels[0].shift();
+  if (next) {
+    next.score = 1.0;
+    this.scores.push(next);
+  }
 
   return next;
 };
@@ -32,17 +36,22 @@ Lesson.prototype.grade = function(right) {
   this.overallError = weight(this.overallError, told);
   this.currentItem.score = weight(this.currentItem.score, told);
   if (this.overallError < 0.30) {
+    // TODO: Figure out if this makes sense. The original algorithm had this
+    // double weighting when your error is low.
     if (this.overallError < 0.10) {
-      /* twice */
       this.currentItem.score = weight(this.currentItem.score, told);
     }
 
-    var readyToAdd = this.scores.every(function(item) {
-      return item.score <= 0.40;
-    });
-
-    if (readyToAdd) {
-      this.add();
+    if (right) {
+      var readyToAdd = this.scores.every(function(item) {
+        return item.score <= 0.40;
+      });
+      if (readyToAdd) {
+        var readyToLevelUp = this.scores.every(function(item) {
+          return item.score <= 0.30;
+        });
+        this.add(readyToLevelUp);
+      }
     }
   }
 
@@ -94,7 +103,7 @@ Lesson.prototype.right = function(duration) {
   // TODO: Probably should remove this.
   this.display.right(this.currentItem);
 
-  this.grade(this.currentItem.missed === 0);
+  this.grade(true);
 
   this.display.show(this.stave, null);
 };
@@ -109,7 +118,7 @@ Lesson.prototype.wrong = function(duration, picked) {
   // TODO: Probably should remove this.
   this.display.wrong(picked, this.currentItem, this.currentItem.missed);
 
-  this.grade(this.currentItem.missed > 0);
+  this.grade(false);
 
   // If they didn't guess or tried more than twice, give a hint.
   if (picked === null || this.currentItem.missed > 2) {

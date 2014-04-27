@@ -10,7 +10,7 @@ Controller.prototype = new Emitter();
 Controller.prototype.preview = function(stave, octave) {
   this.lesson.setOptions({stave: stave, octave: octave});
 
-  this.output.preview(this.lesson.stave, this.lesson.sequence);
+  this.output.preview(this.lesson.stave, this.lesson.levels);
 };
 
 Controller.prototype.start = function() {
@@ -51,7 +51,7 @@ Controller.prototype.start = function() {
 
           self.input.clearNotes();
           self.lesson.wrong(performance.now() - start, pressed);
-          setTimeout(pick, 250);
+          setTimeout(wait, 250);
         }
       );
   }

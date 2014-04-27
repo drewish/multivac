@@ -58,12 +58,12 @@ Chord.prototype.offsetOctave = function(i) {
 
 Chord.prototype.toString = function() {
   var name = this.letter + this.modifier;
-  if (this.inversion == 1) {
-    name += ' 1st inversion';
-  }
-  else if (this.inversion == 2) {
-    name += ' 2nd inversion';
-  }
+  // if (this.inversion == 1) {
+  //   name += ' 1st inversion';
+  // }
+  // else if (this.inversion == 2) {
+  //   name += ' 2nd inversion';
+  // }
   return name;
 };
 
