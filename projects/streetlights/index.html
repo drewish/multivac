@@ -1,0 +1,74 @@
+---
+layout: full_width
+title: Street Lights
+---
+<div class="row">
+  <div class="large-12 columns">
+    <p>Draws a street light using SVG. I'll have it randomize it soon.</p>
+    <svg xmlns="http://www.w3.org/2000/svg" height="600px" width="600px" id="canvas"  viewBox="-10 0 200 200" >
+      <path id="pole" d="M 0 0"
+        fill="black" fill-opacity="0.2" stroke="dimgray" stroke-opacity="0.8" stroke-width="1" />
+      <path id="arm" d="M 0 0"
+        fill="black" fill-opacity="0.2" stroke="dimgray" stroke-opacity="0.8" stroke-width="1" />
+      <path id="lamp" d="M 0 0"
+        fill="black" fill-opacity="0.1" stroke="dimgray" stroke-opacity="0.8" stroke-width="1" />
+    </svg>
+  </div>
+</div>
+
+<script>
+var pole = document.getElementById('pole');
+var arm = document.getElementById('arm');
+var lamp = document.getElementById('lamp');
+
+var poleHeight = 150;
+var poleTopRadius = 2;
+var poleBaseRadius = 5;
+var armOffset = 5;
+var armOuterRadius = 1;
+var armInnerRadius = 2;
+var armLength = 40;
+var armUpSweepDegrees = -5;
+
+var transform;
+
+transform = 'translate(0, ' + (poleHeight + 5) + ')';
+pole.setAttribute('transform', transform);
+// Basically just drawing a trapezoid
+var poleOutline = [
+  'M 0 0',
+  'l', -poleBaseRadius, 0,
+  'l', poleBaseRadius - poleTopRadius, -poleHeight,
+  'l', 2 * poleTopRadius, 0,
+  'l', poleBaseRadius - poleTopRadius, poleHeight,
+  'l', -poleBaseRadius, 0,
+].join(' ');
+pole.setAttribute('d', poleOutline);
+
+transform += ' translate(0, ' + (-poleHeight + armOffset + armInnerRadius) + ') rotate(' + armUpSweepDegrees + ')'
+arm.setAttribute('transform', transform)
+// Basically just drawing a trapezoid
+var armOutline = [
+  'M 0 0',
+  'l', 0, -armInnerRadius,
+  'l', armLength, armInnerRadius - armOuterRadius,
+  'l', 0, 2 * armOuterRadius,
+  'l', -armLength, armInnerRadius - armOuterRadius,
+  'l', 0, -armInnerRadius,
+].join(' ');
+arm.setAttribute('d', armOutline);
+
+transform += ' translate(' + armLength + ', 0)'
+lamp.setAttribute('transform', transform)
+var lampOutline = [
+  'm', 0, -armOuterRadius,
+  'l', 20, 0,
+  'l', -1, 8,
+  'l', -7, -.5,
+  'l', -2, -3,
+  'l', -10, -2,
+  // 'z'//'l', 0, -10,
+].join(' ');
+lamp.setAttribute('d', lampOutline);
+
+</script>
