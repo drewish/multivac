@@ -73,7 +73,7 @@ Display.prototype.updateScores = function(scores) {
 };
 
 Display.prototype.drawTrebleStaff = function(measureNumber, label) {
-  var width = 200;
+  var width = 120;
   var y = 110;
   var x = (measureNumber || 0) * width + 20;
   var stave = new Vex.Flow.Stave(x, y, width).setContext(this.ctx);
@@ -84,7 +84,7 @@ Display.prototype.drawTrebleStaff = function(measureNumber, label) {
 };
 
 Display.prototype.drawBassStaff = function(measureNumber, label) {
-  var width = 200;
+  var width = 120;
   var y = 170;
   var x = (measureNumber || 0) * width + 20;
   var stave = new Vex.Flow.Stave(x, y, width).setContext(this.ctx);

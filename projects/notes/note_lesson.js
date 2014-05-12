@@ -6,21 +6,27 @@ NoteLesson.prototype = new Lesson();
 //    self.input.clearNotes();
 
 NoteLesson.prototype.setOptions = function(options) {
-  options = options || {stave: 'bass', octave: 3};
   this.stave = options.stave == 'bass' ? 'bass' : 'treble';
-  var n = parseInt(options.octave, 10) * 12 + (parseInt(options.offset, 10) || 0);
 
-  var majorScale  = [0, 2, 4, 5, 7, 9, 11, 12];
-  var lines = [0, 4, 7, 11, 14, 17, 21, 24];
-  var spaces = [2, 5, 9, 12, 16, 19, 23];
-  // this.notes = [].concat(spaces, lines).map(function(i) {
-  //   return new Note(n + i);
-  // });
 
-  this.levels = [
-    lines.map(function(i) { return new Note(n + i); }),
-    spaces.map(function(i) { return new Note(n + i); })
-  ];
+  if (this.stave == 'bass') {
+    var start = 36;
+    var makeNote = function(i) { return new Note(start + i); };
+    this.levels = [
+      [7, 11, 14, 17, 21].map(makeNote),
+      [9, 12, 16, 19].map(makeNote),
+      [4, 5, 23, 24].map(makeNote),
+    ];
+  }
+  else {
+    var makeNote = function(s) { return new Note(s); };
+    this.levels = [
+      ['e/4', 'g/4', 'b/4', 'd/5', 'f/5'].map(makeNote),
+      ['f/4', 'a/4', 'c/5', 'e/5'].map(makeNote),
+      ['d/4', 'c/4', 'g/5', 'a/5'].map(makeNote),
+      // [0, 2, 4, 5, 23, 24].map(makeNote),
+    ];
+  }
 
   this.sequence = [];
 
