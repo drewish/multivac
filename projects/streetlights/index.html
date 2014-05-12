@@ -17,22 +17,28 @@ title: Street Lights
 </div>
 
 <script>
+
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 var pole = document.getElementById('pole');
 var arm = document.getElementById('arm');
 var lamp = document.getElementById('lamp');
 
-var poleHeight = 150;
-var poleTopRadius = 2;
-var poleBaseRadius = 5;
-var armOffset = 5;
+var poleHeight = getRandomInt(100,150);
+var poleTopRadius = getRandomInt(2,3);
+var poleBaseRadius = getRandomInt(poleTopRadius + 1,5);
+var armOffset = getRandomInt(3,10);
 var armOuterRadius = 1;
 var armInnerRadius = 2;
-var armLength = 40;
-var armUpSweepDegrees = -5;
+var armLength = getRandomInt(20,60);
+var armArcBend = getRandomInt(-5,0);
+var armUpSweepDegrees = getRandomInt(-15,0);
 
 var transform;
 
-transform = 'translate(0, ' + (poleHeight + 5) + ')';
+transform = 'translate(0, ' + (poleHeight + 20) + ')';
 pole.setAttribute('transform', transform);
 // Basically just drawing a trapezoid
 var poleOutline = [
@@ -51,9 +57,11 @@ arm.setAttribute('transform', transform)
 var armOutline = [
   'M 0 0',
   'l', 0, -armInnerRadius,
-  'l', armLength, armInnerRadius - armOuterRadius,
+  //  'l', armLength, armInnerRadius - armOuterRadius,
+  'q', armLength / 2, armArcBend, armLength, armInnerRadius - armOuterRadius,
   'l', 0, 2 * armOuterRadius,
-  'l', -armLength, armInnerRadius - armOuterRadius,
+  // 'l', -armLength, armInnerRadius - armOuterRadius,
+  'q', -armLength / 2, armArcBend, -armLength, armInnerRadius - armOuterRadius,
   'l', 0, -armInnerRadius,
 ].join(' ');
 arm.setAttribute('d', armOutline);
