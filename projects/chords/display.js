@@ -42,68 +42,15 @@ Display.prototype.preview = function(staveType, levels) {
   }, this);
 };
 
-// Display.prototype.preview = function(staveType, levels) {
-//   this.canvas = document.getElementById('drawing');
-//   this.clear();
-
-//   var stave = (staveType == 'bass') ? this.drawBassStaff() : this.drawTrebleStaff();
-
-//   if (!levels.length) return;
-
-//   // Create a voice in 4/4
-//   var voice = new Vex.Flow.Voice({
-//     num_beats: 4, beat_value: 4, resolution: Vex.Flow.RESOLUTION
-//   });
-
-//   voice.setStrict(false); // Avoid error about not enough notes
-
-// // var x = 0;
-
-//   var staveNotes = [];
-//   levels.forEach(function(chords) {
-//     chords.forEach(function(chord) {
-//       var notes = chord.notes();
-//       var staveNote = new Vex.Flow.StaveNote({
-//         clef: stave.clef, duration: "q",
-//         keys: notes.map(function(n) { return n.toString(); }),
-//         // stem_direction: -1
-//       });
-
-//       notes.forEach(function(note, i) {
-//         if (note.accidental()) {
-//           staveNote.addAccidental(i, new Vex.Flow.Accidental(note.accidental()));
-//         }
-//       });
-
-//       var just = Vex.Flow.Annotation.VerticalJustify[stave.clef == 'bass' ? 'BOTTOM' : 'TOP'];
-//       staveNote.addAnnotation(0, (new Vex.Flow.Annotation(chord.toString()))
-//         .setFont("Times", 12)
-//         .setVerticalJustification(just)
-//       );
-
-//       staveNotes.push(staveNote);
-//     });
-//   });
-
-//   // Add notes to voice
-//   voice.addTickables(staveNotes);
-
-//   // Format and justify the notes
-//   new Vex.Flow.Formatter().joinVoices([voice]).format([voice], 350);
-
-//   // Render voice
-//   voice.draw(stave.getContext(), stave);
-// };
-
 Display.prototype.show = function(staveType, chord, label) {
   this.canvas = document.getElementById('drawing');
   this.clear();
 
-  var stave = (staveType == 'bass') ? this.drawBassStaff() : this.drawTrebleStaff();
+  var stave = (staveType == 'bass') ? this.drawBassStaff(0, label) : this.drawTrebleStaff(0, label);
 
   if (!chord) return;
 
-  this.drawNotes(stave, chord.notes(), label);
+  this.drawNotes(stave, chord.notes());
 };
 
 Display.prototype.right = function(note) {
@@ -132,11 +79,13 @@ Display.prototype.clear = function() {
 Display.prototype.updateScores = function(scores) {
   var message = '';
   scores.forEach(function(item) {
-    message += '<li>' + item.name + ' — ' + item.score + '</li>';
+    // TODO get foundation classes/markup out of here
+    message += item.name + ' <div class="progress large-2"><span class="meter" style="width: ' + item.percent + '%"></span></div>';
   });
   // TODO: get the jquery out of here... and the hard coded id selector.
   $('#scores').html(message);
 };
+
 
 Display.prototype.drawTrebleStaff = function(measureNumber, label) {
   var width = 135;
@@ -195,17 +144,5 @@ Display.prototype.drawNotes = function(stave, notes, label) {
     );
   }
 
-  // Create a voice in 4/4
-  var Voice = new Vex.Flow.Voice({
-    num_beats: 4, beat_value: 4, resolution: Vex.Flow.RESOLUTION
-  });
-
-  // Add notes to voice
-  Voice.addTickables([staveNote]);
-
-  // Format and justify the notes
-  new Vex.Flow.Formatter().joinVoices([Voice]).format([Voice], 300);
-
-  // Render voice
-  Voice.draw(stave.getContext(), stave);
+  Vex.Flow.Formatter.FormatAndDraw(this.ctx, stave, [staveNote]);
 };

@@ -51,7 +51,9 @@ Controller.prototype.start = function() {
           self.lesson.wrong(performance.now() - start, pressed);
           return self.input.promiseNoNotes().then(wait);
         }
-      );
+      ).catch(function(error) {
+        console.log(":(", error);
+      });
   }
 };
 

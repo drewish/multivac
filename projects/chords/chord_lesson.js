@@ -31,9 +31,6 @@ ChordLesson.prototype.setOptions = function(options) {
   ];
 
   this.sequence = [];
-
-  // make the first two notes active
-  this.scores = [];
 };
 
 ChordLesson.prototype.label = function(item) {

@@ -24,7 +24,6 @@ NoteLesson.prototype.setOptions = function(options) {
       ['e/4', 'g/4', 'b/4', 'd/5', 'f/5'].map(makeNote),
       ['f/4', 'a/4', 'c/5', 'e/5'].map(makeNote),
       ['d/4', 'c/4', 'g/5', 'a/5'].map(makeNote),
-      // [0, 2, 4, 5, 23, 24].map(makeNote),
     ];
   }
 

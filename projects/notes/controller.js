@@ -53,7 +53,9 @@ Controller.prototype.start = function() {
           self.lesson.wrong(performance.now() - start, pressed);
           setTimeout(wait, 250);
         }
-      );
+      ).catch(function(error) {
+        console.log(":(", error);
+      });
   }
 };
 

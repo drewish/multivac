@@ -32,11 +32,11 @@ Display.prototype.preview = function(staveType, levels) {
   }, this);
 };
 
-Display.prototype.show = function(staveType, note) {
+Display.prototype.show = function(staveType, note, label) {
   this.canvas = document.getElementById('drawing');
   this.clear();
 
-  var stave = (staveType == 'bass') ? this.drawBassStaff(label) : this.drawTrebleStaff(label);
+  var stave = (staveType == 'bass') ? this.drawBassStaff(0, label) : this.drawTrebleStaff(0, label);
   if (!note) return;
 
   this.drawNotes(stave, [note]);
@@ -128,17 +128,5 @@ Display.prototype.drawNotes = function(stave, notes, label) {
     );
   }
 
-  // Create a voice in 4/4
-  var voice = new Vex.Flow.Voice({
-    num_beats: 4, beat_value: 4, resolution: Vex.Flow.RESOLUTION
-  });
-
-  // Add notes to voice
-  voice.addTickables([staveNote]);
-
-  // Format and justify the notes
-  new Vex.Flow.Formatter().joinVoices([voice]).format([voice], 300);
-
-  // Render voice
-  voice.draw(stave.getContext(), stave);
+  Vex.Flow.Formatter.FormatAndDraw(this.ctx, stave, [staveNote], {auto_beam: true});
 };

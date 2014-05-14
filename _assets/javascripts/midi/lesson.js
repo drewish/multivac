@@ -16,6 +16,10 @@ Lesson.prototype.add = function(readyToLevelUp) {
     this.levels.shift();
   }
 
+  if (!this.levels.length) {
+    return;
+  }
+
   var next = this.levels[0].shift();
   if (next) {
     next.score = 1.0;
@@ -122,7 +126,7 @@ Lesson.prototype.wrong = function(duration, picked) {
 
   // If they didn't guess or tried more than twice, give a hint.
   if (picked === null || this.currentItem.missed > 2) {
-    label = "Hint " + this.label(this.currentItem);
+    label = "Try " + this.label(this.currentItem);
   }
   else if (picked) {
     label = "✖";
