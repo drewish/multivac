@@ -1,11 +1,11 @@
 ---
 layout: post
-title: Final Cut Pro X to 1Second Everyday via iPhoto
+title: Final Cut Pro X to 1 Second Everyday via iPhoto
 ---
 In my [last post](/2014/06/23/our-year-with-ryland) I mentioned using my 5D for
 some of the shots in the 1 Second Every day video. I found it a little
 complicated to get those from Final Cut Pro X, where I store my video, to the
-iPhone's Camera Roll with the correct date.
+iPhone's Camera Roll while maintaining the correct date.
 
 The short version is that you need to:
 
@@ -13,9 +13,9 @@ The short version is that you need to:
 - set the file's modified date to the date it was shot
 - use iPhoto and iTunes to copy the video to the phone
 
-It's worth noting that I'd tried bypassing iPhoto and syncing the videos as a
-folder but it didn't work. The videos would appear in the Camera Roll but when
-I opened 1SE, it wouldn't show them.
+*I'll note that I'd tried bypassing iPhoto and syncing the videos as a folder
+but it didn't work. The videos would appear in the Camera Roll but when I
+opened 1SE, it wouldn't show them.*
 
 ### In Final Cut Pro X
 
@@ -30,14 +30,14 @@ a lot more time with the spinning beach ball.*
 - Drop the "Apple Devices HD (Best Quality)" settings onto the batch.
 - I'd suggest setting the Location to a new folder.
 
-*Worth pointing out that you can convert multiple clips at the same time this
-way.*
+*Note that you can convert multiple videos in the same batch.*
 
 ### In Terminal
 
-*Since I had dozens of files that I needed to fix the dates on I whipped up
-this bash script. If you've only got one or two it might be simpler to just use
-iPhoto's "Adjust Date and Time..." feature and skip this.*
+*I had dozens of videos that needed their dates fixed so I whipped up this
+bash script to automate the process. If you've only got one or two videos, it's
+far simpler use iPhoto's "Adjust Date and Time..." feature after you import the
+videos and skip this step.*
 
 Use the following bash script to set the file's modified date to the capture
 time specified in the file's name. It'll loop over all the `m?v` files in the
@@ -69,9 +69,16 @@ Import the converted clips into a new "Videos to 1SE" event.
 
 ### In iTunes
 
-Configure the photo settings to look like the image below:
+Configure the photos settings to look like the image below:
 
 ![iTunes screenshot]({% asset_path 1SE iTunes settings.png %})
 
-Sync your phone. When the copying finishes, you should have access to the
-videos in 1SE.
+By checking:
+
+- Sync Photos from `iPhoto`
+- Selected albums, Events, and Faces, and automatically include `no Events`
+- Include videos
+- Events: `Videos to 1SE`
+
+Apply the changes and when your phone finishes syncing, you should have access
+to the videos in 1SE.
