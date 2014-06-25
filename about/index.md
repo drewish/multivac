@@ -4,8 +4,8 @@ title: About
 ---
 ### The Author
 
-Andrew Morton is a software developer who lives in a small apartment in
-Berkeley, California with his wife, son and two dogs.
+Andrew Morton is a software developer who lives in Boulder, Colorado with his
+wife, son and two dogs.
 
 He loves photos of streetlights, the way analog photography encourages
 deliberate composition and makes the results more precious.
