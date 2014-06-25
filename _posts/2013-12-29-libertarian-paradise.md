@@ -7,7 +7,7 @@ anthologies by David G. Hartwell. I don't read a ton of science fiction but
 between reading those and listening to [Escape Pod](http://escapepod.org) I
 feel like I'm exposed to a lot of the best stuff.
 
-My favorite story in this Year's Best was ‘Liberty's daughter’ by Naomi Kritzer.
+My favorite story in this Year's Best was ‘Liberty's daughter’ by [Naomi Kritzer](http://www.naomikritzer.com/).
 I'd describe it as a hard-boiled, Young Adult detective story set in a floating
 Libertarian paradise. If that sounds intriguing you should just go
 [read the whole story](http://www.naomikritzer.com/stories/libertys_daughter.html),
