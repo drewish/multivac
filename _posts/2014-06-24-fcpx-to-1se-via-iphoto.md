@@ -8,6 +8,7 @@ complicated to get those from Final Cut Pro X, where I store my video, to the
 iPhone's Camera Roll with the correct date.
 
 The short version is that you need to:
+
 - convert the video to a compatible codec
 - set the file's modified date to the date it was shot
 - use iPhoto and iTunes to copy the video to the phone
@@ -20,8 +21,8 @@ I opened 1SE, it wouldn't show them.
 
 Locate the clip, right-click it then select "Reveal in Finder" (or hit ⇧⌘R).
 
-I'd tried using the "Send to Compressor" option but Compressor tended to spend
-a lot more time with the spinning beach ball.
+*I'd tried using the "Send to Compressor" option but Compressor tended to spend
+a lot more time with the spinning beach ball.*
 
 ### In Compressor
 
@@ -29,10 +30,14 @@ a lot more time with the spinning beach ball.
 - Drop the "Apple Devices HD (Best Quality)" settings onto the batch.
 - I'd suggest setting the Location to a new folder.
 
-Worth pointing out that you can convert multiple clips at the same time this
-way.
+*Worth pointing out that you can convert multiple clips at the same time this
+way.*
 
 ### In Terminal
+
+*Since I had dozens of files that I needed to fix the dates on I whipped up
+this bash script. If you've only got one or two it might be simpler to just use
+iPhoto's "Adjust Date and Time..." feature and skip this.*
 
 Use the following bash script to set the file's modified date to the capture
 time specified in the file's name. It'll loop over all the `m?v` files in the
@@ -68,5 +73,5 @@ Configure the photo settings to look like the image below:
 
 ![iTunes screenshot]({% asset_path 1SE iTunes settings.png %})
 
-Sync your phone and when the copying finishes you should have access to the
+Sync your phone. When the copying finishes, you should have access to the
 videos in 1SE.
