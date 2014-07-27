@@ -23,12 +23,13 @@ task :new do
   print "What's the title? "
   title =  STDIN.gets().strip.squeeze(" ")
   date = Time.now.strftime('%Y-%m-%d')
-  file_name = "_posts/#{date}-#{title.downcase.tr(' ','-')}.md"
   data = <<HEADER
 ---
 layout: post
 title: #{title}
 ---
 HEADER
+  file_name = "_posts/#{date}-#{title.downcase.tr(' ','-')}.md"
   File.open(file_name, 'w') {|f| f.write(data) }
+  puts file_name
 end
