@@ -2,7 +2,7 @@
 layout: post
 title: A week of sentences
 ---
-
+Another batch of sentences from interesting articles and videos.
 
 ### People
 
