@@ -47,6 +47,8 @@ place as just another of these “platforms,” albeit with bigger screens and
 cupholders.
 <cite>http://m.us.wsj.com/articles/christopher-nolan-films-of-the-future-will-still-draw-people-to-theaters-1404762696?mobile=y</cite>
 
+<!-- -->
+
 > We have managed to do many things that space pros doubted were possible:
 contact and command the spacecraft, obtain telemetry and, most important, fire
 ISEE-3’s engines.
@@ -78,3 +80,8 @@ a rabbi in Morocco.
 <div class="flex-video widescreen vimeo">
   {% oembed https://vimeo.com/85596568 %}
 </div>
+
+> The language of materials and patterns seen in radical architecture transform
+as the nomadic city walks endlessly, adapting to the environments she
+encounters.
+<cite>http://www.universaleverything.com/projects/walking-city/
