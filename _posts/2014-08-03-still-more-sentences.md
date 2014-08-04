@@ -49,7 +49,7 @@ title: Still more sentences
 
 > With these precautions, hopefully we can make conference talks a safe place
   for men.
-<cite>http://rc3.org/2014/07/27/trigger-warnings-for-misogynists/?utm_source=rss&utm_medium=rss&utm_campaign=trigger-warnings-for-misogynists</cite>
+<cite>http://rc3.org/2014/07/27/trigger-warnings-for-misogynists/</cite>
 
 ### Everything else
 
