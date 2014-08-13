@@ -15,10 +15,10 @@ Flew out to SF on Sunday and got a bit behind on posting this.
 
 <!-- -->
 
-> If our book consumption remains as low as it has been,” he wrote, “at least
+> "If our book consumption remains as low as it has been," he wrote, "at least
   let us admit that it is because reading is a less exciting pastime than going
   to the dogs, the pictures or the pub, and not because books, whether bought
-  or borrowed, are too expensive.
+  or borrowed, are too expensive."
 <cite>http://mobile.nytimes.com/blogs/bits/2014/08/09/orwell-is-amazons-latest-target-in-battle-against-hachette/</cite>
 
 <!-- -->
@@ -36,14 +36,6 @@ Flew out to SF on Sunday and got a bit behind on posting this.
   online without his permission, claiming that because a monkey pressed the
   shutter button it should own the copyright.
 <cite>http://www.telegraph.co.uk/technology/news/11015672/Wikipedia-refuses-to-delete-photo-as-monkey-owns-it.html</cite>
-
-<!-- -->
-
-> And another interesting difference — frankly, it's bizarre — is how there are
-  lots of people who call themselves vegetarians, but they eat fish. As though
-  fish aren't animals. Are they potatoes? I don't really understand that
-  perspective.
-<cite>http://www.vox.com/2014/8/4/5958871/fish-intelligence-smart-research-behavior-pain</cite>
 
 <!-- -->
 
