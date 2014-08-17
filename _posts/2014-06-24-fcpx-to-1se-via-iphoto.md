@@ -71,7 +71,7 @@ Import the converted clips into a new "Videos to 1SE" event.
 
 Configure the photos settings to look like the image below:
 
-![iTunes screenshot]({% asset_path 1SE iTunes settings.png %})
+![iTunes screenshot]({% asset_path 1SE_iTunes_settings.png %})
 
 By checking:
 
