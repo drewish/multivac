@@ -2,10 +2,10 @@
 layout: post
 title: Using Cinder's CameraOrtho and VBOMesh to draw cubes
 ---
-I was browsing through [OTAKU GANGSTA](http://http://otakugangsta.com/) when I
+I was browsing through [OTAKU GANGSTA](http://otakugangsta.com/) when I
 came across [this image](http://otakugangsta.com/post/94570382165):
 
-![grid of cubes](http://38.media.tumblr.com/tumblr_lol8chVdDH1qfo7dro1_500.png)
+![grid of cubes](https://38.media.tumblr.com/tumblr_lol8chVdDH1qfo7dro1_500.png)
 
 I thought it was beautiful, and trying to replicate it seemed like a great
 project.
