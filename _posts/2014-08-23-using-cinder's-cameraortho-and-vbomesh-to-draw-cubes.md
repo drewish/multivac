@@ -7,20 +7,21 @@ came across [this image](http://otakugangsta.com/post/94570382165):
 
 ![grid of cubes](http://38.media.tumblr.com/tumblr_lol8chVdDH1qfo7dro1_500.png)
 
-I thought it was beautiful and replicating it would make a great project.
+I thought it was beautiful, and trying to replicate it seemed like a great
+project.
 
-I started by using `gl::drawCube()` to draw a few cubes. It uses triangles for
-the faces, rather than quads, so the wire-frame rendering didn't look right.
-But it made it easy to get the cubes into a grid so I could start figuring out
-how the rotations should work:
+I started by using [`gl::drawCube()`](http://libcinder.org/docs/v0.8.6/namespacecinder_1_1gl.html#aded1f26c4551ea294c38dcd0f53f0f78)
+to draw a few cubes. It uses triangles for the faces, rather than quads, so the
+wire-frame rendering didn't look right. But it made it easy to get the cubes
+into a grid so I could start figuring out how the rotations should work:
 
 ![Cubes with one axis of rotation]({% asset_path SquarePerspectiveApp_step_1.png %})
 
-The next step was figuring out how to use Cinder's `CameraOrtho` to remove the
-perspective from the projection. Then I tried to  matching the number and size
-of cubes:
+The next step was figuring out how to use Cinder's [`CameraOrtho`](http://libcinder.org/docs/v0.8.6/classcinder_1_1_camera_ortho.html)
+class to setup projection matrices with no perspective. Then I started trying
+to matching the number and size and spacing of the cubes:
 
-![Everything looking good and triangular]({% asset_path SquarePerspectiveApp_step_2.png %})
+![Everything's looking good but triangular]({% asset_path SquarePerspectiveApp_step_2.png %})
 
 At this point all that was left was to switch the cube drawing to use quads. I
 used the somewhat broken `VBOMesh` example code from the [Guide to Meshes In
