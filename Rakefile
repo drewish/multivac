@@ -28,6 +28,11 @@ task :new do
 layout: post
 title: #{title}
 ---
+>
+<cite></cite>
+
+<!-- -->
+
 HEADER
   file_name = "_posts/#{date}-#{title.downcase.tr(' ','-')}.md"
   File.open(file_name, 'w') {|f| f.write(data) }
