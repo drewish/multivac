@@ -1,0 +1,90 @@
+---
+layout: full_width
+title: How Long?
+---
+<style media="screen" type="text/css">
+
+</style>
+
+<div class="row">
+  <div class="columns">
+    Help goes here..
+  </div>
+</div>
+
+<div class="row">
+  <div class="small-3 columns">
+    <label for="start-time">Start Minutes</label>
+    <input type="number" min="1" id="start-time" size="60" value="38">
+  </div>
+  <div class="small-3 columns">
+    <label for="start-count">Start Count</label>
+    <input type="number" min="1" id="start-count" size="60" value="21210">
+  </div>
+  <div class="small-3 columns">
+    <label for="later-time">Later Minutes</label>
+    <input type="number" min="1" id="later-time" size="60" value="42">
+  </div>
+  <div class="small-3 columns">
+    <label for="later-count">Later Count</label>
+    <input type="number" min="1" id="later-count" size="60" value="20081">
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="columns">
+    <label>Your Text</label>
+    <pre id="rate" ></pre>
+    <pre id="time-left" ></pre>
+  </div>
+</div>
+
+
+<script>
+  var $startTime  = $('#start-time');
+  var $startCount = $('#start-count');
+  var $laterTime  = $('#later-time');
+  var $laterCount = $('#later-count');
+  var $rate = $('#rate');
+  var $timeLeft = $('#time-left');
+
+  $startTime.change(recalc);
+  $startCount.change(recalc);
+  $laterTime.change(recalc);
+  $laterCount.change(recalc).change();
+
+  function recalc() {
+    /*
+    start_time = 2 hour + 38 minute
+    start_count = 21,210
+
+    later_time = 2 hour + 42 minute
+    later_count = 20,081
+    */
+    var startTime = parseFloat($startTime.val());
+    var startCount = parseFloat($startCount.val());
+
+    var laterTime = parseFloat($laterTime.val());
+    var laterCount = parseFloat($laterCount.val());
+
+    /*
+    completed = start_count - later_count => 1,129
+    hour = 60 minute
+    time = later_time - start_time => 4 minute
+
+    rate = completed / time => 282.25/minute
+    time_left = later_count / rate => 71.1461 minute
+
+    time_left / hour => 1.1858
+    */
+    var completed = startCount - laterCount; // assumes descending?
+    var time = laterTime - startTime;
+    var rate = completed / time;
+    var timeLeft = laterCount / rate;
+
+    $rate.html(rate + " item/minute");
+    $timeLeft.html(timeLeft + " minutes remaining\n" +
+                  (timeLeft / 60) + " hours remaining");
+  };
+</script>
