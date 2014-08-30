@@ -6,85 +6,145 @@ title: How Long?
 
 </style>
 
-<div class="row">
-  <div class="columns">
-    Help goes here..
+<div ng-app="sampleApp" ng-controller="SampleListCtrl">
+  <div class="row">
+    <div class="columns small-12">
+      <p>Help goes here..</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="small-3 columns">
+      <label for="final-count">Final Count</label>
+      <input type="number" size="60" value="0" min="0" ng-model="target">
+    </div>
+    <div class="small-3 columns">
+      <label for="rate">Rate</label>
+      {(rate | number:3)} / minute
+    </div>
+    <div class="small-3 columns">
+      <label for="estimated-time">Remaining</label>
+      {(remaining)}
+    </div>
+    <div class="small-3 columns">
+      <label for="estimated-time">Estimate</label>
+      {(estimate | date:'short')}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="columns">
+      <h3 class="subheader">Samples</h3>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="columns">
+      <table>
+        <thead>
+          <tr>
+            <td>Time</td>
+            <td>Count</td>
+            <td></td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <input ng-model="newsample.time" type="time" name="time" size="60">
+            </td>
+            <td>
+              <input ng-model="newsample.value" type="number" min="1" name="value" size="60">
+            </td>
+            <td>
+              <button ng-click="add()">Add</button>
+            </td>
+          </tr>
+          <tr ng-repeat="sample in samples | orderBy:'-time'">
+            <td>{(sample.time | date:'mediumTime')}</td>
+            <td>{(sample.value)}</td>
+            <td><!-- <button class='remove-sample-{($index)}'>Remove</button> --></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 
-<div class="row">
-  <div class="small-3 columns">
-    <label for="start-time">Start Minutes</label>
-    <input type="number" min="1" id="start-time" size="60" value="38">
-  </div>
-  <div class="small-3 columns">
-    <label for="start-count">Start Count</label>
-    <input type="number" min="1" id="start-count" size="60" value="21210">
-  </div>
-  <div class="small-3 columns">
-    <label for="later-time">Later Minutes</label>
-    <input type="number" min="1" id="later-time" size="60" value="42">
-  </div>
-  <div class="small-3 columns">
-    <label for="later-count">Later Count</label>
-    <input type="number" min="1" id="later-count" size="60" value="20081">
-  </div>
-</div>
 
+{% javascript vendor/lodash.compat %}
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
 
-<div class="row">
-  <div class="columns">
-    <label>Your Text</label>
-    <pre id="rate" ></pre>
-    <pre id="time-left" ></pre>
-  </div>
-</div>
+<script type="text/javascript">
 
+  var sampleApp = angular.module('sampleApp', []);
 
-<script>
-  var $startTime  = $('#start-time');
-  var $startCount = $('#start-count');
-  var $laterTime  = $('#later-time');
-  var $laterCount = $('#later-count');
-  var $rate = $('#rate');
-  var $timeLeft = $('#time-left');
+  // Work around Jekyll's liquid tags.
+  sampleApp.config([
+    '$interpolateProvider', function($interpolateProvider) {
+      return $interpolateProvider.startSymbol('{(').endSymbol(')}');
+    }
+  ]);
 
-  $startTime.change(recalc);
-  $startCount.change(recalc);
-  $laterTime.change(recalc);
-  $laterCount.change(recalc).change();
+  sampleApp.controller('SampleListCtrl', function ($scope, $filter) {
+    function isNumber(n) {
+      return !isNaN(parseFloat(n)) && isFinite(n);
+    }
 
-  function recalc() {
-    /*
-    start_time = 2 hour + 38 minute
-    start_count = 21,210
+    function dateFromTime(time) {
+      var parts = time.split(':');
+      var date = new Date();
+      date.setHours(isNumber(parts[0]) ? parts[0] : 0);
+      date.setMinutes(isNumber(parts[1]) ? parts[1] : 0);
+      date.setSeconds(isNumber(parts[2]) ? parts[2] : 0);
+      return date;
+    }
+    $scope.samples = [
+      // {time: dateFromTime('13:34'), value: 456},
+      // {time: dateFromTime('13:45'), value: 343},
+      // {time: dateFromTime('13:49'), value: 123},
+    ];
 
-    later_time = 2 hour + 42 minute
-    later_count = 20,081
-    */
-    var startTime = parseFloat($startTime.val());
-    var startCount = parseFloat($startCount.val());
+    $scope.add = function() {
+      $scope.samples.push({
+        time: $scope.newsample.time ? dateFromTime($scope.newsample.time) : new Date(),
+        value: parseFloat($scope.newsample.value),
+      });
+      $scope.newsample = { time: null, value: null};
+    };
 
-    var laterTime = parseFloat($laterTime.val());
-    var laterCount = parseFloat($laterCount.val());
+    $scope.remove = function() {
+      // TODO
+    };
 
-    /*
-    completed = start_count - later_count => 1,129
-    hour = 60 minute
-    time = later_time - start_time => 4 minute
+    $scope.target = 0;
+    $scope.rate = 0;
+    $scope.remaining = null;
+    $scope.estimate = null;
 
-    rate = completed / time => 282.25/minute
-    time_left = later_count / rate => 71.1461 minute
+    $scope.$watch('samples', recalc, true);
 
-    time_left / hour => 1.1858
-    */
-    var completed = startCount - laterCount; // assumes descending?
-    var time = laterTime - startTime;
-    var rate = completed / time;
-    var timeLeft = laterCount / rate;
+    function recalc(samples) {
+      if (samples.length < 2) {
+        $scope.target = 0;
+        $scope.rate = 0;
+        $scope.remaining = null;
+        $scope.estimate = null;
+        return;
+      }
 
-    $rate.html(rate + " item/minute");
-    $timeLeft.html(timeLeft + " minutes remaining\n" +
-                  (timeLeft / 60) + " hours remaining");
-  };
+      samples = $filter('orderBy')(samples, '"time"');
+// console.log(samples);
+      var start = samples[0];
+      var later = samples[samples.length - 1];
+
+      var completed = start.value - later.value; // assumes descending?
+      var intervalInMs = (later.time - start.time);
+      var ratePerMs = completed / intervalInMs;
+      $scope.rate = ratePerMs * 1000 * 60;
+      $scope.remaining = Math.abs($scope.target - later.value);
+      $scope.estimate = new Date(later.time.getTime() + ($scope.remaining / ratePerMs));
+    }
+
+  });
 </script>
