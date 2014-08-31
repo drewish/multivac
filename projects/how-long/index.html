@@ -15,16 +15,16 @@ title: How Long?
 
   <div class="row">
     <div class="small-3 columns">
-      <label for="final-count">Final Count</label>
-      <input type="number" size="60" value="0" min="0" ng-model="target">
-    </div>
-    <div class="small-3 columns">
-      <label for="rate">Rate</label>
-      {(rate | number:3)} / minute
+      <label for="target">Final Count</label>
+      <input type="number" size="60" ng-model="target" name="target">
     </div>
     <div class="small-3 columns">
       <label for="estimated-time">Remaining</label>
       {(remaining)}
+    </div>
+    <div class="small-3 columns">
+      <label for="rate">Rate</label>
+      {(rate | number:3)} / minute
     </div>
     <div class="small-3 columns">
       <label for="estimated-time">Estimate</label>
@@ -54,15 +54,19 @@ title: How Long?
               <input ng-model="newsample.time" type="time" name="time" size="60">
             </td>
             <td>
-              <input ng-model="newsample.value" type="number" min="1" name="value" size="60">
+              <input ng-model="newsample.value" type="number" min="1" name="value" size="60" required>
             </td>
             <td>
               <button ng-click="add()">Add</button>
             </td>
           </tr>
           <tr ng-repeat="sample in samples | orderBy:'-time'">
-            <td>{(sample.time | date:'mediumTime')}</td>
-            <td>{(sample.value)}</td>
+            <td>
+              {(sample.time | date:'mediumTime')}
+            </td>
+            <td>
+              {(sample.value)}
+            </td>
             <td><!-- <button class='remove-sample-{($index)}'>Remove</button> --></td>
           </tr>
         </tbody>
@@ -87,23 +91,18 @@ title: How Long?
   ]);
 
   sampleApp.controller('SampleListCtrl', function ($scope, $filter) {
-    function isNumber(n) {
-      return !isNaN(parseFloat(n)) && isFinite(n);
-    }
-
-    function dateFromTime(time) {
-      var parts = time.split(':');
-      var date = new Date();
-      date.setHours(isNumber(parts[0]) ? parts[0] : 0);
-      date.setMinutes(isNumber(parts[1]) ? parts[1] : 0);
-      date.setSeconds(isNumber(parts[2]) ? parts[2] : 0);
-      return date;
-    }
     $scope.samples = [
       // {time: dateFromTime('13:34'), value: 456},
       // {time: dateFromTime('13:45'), value: 343},
       // {time: dateFromTime('13:49'), value: 123},
     ];
+    $scope.target = 0;
+    $scope.rate = 0;
+    $scope.remaining = null;
+    $scope.estimate = null;
+
+    $scope.$watch('target', recalc);
+    $scope.$watch('samples', recalc, true);
 
     $scope.add = function() {
       $scope.samples.push({
@@ -117,33 +116,37 @@ title: How Long?
       // TODO
     };
 
-    $scope.target = 0;
-    $scope.rate = 0;
-    $scope.remaining = null;
-    $scope.estimate = null;
+    function isNumber(n) {
+      return !isNaN(parseFloat(n)) && isFinite(n);
+    }
 
-    $scope.$watch('samples', recalc, true);
+    function dateFromTime(time) {
+      var parts = time.split(':');
+      var date = new Date();
+      date.setHours(isNumber(parts[0]) ? parts[0] : 0);
+      date.setMinutes(isNumber(parts[1]) ? parts[1] : 0);
+      date.setSeconds(isNumber(parts[2]) ? parts[2] : 0);
+      return date;
+    }
 
-    function recalc(samples) {
-      if (samples.length < 2) {
-        $scope.target = 0;
+    function recalc() {
+      if ($scope.samples.length < 2) {
         $scope.rate = 0;
         $scope.remaining = null;
         $scope.estimate = null;
         return;
       }
 
-      samples = $filter('orderBy')(samples, '"time"');
-// console.log(samples);
-      var start = samples[0];
-      var later = samples[samples.length - 1];
+      var samplesByTime = $filter('orderBy')($scope.samples, '"time"');
+      var first = samplesByTime[0];
+      var last = samplesByTime[samplesByTime.length - 1];
 
-      var completed = start.value - later.value; // assumes descending?
-      var intervalInMs = (later.time - start.time);
+      var intervalInMs = last.time - first.time;
+      var completed = last.value - first.value; // assumes descending?
       var ratePerMs = completed / intervalInMs;
       $scope.rate = ratePerMs * 1000 * 60;
-      $scope.remaining = Math.abs($scope.target - later.value);
-      $scope.estimate = new Date(later.time.getTime() + ($scope.remaining / ratePerMs));
+      $scope.remaining = $scope.target - last.value;
+      $scope.estimate = new Date(last.time.getTime() + ($scope.remaining / ratePerMs));
     }
 
   });
