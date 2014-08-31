@@ -3,13 +3,16 @@ layout: full_width
 title: How Long?
 ---
 <style media="screen" type="text/css">
-
 </style>
 
 <div ng-app="sampleApp" ng-controller="SampleListCtrl">
   <div class="row">
     <div class="columns small-12">
-      <p>Help goes here..</p>
+      <p>
+        This should help you figure out when a long running task will complete.
+        Set the Final Count so we know if it's counting up or down. Then enter
+        two samples and we'll give you an estimated completion.
+      </p>
     </div>
   </div>
 
@@ -40,45 +43,44 @@ title: How Long?
 
   <div class="row">
     <div class="columns">
-      <table>
-        <thead>
-          <tr>
-            <td>Time</td>
-            <td>Count</td>
-            <td></td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <input ng-model="newsample.time" type="time" name="time" size="60">
-            </td>
-            <td>
-              <input ng-model="newsample.value" type="number" min="1" name="value" size="60" required>
-            </td>
-            <td>
-              <button ng-click="add()">Add</button>
-            </td>
-          </tr>
-          <tr ng-repeat="sample in samples | orderBy:'-time'">
-            <td>
-              {(sample.time | date:'mediumTime')}
-            </td>
-            <td>
-              {(sample.value)}
-            </td>
-            <td><!-- <button class='remove-sample-{($index)}'>Remove</button> --></td>
-          </tr>
-        </tbody>
-      </table>
+      <form name="form">
+        <table>
+          <thead>
+            <tr>
+              <td>Time</td>
+              <td>Count</td>
+              <td></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <input ng-model="newsample.time" type="time" name="time" size="60">
+              </td>
+              <td>
+                <input ng-model="newsample.value" type="number" min="1" name="value" size="60" required>
+              </td>
+              <td>
+                <button ng-click="add()" ng-disabled="form.$invalid">Add</button>
+              </td>
+            </tr>
+            <tr ng-repeat="sample in samples | orderBy:'-time'">
+              <td>
+                {(sample.time | date:'mediumTime')}
+              </td>
+              <td>
+                {(sample.value)}
+              </td>
+              <td><button ng-click="remove(sample)">Remove</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
     </div>
   </div>
 </div>
 
-
-{% javascript vendor/lodash.compat %}
-<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
-
+{% javascript vendor/angular-1.2.23.min %}
 <script type="text/javascript">
 
   var sampleApp = angular.module('sampleApp', []);
@@ -93,8 +95,6 @@ title: How Long?
   sampleApp.controller('SampleListCtrl', function ($scope, $filter) {
     $scope.samples = [
       // {time: dateFromTime('13:34'), value: 456},
-      // {time: dateFromTime('13:45'), value: 343},
-      // {time: dateFromTime('13:49'), value: 123},
     ];
     $scope.target = 0;
     $scope.rate = 0;
@@ -102,7 +102,7 @@ title: How Long?
     $scope.estimate = null;
 
     $scope.$watch('target', recalc);
-    $scope.$watch('samples', recalc, true);
+    $scope.$watchCollection('samples', recalc);
 
     $scope.add = function() {
       $scope.samples.push({
@@ -112,8 +112,9 @@ title: How Long?
       $scope.newsample = { time: null, value: null};
     };
 
-    $scope.remove = function() {
-      // TODO
+    $scope.remove = function(sample) {
+      var index = $scope.samples.indexOf(sample)
+      $scope.samples.splice(index, 1);
     };
 
     function isNumber(n) {
@@ -144,6 +145,7 @@ title: How Long?
       var intervalInMs = last.time - first.time;
       var completed = last.value - first.value; // assumes descending?
       var ratePerMs = completed / intervalInMs;
+
       $scope.rate = ratePerMs * 1000 * 60;
       $scope.remaining = $scope.target - last.value;
       $scope.estimate = new Date(last.time.getTime() + ($scope.remaining / ratePerMs));
