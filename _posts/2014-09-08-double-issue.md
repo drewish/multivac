@@ -129,7 +129,7 @@ wonder what happens if you're carrying a real gun and you're white?
 
 <!-- -->
 
-> I did examine myself," he said. "Solitude did increase my perception. But
+> "I did examine myself," he said. "Solitude did increase my perception. But
   here's the tricky thing—when I applied my increased perception to myself, I
   lost my identity. With no audience, no one to perform for, I was just there.
   There was no need to define myself; I became irrelevant. The moon was the
@@ -146,7 +146,21 @@ wonder what happens if you're carrying a real gun and you're white?
   was harsh and it was difficult to take, but you turned out to be absolutely
   right.” And, of course with Ferguson, you get it reconfirmed even among the
   people within his own circle now, you see. It’s a sad thing. It’s like you’re
-  looking for John Coltrane and you get Kenny G in brown skin."
+  looking for John Coltrane and you get Kenny G in brown skin.
 <cite>Cornel West — http://www.salon.com/2014/08/24/cornel_west_he_posed_as_a_progressive_and_turned_out_to_be_counterfeit_we_ended_up_with_a_wall_street_presidency_a_drone_presidency/</cite>
+
+<!-- -->
+
+> Baby Sharon was an *exótico*—a *luchador* who wrestles in drag. *Exóticos*
+  have been around since the nineteen-forties. At first, they were dandies, a
+  subset of *rudos* with capes and valets. They struck glamour-boy poses and
+  threw flowers to the audience. As *exóticos* got swishier and more
+  flirtatious, and started dressing in drag, the shtick became old-school
+  limp-wristed gay caricature. Crowds loved to hate them, screaming “*Maricón!*”
+  and “*Joto!*” (“Faggot!”). The *exóticos* made a delightful contrast with the
+  super-masculine brutes they met in the ring. Popular *exóticos* insisted that
+  it was all an act—in real life, they were straight. Baby Sharon was among the
+  first, according to Armendáriz, to publicly say that, no, he was actually gay.
+<cite>http://www.newyorker.com/magazine/2014/09/01/man-without-mask</cite>
 
 <!-- -->
