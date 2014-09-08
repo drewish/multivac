@@ -51,6 +51,8 @@ wonder what happens if you're carrying a real gun and you're white?
 
 ### Technology
 
+And likewise "gamers" need to realize they also have a culture problem:
+
 > As Sarkeesian points out, you may get a mission to hunt down a brutal pimp,
   but you'll never get a mission to get the hooker he's just beaten to a pulp
   to the hospital, nor do you unlock achievements by visiting her at a shelter
