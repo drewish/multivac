@@ -6,6 +6,7 @@ title: A timely roundup of links
 > I just wandered in from the modeling agency next door and decided to feed your
   child fresh fruit. We are all wearing clean clothes.
 <cite>http://itsliketheyknowus.tumblr.com/post/97438828619/i-just-wandered-in-from-the-modeling-agency-next</cite>
+
 ### Doing something
 
 > Finally, and drawing from our collective experience as Middle Experts, we must
