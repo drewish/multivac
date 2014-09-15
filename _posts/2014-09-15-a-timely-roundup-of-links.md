@@ -2,7 +2,7 @@
 layout: post
 title: A timely roundup of links
 ---
-![](http://33.media.tumblr.com/453785837fa597a10d70e7eb6ea04ddf/tumblr_nbvf0ySlW41tm081co1_500.jpg)
+![](https://33.media.tumblr.com/453785837fa597a10d70e7eb6ea04ddf/tumblr_nbvf0ySlW41tm081co1_500.jpg)
 > I just wandered in from the modeling agency next door and decided to feed your
   child fresh fruit. We are all wearing clean clothes.
 <cite>http://itsliketheyknowus.tumblr.com/post/97438828619/i-just-wandered-in-from-the-modeling-agency-next</cite>
