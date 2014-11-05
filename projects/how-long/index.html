@@ -83,73 +83,116 @@ title: How Long?
 {% javascript vendor/angular-1.2.23.min %}
 <script type="text/javascript">
 
-  var sampleApp = angular.module('sampleApp', []);
+var sampleApp = angular.module('sampleApp', []);
 
-  // Work around Jekyll's liquid tags.
-  sampleApp.config([
-    '$interpolateProvider', function($interpolateProvider) {
-      return $interpolateProvider.startSymbol('{(').endSymbol(')}');
+// Work around Jekyll's liquid tags.
+sampleApp.config([
+  '$interpolateProvider', function($interpolateProvider) {
+    return $interpolateProvider.startSymbol('{(').endSymbol(')}');
+  }
+]);
+
+sampleApp.controller('SampleListCtrl', function ($scope, $filter) {
+  $scope.samples = [
+    // {time: dateFromTime('13:34'), value: 456},
+  ];
+  $scope.target = 0;
+  $scope.rate = 0;
+  $scope.remaining = null;
+  $scope.estimate = null;
+
+  $scope.$watch('target', recalc);
+  $scope.$watchCollection('samples', recalc);
+
+  $scope.add = function() {
+    $scope.samples.push({
+      time: $scope.newsample.time ? dateFromTime($scope.newsample.time) : new Date(),
+      value: parseFloat($scope.newsample.value),
+    });
+    $scope.newsample = { time: null, value: null};
+  };
+
+  $scope.remove = function(sample) {
+    var index = $scope.samples.indexOf(sample)
+    $scope.samples.splice(index, 1);
+  };
+
+  function isNumber(n) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
+  }
+
+  function dateFromTime(time) {
+    var parts = time.split(':');
+    var date = new Date();
+    date.setHours(isNumber(parts[0]) ? parts[0] : 0);
+    date.setMinutes(isNumber(parts[1]) ? parts[1] : 0);
+    date.setSeconds(isNumber(parts[2]) ? parts[2] : 0);
+    return date;
+  }
+
+  function recalc() {
+    if ($scope.samples.length < 2) {
+      $scope.rate = 0;
+      $scope.remaining = null;
+      $scope.estimate = null;
+      return;
     }
-  ]);
 
-  sampleApp.controller('SampleListCtrl', function ($scope, $filter) {
-    $scope.samples = [
-      // {time: dateFromTime('13:34'), value: 456},
-    ];
-    $scope.target = 0;
-    $scope.rate = 0;
-    $scope.remaining = null;
-    $scope.estimate = null;
+    var samplesByTime = $filter('orderBy')($scope.samples, '"time"');
+    var first = samplesByTime[0];
+    var last = samplesByTime[samplesByTime.length - 1];
 
-    $scope.$watch('target', recalc);
-    $scope.$watchCollection('samples', recalc);
+    var intervalInMs = last.time - first.time;
+    var completed = last.value - first.value; // assumes descending?
+    var ratePerMs = completed / intervalInMs;
 
-    $scope.add = function() {
-      $scope.samples.push({
-        time: $scope.newsample.time ? dateFromTime($scope.newsample.time) : new Date(),
-        value: parseFloat($scope.newsample.value),
-      });
-      $scope.newsample = { time: null, value: null};
-    };
+    $scope.rate = ratePerMs * 1000 * 60;
+    $scope.remaining = $scope.target - last.value;
+    $scope.estimate = new Date(last.time.getTime() + ($scope.remaining / ratePerMs));
+  }
 
-    $scope.remove = function(sample) {
-      var index = $scope.samples.indexOf(sample)
-      $scope.samples.splice(index, 1);
-    };
 
-    function isNumber(n) {
-      return !isNaN(parseFloat(n)) && isFinite(n);
+  var timeSince = function(date) {
+    if (typeof date !== 'object') {
+      date = new Date(date);
     }
 
-    function dateFromTime(time) {
-      var parts = time.split(':');
-      var date = new Date();
-      date.setHours(isNumber(parts[0]) ? parts[0] : 0);
-      date.setMinutes(isNumber(parts[1]) ? parts[1] : 0);
-      date.setSeconds(isNumber(parts[2]) ? parts[2] : 0);
-      return date;
-    }
+    var seconds = Math.floor((new Date() - date) / 1000);
+    var intervalType;
 
-    function recalc() {
-      if ($scope.samples.length < 2) {
-        $scope.rate = 0;
-        $scope.remaining = null;
-        $scope.estimate = null;
-        return;
+    var interval = Math.floor(seconds / 31536000);
+    if (interval >= 1) {
+      intervalType = 'year';
+    } else {
+      interval = Math.floor(seconds / 2592000);
+      if (interval >= 1) {
+        intervalType = 'month';
+      } else {
+        interval = Math.floor(seconds / 86400);
+        if (interval >= 1) {
+          intervalType = 'day';
+        } else {
+          interval = Math.floor(seconds / 3600);
+          if (interval >= 1) {
+            intervalType = "hour";
+          } else {
+            interval = Math.floor(seconds / 60);
+            if (interval >= 1) {
+              intervalType = "minute";
+            } else {
+              interval = seconds;
+              intervalType = "second";
+            }
+          }
+        }
       }
-
-      var samplesByTime = $filter('orderBy')($scope.samples, '"time"');
-      var first = samplesByTime[0];
-      var last = samplesByTime[samplesByTime.length - 1];
-
-      var intervalInMs = last.time - first.time;
-      var completed = last.value - first.value; // assumes descending?
-      var ratePerMs = completed / intervalInMs;
-
-      $scope.rate = ratePerMs * 1000 * 60;
-      $scope.remaining = $scope.target - last.value;
-      $scope.estimate = new Date(last.time.getTime() + ($scope.remaining / ratePerMs));
     }
 
-  });
+    if (interval > 1 || interval === 0) {
+      intervalType += 's';
+    }
+
+    return interval + ' ' + intervalType;
+  };
+});
 </script>
