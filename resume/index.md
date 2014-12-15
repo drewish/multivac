@@ -17,11 +17,11 @@ Ruby and Rails.
 
 ### Recurly
 
-#### Developer
+#### Senior Developer
 January 2013 - Present — San Francisco, CA
 
-* Ruby on Rails
-* NodeJS
+* Worked primarily with Rails and NodeJS.
+* Developed an Elasticsearch integration.
 
 ### Roommat.es
 
