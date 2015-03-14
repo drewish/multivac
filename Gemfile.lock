@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/drewish/jekyll_oembed.git
-  revision: 39022e8b350a851af08f90e2ea8240d9e8b6fa5b
-  branch: mine
+  revision: fff605158f4119615964c4f91044ad29b7242224
+  branch: master
   specs:
     jekyll-oembed (0.0.1)
       jekyll
@@ -82,7 +82,7 @@ GEM
     rb-kqueue (0.2.3)
       ffi (>= 0.5.0)
     redcarpet (2.3.0)
-    ruby-oembed (0.8.10)
+    ruby-oembed (0.8.12)
     safe_yaml (0.9.7)
     sass (3.2.19)
     slop (3.6.0)
