@@ -21,14 +21,14 @@ engine, to display keys pressed on the keyboard on the screen.
 [Unicoder](/projects/unicoder) (2013) -- JavaScript to convert images into
 monochrome, Unicode bitmaps.
 
-[Time lapse](/projects/time-lapse/) -- Videos I've shot by myself and with a
-friend.
+[Time lapse](/projects/time-lapse/) (2012) -- Videos I've shot by myself and
+with a friend.
 
 [textFlow](/projects/textFlow/) (2009, 2013) -- Ruby script to display iTunes album art as
 ASCII or ANSI text.
 
-[CSS with vertical rhythm](/tools/vertical-rhythm/) -- Helper to generate CSS
-with vertical rhythm.
+[CSS with vertical rhythm](/tools/vertical-rhythm/) (2007, 2013) -- Helper to
+generate CSS with vertical rhythm.
 
 [MintyMouse](https://www.flickr.com/photos/drewish/sets/72157649736835306/) (2005) --
 I combined an Altoids tin and an optical mouse.
