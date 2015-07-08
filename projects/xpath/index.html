@@ -1,0 +1,107 @@
+---
+layout: full_width
+title: XPath Queries
+---
+<style media="screen" type="text/css">
+</style>
+
+<div>
+  <div class="row">
+    <div class="columns small-12">
+      <p>
+        Insert your XML document and then run XPath queries against it.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <form class="large-12 columns">
+      <div class="row collapse">
+        <div class="large-2 columns">
+          <span class="prefix">XPath</span>
+        </div>
+        <div class="large-8 columns">
+          <input type="text" placeholder="Query" id="xpath" value="//person">
+        </div>
+        <div class="small-2 columns">
+          <button id="search" class="prefix">Search</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row hide">
+    <div class="columns">
+      <label>Results</label>
+      <ol id="results"></ol>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="columns">
+      <label>XML</label>
+      <textarea id="xml" style="height: 20em;">
+<?xml version="1.0"?>
+<people xmlns:xul = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" >
+  <person>
+  <name first="george" last="bush" />
+  <address street="1600 pennsylvania avenue" city="washington" country="usa"/>
+  <phoneNumber>202-456-1111</phoneNumber>
+  </person>
+  <person>
+  <name first="tony" last="blair" />
+  <address street="10 downing street" city="london" country="uk"/>
+  <phoneNumber>020 7925 0918</phoneNumber>
+  </person>
+</people>
+      </textarea>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+jQuery('#xpath').bind('input', function() {
+  var xpath = jQuery('#xpath').val();
+  var xml = jQuery('#xml').text();
+
+  jQuery('#results').empty();
+  jQuery('.error').removeClass('error');
+
+  var xmlDoc;
+  try {
+    // https://developer.mozilla.org/en-US/docs/Web/Guide/Parsing_and_serializing_XML#Parsing_strings_into_DOM_trees
+    xmlDoc = (new DOMParser()).parseFromString(xml, "text/xml");
+  }
+  catch (err) {
+    console.error('XML Error: ' + err );
+    return;
+  }
+
+  try {
+    // https://developer.mozilla.org/en-US/docs/Introduction_to_using_XPath_in_JavaScript
+    var nsResolver = xmlDoc.createNSResolver( xmlDoc.ownerDocument === null ? xmlDoc.documentElement : xmlDoc.ownerDocument.documentElement);
+    var iterator = xmlDoc.evaluate(xpath, xmlDoc, nsResolver, XPathResult.ANY_TYPE, null );
+
+    var text = '';
+    var node = iterator.iterateNext();
+    if (node) {
+      var serializer = new XMLSerializer();
+      do {
+        // https://developer.mozilla.org/en-US/docs/Web/Guide/Parsing_and_serializing_XML#Serializing_DOM_trees_to_strings
+        text = serializer.serializeToString(node);
+        console.log(text);
+        jQuery('<li>').append(jQuery('<pre/>').text(text)).appendTo('#results');
+      } while ((node = iterator.iterateNext()));
+    } else {
+      jQuery('#results').append('No matches');
+    }
+  }
+  catch (err) {
+    if (err instanceof DOMException && err.name == 'SyntaxError') {
+      jQuery('#xpath').addClass('error');
+    }
+    console.error( 'Query Error: ' + err );
+  }
+
+  jQuery('.hide').removeClass('hide');
+});
+</script>
