@@ -13,33 +13,11 @@ title: XPath Queries
       </p>
     </div>
   </div>
-  <div class="row">
-    <form class="large-12 columns">
-      <div class="row collapse">
-        <div class="large-2 columns">
-          <span class="prefix">XPath</span>
-        </div>
-        <div class="large-8 columns">
-          <input type="text" placeholder="Query" id="xpath" value="//person">
-        </div>
-        <div class="small-2 columns">
-          <button id="search" class="prefix">Search</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row hide">
-    <div class="columns">
-      <label>Results</label>
-      <ol id="results"></ol>
-    </div>
-  </div>
 
   <div class="row">
     <div class="columns">
-      <label>XML</label>
-      <textarea id="xml" style="height: 20em;">
+      <label for="xml">XML</label>
+      <textarea id="xml" style="height: 15em;">
 <?xml version="1.0"?>
 <people xmlns:xul = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" >
   <person>
@@ -56,15 +34,32 @@ title: XPath Queries
       </textarea>
     </div>
   </div>
+
+  <div class="row">
+    <div class="large-12 columns">
+      <label for="xpath">XPath</label>
+      <input type="text" placeholder="Query" id="xpath" value="//person">
+      <small id="xpath-error"></small>
+    </div>
+  </div>
+
+  <div class="row hide">
+    <div class="columns">
+      <label>Results</label>
+      <ol id="results"></ol>
+    </div>
+  </div>
 </div>
 
 <script type="text/javascript">
 jQuery('#xpath').bind('input', function() {
   var xpath = jQuery('#xpath').val();
-  var xml = jQuery('#xml').text();
+  var xml = jQuery('#xml').val();
 
   jQuery('#results').empty();
+  jQuery('#xpath-error').empty();
   jQuery('.error').removeClass('error');
+  jQuery('.hide').removeClass('hide');
 
   var xmlDoc;
   try {
@@ -97,11 +92,12 @@ jQuery('#xpath').bind('input', function() {
   }
   catch (err) {
     if (err instanceof DOMException && err.name == 'SyntaxError') {
-      jQuery('#xpath').addClass('error');
+      jQuery('#xpath-error').text(err.message);
+      jQuery('#xpath').parent().children().addClass('error');
+    } else {
+      console.error('Query Error: ' + err );
     }
-    console.error( 'Query Error: ' + err );
+    return;
   }
-
-  jQuery('.hide').removeClass('hide');
 });
 </script>
