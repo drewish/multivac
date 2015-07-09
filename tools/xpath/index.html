@@ -17,7 +17,7 @@ title: Quick XPath Queries
   <div class="row">
     <div class="columns">
       <label for="xml">XML</label>
-      <textarea id="xml" style="height: 15em;">
+      <textarea id="xml" placeholder="Paste your XML here" style="height: 15em;">
 <?xml version="1.0"?>
 <people xmlns:xul = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" >
   <person>
@@ -52,14 +52,19 @@ title: Quick XPath Queries
 </div>
 
 <script type="text/javascript">
-jQuery('#xpath').bind('input', function() {
-  var xpath = jQuery('#xpath').val();
-  var xml = jQuery('#xml').val();
 
+function runIt() {
   jQuery('#results').empty();
   jQuery('#xpath-error').empty();
   jQuery('.error').removeClass('error');
   jQuery('.hide').removeClass('hide');
+
+  var xpath = jQuery('#xpath').val();
+  var xml = jQuery('#xml').val();
+
+  if (xpath === '') {
+    return;
+  }
 
   var xmlDoc;
   try {
@@ -67,7 +72,7 @@ jQuery('#xpath').bind('input', function() {
     xmlDoc = (new DOMParser()).parseFromString(xml, "text/xml");
   }
   catch (err) {
-    console.error('XML Error: ' + err );
+    console.error('XML Error: ' + err);
     return;
   }
 
@@ -99,5 +104,8 @@ jQuery('#xpath').bind('input', function() {
     }
     return;
   }
-});
+}
+
+jQuery('#xpath').bind('input', runIt);
+runIt();
 </script>

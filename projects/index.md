@@ -4,6 +4,9 @@ title: Projects
 ---
 These are fun things I’ve worked on:
 
+[Quick XPath Queries](/tools/xpath/) (2015) -- A tool to quickly test out XPath
+queries in the browser.
+
 [Cityscape](https://github.com/drewish/Cityscape) (2015) -- Using [CGAL](http://www.cgal.org/)
 and [Cinder](http://libcinder.org/) to generate cities in the style of [Donald
 Crews](http://www.amazon.com/Flying-Donald-Crews/dp/0688092357).
