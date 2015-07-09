@@ -9,7 +9,8 @@ title: Quick XPath Queries
   <div class="row">
     <div class="columns small-12">
       <p>
-        Insert your XML document and then run XPath queries against it.
+        Insert your XML document and then run XPath queries against it. The code
+        runs entirely in your browser. Nothing is submitted back to my server.
       </p>
     </div>
   </div>
@@ -54,8 +55,7 @@ title: Quick XPath Queries
 <script type="text/javascript">
 
 function runIt() {
-  jQuery('#results').empty();
-  jQuery('#xpath-error').empty();
+  jQuery('#results, #xpath-error').empty();
   jQuery('.error').removeClass('error');
   jQuery('.hide').removeClass('hide');
 
@@ -88,8 +88,12 @@ function runIt() {
       do {
         // https://developer.mozilla.org/en-US/docs/Web/Guide/Parsing_and_serializing_XML#Serializing_DOM_trees_to_strings
         text = serializer.serializeToString(node);
-        console.log(text);
-        jQuery('<li>').append(jQuery('<pre/>').text(text)).appendTo('#results');
+        //console.log(text);
+        jQuery('#results').append(
+          jQuery('<li></li>').append(
+            jQuery('<pre/>').text(text)
+          )
+        );
       } while ((node = iterator.iterateNext()));
     } else {
       jQuery('#results').append('No matches');
@@ -106,6 +110,8 @@ function runIt() {
   }
 }
 
-jQuery('#xpath').bind('input', runIt);
-runIt();
+jQuery(function() {
+  jQuery('#xpath,#xml').bind('input', runIt);
+  runIt();
+});
 </script>
