@@ -46,7 +46,7 @@ title: Quick XPath Queries
 
   <div class="row hide">
     <div class="columns">
-      <label>Results</label>
+      <label id="summary">Results</label>
       <ol id="results"></ol>
     </div>
   </div>
@@ -55,14 +55,15 @@ title: Quick XPath Queries
 <script type="text/javascript">
 
 function runIt() {
-  jQuery('#results, #xpath-error').empty();
-  jQuery('.error').removeClass('error');
-  jQuery('.hide').removeClass('hide');
+  $('#summary').text('There were no matches.');
+  $('#results, #xpath-error').empty();
+  $('.error').removeClass('error');
+  $('.hide').removeClass('hide');
 
-  var xpath = jQuery('#xpath').val();
-  var xml = jQuery('#xml').val();
+  var xpath = $('#xpath').val();
+  var xml = $('#xml').val();
 
-  if (xpath === '') {
+  if (xpath === '' || xml === '') {
     return;
   }
 
@@ -83,26 +84,28 @@ function runIt() {
 
     var text = '';
     var node = iterator.iterateNext();
+    var count = 0;
     if (node) {
       var serializer = new XMLSerializer();
       do {
+        count += 1;
         // https://developer.mozilla.org/en-US/docs/Web/Guide/Parsing_and_serializing_XML#Serializing_DOM_trees_to_strings
         text = serializer.serializeToString(node);
         //console.log(text);
-        jQuery('#results').append(
-          jQuery('<li></li>').append(
-            jQuery('<pre/>').text(text)
+        $('#results').append(
+          $('<li></li>').append(
+            $('<pre/>').text(text)
           )
         );
       } while ((node = iterator.iterateNext()));
-    } else {
-      jQuery('#results').append('No matches');
+
+      $('#summary').text('There were ' + (count == 1 ? '1 match' : (count + ' matches') + ':'));
     }
   }
   catch (err) {
     if (err instanceof DOMException && err.name == 'SyntaxError') {
-      jQuery('#xpath-error').text(err.message);
-      jQuery('#xpath').parent().children().addClass('error');
+      $('#xpath-error').text(err.message);
+      $('#xpath').parent().children().addClass('error');
     } else {
       console.error('Query Error: ' + err );
     }
@@ -110,8 +113,8 @@ function runIt() {
   }
 }
 
-jQuery(function() {
-  jQuery('#xpath,#xml').bind('input', runIt);
+$(function() {
+  $('#xpath,#xml').bind('input', runIt);
   runIt();
 });
 </script>
