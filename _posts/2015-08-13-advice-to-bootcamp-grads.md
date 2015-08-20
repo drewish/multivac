@@ -2,7 +2,7 @@
 layout: post
 title: Hiring advice for dev bootcamp students
 ---
-Back in early April Recurly announced that we were opening a [new office in Boulder](https://recurly.com/press/recurly-expands-to-colorado-opening-new-boulder-colorado-office/). Since then we've hired eight people, four of whom are developers. I've gotten hands on experience with many aspects of recruiting: from passing out business cards at meetups, to phone screens, and technical interviews.
+Back in early April Recurly announced that we were opening a [new office in Boulder](https://recurly.com/press/recurly-expands-to-colorado-opening-new-boulder-colorado-office/). Since then we've hired nine people, five of whom are developers. I've gotten hands on experience with many aspects of recruiting: from passing out business cards at meetups, to phone screens, and technical interviews.
 
 Quite a few of the folks I've met are recent graduates from programs like [gSchool](http://www.galvanize.com/) and [Turing](http://turing.io/). As I've looked through their resumes and projects, I've noticed some common shortcomings and wanted to offer a few thoughts on how to address them. Hopefully it can help folks in these programs find their first developer role.
 
@@ -55,7 +55,7 @@ While I prefer reading a blog post to digging through a git repo, employers will
 
 Make sure the GitHub README explains what it should do. If it's a group project explain what part you worked on.
 
-Don't be intimated by other developer's crazy GitHub profiles. You'll see people with contributions to lots of random projects. Know that, for better or worse, most paying work isn't on those kinds of projects. And most corporate work isn't going to be open sourced. I sort of view GitHub as just for side projects.
+Don't be intimated by other developer's crazy GitHub profiles. You'll see people with contributions to lots of random projects. Know that, for better or worse, most paying work isn't on those kinds of projects. And most corporate work isn't going to be open sourced. For most people GitHub is for side projects.
 
 The workflow I've developed over the last year is to use GitHub's releases like blog posts where I can show off what I've been doing. Here's two C++ projects I've been working on to learn more about OpenGL:
 
