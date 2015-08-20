@@ -4,7 +4,7 @@ title: Hiring advice for dev bootcamp students
 ---
 Back in early April Recurly announced that we were opening a [new office in Boulder](https://recurly.com/press/recurly-expands-to-colorado-opening-new-boulder-colorado-office/). Since then we've hired eight people, four of whom are developers. I've gotten hands on experience with many aspects of recruiting: from passing out business cards at meetups, to phone screens, and technical interviews.
 
-Quite a few of the folks I've met are recent graduates from programs like [gSchool](http://www.galvanize.com/) and [Turing](http://turing.io/). As I've looked through their resumes and projects, I've noticed some common shortcomings and wanted offer to a few thoughts on how to address them. Hopefully it can help folks in these programs find their first developer role.
+Quite a few of the folks I've met are recent graduates from programs like [gSchool](http://www.galvanize.com/) and [Turing](http://turing.io/). As I've looked through their resumes and projects, I've noticed some common shortcomings and wanted to offer a few thoughts on how to address them. Hopefully it can help folks in these programs find their first developer role.
 
 
 ### Build a portfolio
@@ -25,7 +25,7 @@ I haven't been through one of these programs but I'm guessing that it'll be hard
 
 **Let me know what part is your work** -- If it's a group project make it clear what part you worked on. If you used an HTML template, make sure to call that out.
 
-After reading through these suggestions it probably sounds like a lot of work... because it is. People have limited time and attention and you need to make it as easy as possible for them to understand and appreciate what's special about your project. But here's the good news: this is *exactly* the same challenge that companies face when selling their products to customers.
+After reading through these suggestions it probably sounds like a lot of work... because it is. People have limited time and attention and you need to make it as easy as possible for them to understand and appreciate what's special about your project. But here's the good news: this is *exactly* the same challenge that companies face when selling their products to customers. Spending some time working through these problems will give you an appreciation of marketing, UX, design, and product management.
 
 
 ### Position yourself
