@@ -4,16 +4,16 @@ title: Hiring advice for dev bootcamp students
 ---
 Back in early April Recurly announced that we were opening a [new office in Boulder](https://recurly.com/press/recurly-expands-to-colorado-opening-new-boulder-colorado-office/). Since then we've hired eight people, four of whom are developers. I've gotten hands on experience with many aspects of recruiting: from passing out business cards at meetups, to phone screens, and technical interviews.
 
-Quite a few of the folks I've met are recent graduates from programs like [gSchool](http://www.galvanize.com/) and [Turing](http://turing.io/). As I've looked through their resumes and projects, I've noticed some common shortcomings and wanted offer a few thoughts on how to address them. Hopefully it can help folks in these programs find their first developer role.
+Quite a few of the folks I've met are recent graduates from programs like [gSchool](http://www.galvanize.com/) and [Turing](http://turing.io/). As I've looked through their resumes and projects, I've noticed some common shortcomings and wanted offer to a few thoughts on how to address them. Hopefully it can help folks in these programs find their first developer role.
 
 
 ### Build a portfolio
-The projects you work while you're in the program serve two purposes:
+The projects you work on while you're in the program serve two purposes:
 
 1. To teach you how to build things in a given language and framework.
 2. To serve as an example to future employers of the technologies you're familiar with, your awareness of coding standards, and your appreciation of design and UI.
 
-I haven't been through one of these programs but I'm guessing that that it'll be hard to focus on both at the same time. My suggestion would be to pick a single project and spend extra time polishing it up and use that as a portfolio piece to share with employers.
+I haven't been through one of these programs but I'm guessing that it'll be hard to focus on both at the same time. My suggestion would be to pick a single project and spend extra time polishing it up and use that as a portfolio piece to share with employers.
 
 **Make it easy to try out** -- I want to poke around on it and see that your code actually works but I'm lazy, and running random code you find on the internet isn't a great idea. So if you built a Rails app put it up on [Heroku](https://www.heroku.com/) or a similar service.
 
@@ -21,11 +21,11 @@ I haven't been through one of these programs but I'm guessing that that it'll be
 
 **Focus on the user experience** -- Grab a couple people that haven't seen your app before and watch them use it. Do they have a clue what it does? If you give them some tasks are they able to complete them? Once you've got the feedback you'll need to figure out what parts you can incorporate.
 
-**Don't make me create an account** -- I'm glad you learned how to add authentication to a site, do your best to expose the functionality without requiring a login. If your app really needs me to log into an account it might be good to have some screen shots and an overview on your front page. Again, Give me an idea of why it's worth the trouble.
+**Don't make me create an account** -- I'm glad you learned how to add authentication to a site, do your best to expose the functionality without requiring a login. If your app really needs me to log into an account it might be good to have some screen shots and an overview on your front page. Again, give me an idea of why it's worth the trouble.
 
 **Let me know what part is your work** -- If it's a group project make it clear what part you worked on. If you used an HTML template, make sure to call that out.
 
-After reading through these suggestions it probably sounds like a lot of work... because it is. People have limited time and attention and you need to make it as easy as possible for them to understand and appreciate what's special your project. But here's the good news: this is *exactly* the same challenge that companies face when selling their products to customers.
+After reading through these suggestions it probably sounds like a lot of work... because it is. People have limited time and attention and you need to make it as easy as possible for them to understand and appreciate what's special about your project. But here's the good news: this is *exactly* the same challenge that companies face when selling their products to customers.
 
 
 ### Position yourself
@@ -45,12 +45,12 @@ If you're trying to get a front end role you should spend some time on the marku
 
 
 ### Write some blog posts
-Blog posts are an awesome way to show off your communication and technical writing skills. I'm sure you came across an interesting library while working on a project, or ran into a problems that took hours of Googling to solve. Take those experiences and write up a post.
+Blog posts are an awesome way to show off your communication and technical writing skills. I'm sure you came across an interesting library while working on a project, or ran into a problem that took hours of Googling to solve. Take those experiences and write up a post.
 
 To use myself as an example, the highest traffic blog post on my site is: [Using cURL and the host header to bypass a load balancer](https://drewish.com/2010/03/29/using-curl-and-the-host-header-to-bypass-a-load-balancer/). After learning and forgetting how to do it twice, I wrote the blog post so I wouldn't have to figure it out a third time. Based on the traffic, it's something a lot of other people are interested in too.
 
 
-### Use GitHub show off your work
+### Use GitHub to show off your work
 While I prefer reading a blog post to digging through a git repo, employers will ask for your GitHub URL so you might as well use it to your advantage.
 
 Make sure the GitHub README explains what it should do. If it's a group project explain what part you worked on.
@@ -66,11 +66,11 @@ When I get a particular thing working I tag it and create a release. In the rele
 
 
 ### Go read other stuff
-[On Interviewing as a Junior Dev](http://lizmrush.com/on-interviewing/) has some great reflections for how to find and evaluating employers, as well as great hiring advice for employers.
+[On Interviewing as a Junior Dev](http://lizmrush.com/on-interviewing/) has some great reflections on finding and evaluating employers, as well as great hiring advice for employers.
 
 [Every Single Web Portfolio Site Ever
 ](https://medium.com/@_oren/every-single-web-portfolio-site-ever-8fad53534d46) has a list of portfolio site cliches to avoid.
 
 * * *
 
-Thanks to Adrian, Kyra and Rich for their feedback on this post.
+Thanks to Adrian, Kyra, Rich and Joe for their feedback on this post.
