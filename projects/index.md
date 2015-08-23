@@ -4,6 +4,9 @@ title: Projects
 ---
 These are fun things I’ve worked on:
 
+[Alphabear Helper](/tools/alphabear-helper/) (2015) -- A tool to help you cheat
+at Alphabear or other word games.
+
 [Quick XPath Queries](/tools/xpath/) (2015) -- A tool to quickly test out XPath
 queries in the browser.
 
