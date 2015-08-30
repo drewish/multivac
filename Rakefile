@@ -18,8 +18,35 @@ task :clean do
   system "rm -rf _site"
 end # task :clean
 
-desc "New post"
-task :new do
+def format_header title
+  <<HEADER
+---
+layout: post
+title: #{title}
+---
+HEADER
+end
+
+def get_post_meta
+  print "What's the title? "
+  title = STDIN.gets().strip.squeeze(" ")
+  date = Time.now.strftime('%Y-%m-%d')
+  {
+    title: title,
+    file_name: "_posts/#{date}-#{title.downcase.tr(' ','-')}.md",
+    body: format_header(title),
+  }
+end
+
+def save_and_open_post meta
+  File.open(meta[:file_name], 'w') {|f| f.write(meta[:body]) }
+
+  puts meta[:file_name]
+  system "subl #{meta[:file_name]}"
+end
+
+desc "New post from facebook"
+task :new_facebook do
   require 'json'
   require 'net/https'
   require 'uri'
@@ -41,53 +68,40 @@ task :new do
     feed
   end
 
-  def format_header title
-    <<HEADER
----
-layout: post
-title: #{title}
----
-HEADER
-  end
-
-  # Format a post in markdown
-  def format_item post
+  # Format a item in markdown
+  def format_item item
     # Wrap lines at n characters
     def wrap(s, width=78)
       s.gsub(/(.{1,#{width}})(\s+|\Z)/, "\\1\n")
     end
 
     <<ITEM
-> #{wrap(post[:message]).chomp}
-<cite>#{post[:link]}</cite>
+> #{wrap(item[:message]).chomp}
+<cite>#{item[:link]}</cite>
 
-<!-- #{post[:date]} -->
+<!-- #{item[:date]} -->
 
 ITEM
   end
 
-  print "What's the title? "
-  title =  STDIN.gets().strip.squeeze(" ")
-  date = Time.now.strftime('%Y-%m-%d')
-  file_name = "_posts/#{date}-#{title.downcase.tr(' ','-')}.md"
-  puts file_name
-
-  print "What's the title? "
+  meta = get_post_meta
 
   puts "Use https://developers.facebook.com/tools/explorer/ to fetch a token with read_stream permissions"
   print "What's the token? "
   token =  STDIN.gets().strip.squeeze(" ")
 
-  data = format_header(title)
-  fetch(token)[:data].each {|post|
-    post[:date] = Date.iso8601(post[:created_time])
-  }.select!{|post|
-    post[:date] >= Date.today - days_back
-  }.each { |post|
-    data << format_item(post)
+  fetch(token)[:data].each {|item|
+    item[:date] = Date.iso8601(item[:created_time])
+  }.select!{|item|
+    item[:date] >= Date.today - days_back
+  }.each { |item|
+    meta[:body] << format_item(item)
   }
-  File.open(file_name, 'w') {|f| f.write(data) }
 
-  puts file_name
-  system "subl #{file_name}"
+  save_and_open_post meta
+end
+
+desc "New post"
+task :new_post do
+  save_and_open_post(get_post_meta)
 end
