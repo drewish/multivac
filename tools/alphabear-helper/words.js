@@ -1,5 +1,5 @@
 (function(){
-var words = [
+var dictionary = [
   'aa', 'aah', 'aahed', 'aahing', 'aahs', 'aal', 'aalii', 'aaliis', 'aals', 'aardvark',
   'aardwolf', 'aargh', 'aarrgh', 'aarrghh', 'aas', 'aasvogel', 'aba', 'abaca', 'abacas', 'abaci',
   'aback', 'abacus', 'abacuses', 'abaft', 'abaka', 'abakas', 'abalone', 'abalones', 'abamp', 'abampere',
@@ -7988,17 +7988,24 @@ function groupByLength(groups, word) {
 
 $('#characters').on('keyup', function(e) {
   var counts = charCountsFromString(e.target.value.toLowerCase());
-  var some = words.filter(wordIsInChars.bind(null, counts));
+  var some = dictionary.filter(wordIsInChars.bind(null, counts));
   var grouped = some.reduce(groupByLength, []);
   var html = '';
-  for (var i = 1; i < grouped.length; ++i) {
-    if (grouped[i]) {
-      html += '<li>' + grouped[i].join(', ') + '</li>';
-    } else {
-      html += '<li><em>none</em></li>';
+  for (var i = grouped.length; i > 1; --i) {
+    var words = grouped[i];
+    if (words) {
+      html += '<p>' + i + ' letters:<br/>';
+      html += '<a href="#" class="clue" alt="show words">' + Array(words.length + 1).join("★")</a>';
+      html += '<span class="spoiler" style="display: none;">' + words.join(', ') + '</span></p>';
     }
   }
   $('#output').html(html);
+
+  $('.clue').on('click', function(e) {
+    e.preventDefault();
+    $(e.target).hide();
+    $(e.target).siblings('.spoiler').show();
+  });
 });
 
 })();
