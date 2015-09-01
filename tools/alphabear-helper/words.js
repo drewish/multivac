@@ -7995,7 +7995,7 @@ $('#characters').on('keyup', function(e) {
     var words = grouped[i];
     if (words) {
       html += '<p>' + i + ' letters:<br/>';
-      html += '<a href="#" class="clue" alt="show words">' + Array(words.length + 1).join("★")</a>';
+      html += '<a href="#" class="clue" alt="show words">' + Array(words.length + 1).join("☆ ") + '</a>';
       html += '<span class="spoiler" style="display: none;">' + words.join(', ') + '</span></p>';
     }
   }
