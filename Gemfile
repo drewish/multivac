@@ -1,6 +1,7 @@
 # A sample Gemfile
 source "https://rubygems.org"
 
+gem "rake"
 gem "jekyll", '~> 1.4.0'
 
 gem "redcarpet"
