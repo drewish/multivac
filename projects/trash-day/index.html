@@ -1,0 +1,47 @@
+---
+title: Trash Day
+layout: default
+---
+<div class="row">
+  <div class="large-12 columns">
+    <p>
+      Helps you figure out what trash goes out when
+    </p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="large-12 columns">
+    <div id="output"></div>
+  </div>
+</div>
+
+{% javascript time %}
+<script type="text/javascript">
+
+// Friday for me
+var pickupDay = 5;
+
+// All holidays in the year
+var observedHolidays = ['2015-01-01', '2015-05-25', '2015-07-04', '2015-09-07', '2015-11-26', '2015-12-25'];
+
+
+
+var adjustedWeeks = _(observedHolidays)
+  .map(function(s) { return moment(s); })
+  // Day falls on weekend
+  .filter(function(m) { return m.day() != 0 && m.day() != 6; })
+  .map(function(m) { return m.format('GGGG-W'); })
+  .value();
+
+for (var i = 0; i < 52; i += 1) {
+  var week = moment("2015-" + i, "GGGG-W");
+  var day = moment(week.day(pickupDay));
+  if (adjustedWeeks.indexOf(week.format("GGGG-W")) != -1) {
+    day.add(1, 'day');
+  }
+  console.log(week.format("L"), day.format('L dddd'));
+}
+
+</script>
+
