@@ -1,47 +1,92 @@
 ---
-title: Trash Day
+title: Boulder Trash Day
 layout: default
 ---
 <div class="row">
   <div class="large-12 columns">
     <p>
-      Helps you figure out what trash goes out when
+      After tiring of looking at <a href="http://www.westerndisposal.com/find_service_area.php#street_address">
+      Western Disposal's PDF calendar</a> to decide if I needed to take the
+      compost or recycling out. I built this little tool to create an `.ics`
+        file I could put into my calendar.
     </p>
   </div>
 </div>
 
 <div class="row">
-  <div class="large-12 columns">
-    <div id="output"></div>
+  <div class="large-4 columns">
+    <label for="pickupDay">Pickup Day</label>
+    <select id="pickupDay">
+      <option value="1">Monday</option>
+      <option value="2">Tuesday</option>
+      <option value="3">Wednesday</option>
+      <option value="4">Thusday</option>
+      <option value="5">Friday</option>
+    </select>
+  </div>
+  <div class="large-4 columns">
+    <a href="#" class="button" id="download" download="trashdays.ics">Download</a>
   </div>
 </div>
 
 {% javascript time %}
 <script type="text/javascript">
 
-// Friday for me
-var pickupDay = 5;
+$('#pickupDay').change(function() {
+  var pickupDay = parseInt($('#pickupDay').val(), 10);
+  var year = 2015;
+  var observedHolidays = ['2015-01-01', '2015-05-25', '2015-07-04', '2015-09-07', '2015-11-26', '2015-12-25'];
 
-// All holidays in the year
-var observedHolidays = ['2015-01-01', '2015-05-25', '2015-07-04', '2015-09-07', '2015-11-26', '2015-12-25'];
+  var ical = [];
+  ical.push("BEGIN:VCALENDAR");
+  ical.push("VERSION:2.0");
+  ical.push("PRODID:-//drewish.com//NONSGML trash-day//EN");
 
+  var firstRecycle = moment(year + "-1", "GGGG-W").day(pickupDay);
+  ical.push("BEGIN:VEVENT");
+  ical.push("SUMMARY:Recycle");
+  ical.push("UID:" + year + ":" + pickupDay + ":Recycle@trash-day.drewish.com");
+  ical.push("SEQUENCE:0");
+  ical.push("DTSTART;VALUE=DATE:" + firstRecycle.format('YYYYMMDD'));
+  ical.push("DTEND;VALUE=DATE:" + firstRecycle.format('YYYYMMDD'));
+  ical.push("RRULE:FREQ=WEEKLY;INTERVAL=2;COUNT=26");
+  ical.push("END:VEVENT");
 
+  var firstCompost = moment(year + "-2", "GGGG-W").day(pickupDay);
+  ical.push("BEGIN:VEVENT");
+  ical.push("SUMMARY:Compost");
+  ical.push("UID:" + year + ":" + pickupDay + ":Compost@trash-day.drewish.com");
+  ical.push("DTSTART;VALUE=DATE:" + firstCompost.format('YYYYMMDD'));
+  ical.push("DTEND;VALUE=DATE:" + firstCompost.format('YYYYMMDD'));
+  ical.push("RRULE:FREQ=WEEKLY;INTERVAL=2;COUNT=26");
+  ical.push("END:VEVENT");
 
-var adjustedWeeks = _(observedHolidays)
-  .map(function(s) { return moment(s); })
-  // Day falls on weekend
-  .filter(function(m) { return m.day() != 0 && m.day() != 6; })
-  .map(function(m) { return m.format('GGGG-W'); })
-  .value();
+  _(observedHolidays)
+    .map(function(string) { return moment(string); })
+    .filter(function(holiday) {
+      return holiday.day() > 0 && holiday.day() <= pickupDay
+    })
+    .each(function(holiday) {
+      var scheduledDay = moment(holiday.day(pickupDay));
+      var adjustedDay = moment(scheduledDay).add(1, 'day');
+      ical.push("BEGIN:VEVENT");
+      if (holiday.isoWeek() % 2 == 1) {
+        ical.push("SUMMARY:Recycling");
+        ical.push("UID:" + year + ":" + pickupDay + ":Recycle@trash-day.drewish.com");
+      } else {
+        ical.push("SUMMARY:Compost");
+        ical.push("UID:" + year + ":" + pickupDay + ":Compost@trash-day.drewish.com");
+      }
+      ical.push("RECURRENCE-ID;VALUE=DATE:" + scheduledDay.format('YYYYMMDD'));
+      ical.push("SEQUENCE:0");
+      ical.push("DTSTART;VALUE=DATE:" + adjustedDay.format('YYYYMMDD'));
+      ical.push("DTEND;VALUE=DATE:" + adjustedDay.format('YYYYMMDD'));
+      ical.push("END:VEVENT");
+    })
 
-for (var i = 0; i < 52; i += 1) {
-  var week = moment("2015-" + i, "GGGG-W");
-  var day = moment(week.day(pickupDay));
-  if (adjustedWeeks.indexOf(week.format("GGGG-W")) != -1) {
-    day.add(1, 'day');
-  }
-  console.log(week.format("L"), day.format('L dddd'));
-}
+  ical.push("END:VCALENDAR");
+
+  $('#download').attr("href", "data:text/calendar;charset=utf8," + escape(ical.join("\n")));
+}).change();
 
 </script>
-
