@@ -1,5 +1,5 @@
 ---
-title: Boulder Trash Day
+title: Boulder Trash Day Calendar
 layout: default
 ---
 <div class="row">
@@ -7,8 +7,8 @@ layout: default
     <p>
       After tiring of looking at <a href="http://www.westerndisposal.com/find_service_area.php#street_address">
       Western Disposal's PDF calendar</a> to decide if I needed to take the
-      compost or recycling out. I built this little tool to create an `.ics`
-        file I could put into my calendar.
+      compost or recycling out. I built this little tool to create an .ics file
+      I could add to my calendar.
     </p>
   </div>
 </div>
@@ -25,6 +25,15 @@ layout: default
     </select>
   </div>
   <div class="large-4 columns">
+    <label for="schedule">Schedule</label>
+    <select id="schedule">
+      <option>B</option>
+      <option>C</option>
+      <option>D</option>
+      <option>E</option>
+    </select>
+  </div>
+  <div class="large-4 columns">
     <a href="#" class="button" id="download" download="trashdays.ics">Download</a>
   </div>
 </div>
@@ -32,61 +41,91 @@ layout: default
 {% javascript time %}
 <script type="text/javascript">
 
-$('#pickupDay').change(function() {
-  var pickupDay = parseInt($('#pickupDay').val(), 10);
-  var year = 2015;
-  var observedHolidays = ['2015-01-01', '2015-05-25', '2015-07-04', '2015-09-07', '2015-11-26', '2015-12-25'];
+function selectSchedule(pickupDay, letter) {
+  // The weeks are the first ISO week when the service takes place or false
+  // if it's not included.
+  var schedules = {
+    'B': { firstRecycleIsoWeek: 1, firstCompostIsoWeek: false },
+    'C': { firstRecycleIsoWeek: 2, firstCompostIsoWeek: false },
+    'D': { firstRecycleIsoWeek: 1, firstCompostIsoWeek: 2 },
+    'E': { firstRecycleIsoWeek: 2, firstCompostIsoWeek: 1 },
+  };
+  // NOTE: doesn't handle invalid letter.
+  var schedule = schedules[letter];
+  schedule.letter = letter;
+  schedule.day = pickupDay;
+  return schedule;
+}
 
+function buildCalendar(year, observedHolidays, schedule) {
   var ical = [];
+  var uidBase = year + ":" + schedule.day + ":" + schedule.letter;
+
+  function addEvent(action, summary, actualDay, scheduledDay) {
+    ical.push("BEGIN:VEVENT");
+    ical.push("SUMMARY:" + summary);
+    ical.push("UID:" + uidBase + ":" + action + "@trash-day.drewish.com");
+    ical.push("SEQUENCE:0");
+    // Naming of this variable could be improved since its presence means
+    // replacement for recurring event.
+    if (scheduledDay) {
+      ical.push("RECURRENCE-ID;VALUE=DATE:" + scheduledDay.format('YYYYMMDD'));
+    }
+    else {
+      ical.push("RRULE:FREQ=WEEKLY;INTERVAL=2;COUNT=26");
+    }
+    ical.push("DTSTART;VALUE=DATE:" + actualDay.format('YYYYMMDD'));
+    ical.push("DTEND;VALUE=DATE:" + actualDay.format('YYYYMMDD'));
+    ical.push("END:VEVENT");
+  }
+
   ical.push("BEGIN:VCALENDAR");
   ical.push("VERSION:2.0");
-  ical.push("PRODID:-//drewish.com//NONSGML trash-day//EN");
+  ical.push("PRODID:-//drewish.com//trash-day//EN");
 
-  var firstRecycle = moment(year + "-1", "GGGG-W").day(pickupDay);
-  ical.push("BEGIN:VEVENT");
-  ical.push("SUMMARY:Recycle");
-  ical.push("UID:" + year + ":" + pickupDay + ":Recycle@trash-day.drewish.com");
-  ical.push("SEQUENCE:0");
-  ical.push("DTSTART;VALUE=DATE:" + firstRecycle.format('YYYYMMDD'));
-  ical.push("DTEND;VALUE=DATE:" + firstRecycle.format('YYYYMMDD'));
-  ical.push("RRULE:FREQ=WEEKLY;INTERVAL=2;COUNT=26");
-  ical.push("END:VEVENT");
+  var firstRecycle = moment({year: year}).isoWeek(schedule.firstRecycleIsoWeek).day(schedule.day);
+  addEvent('recycle', 'Recycling', firstRecycle);
 
-  var firstCompost = moment(year + "-2", "GGGG-W").day(pickupDay);
-  ical.push("BEGIN:VEVENT");
-  ical.push("SUMMARY:Compost");
-  ical.push("UID:" + year + ":" + pickupDay + ":Compost@trash-day.drewish.com");
-  ical.push("DTSTART;VALUE=DATE:" + firstCompost.format('YYYYMMDD'));
-  ical.push("DTEND;VALUE=DATE:" + firstCompost.format('YYYYMMDD'));
-  ical.push("RRULE:FREQ=WEEKLY;INTERVAL=2;COUNT=26");
-  ical.push("END:VEVENT");
+  if (schedule.firstCompostIsoWeek) {
+    var firstCompost = moment({year: year}).isoWeek(schedule.firstCompostIsoWeek).day(schedule.day);
+    addEvent('compost', 'Compost', firstCompost);
+  }
 
   _(observedHolidays)
     .map(function(string) { return moment(string); })
     .filter(function(holiday) {
-      return holiday.day() > 0 && holiday.day() <= pickupDay
+      return holiday.day() > 0 && holiday.day() <= schedule.day
     })
     .each(function(holiday) {
-      var scheduledDay = moment(holiday.day(pickupDay));
-      var adjustedDay = moment(scheduledDay).add(1, 'day');
-      ical.push("BEGIN:VEVENT");
-      if (holiday.isoWeek() % 2 == 1) {
-        ical.push("SUMMARY:Recycling");
-        ical.push("UID:" + year + ":" + pickupDay + ":Recycle@trash-day.drewish.com");
-      } else {
-        ical.push("SUMMARY:Compost");
-        ical.push("UID:" + year + ":" + pickupDay + ":Compost@trash-day.drewish.com");
+      // first weeks are 0 or 1 so need to mod them down as well.
+      var isRecycleWeek = (holiday.isoWeek() % 2) === (schedule.firstRecycleIsoWeek % 2);
+      var scheduled = moment(holiday.day(schedule.day));
+      var adjusted = moment(scheduled).add(1, 'day');
+
+      if (isRecycleWeek) {
+        addEvent('recycle', 'Recycling (Holiday)', adjusted, scheduled);
+      } else if (schedule.firstCompostIsoWeek) {
+        addEvent('compost', 'Compost (Holiday)', adjusted, scheduled);
       }
-      ical.push("RECURRENCE-ID;VALUE=DATE:" + scheduledDay.format('YYYYMMDD'));
-      ical.push("SEQUENCE:0");
-      ical.push("DTSTART;VALUE=DATE:" + adjustedDay.format('YYYYMMDD'));
-      ical.push("DTEND;VALUE=DATE:" + adjustedDay.format('YYYYMMDD'));
-      ical.push("END:VEVENT");
-    })
+    });
 
   ical.push("END:VCALENDAR");
 
-  $('#download').attr("href", "data:text/calendar;charset=utf8," + escape(ical.join("\n")));
+  return ical.join("\n");
+}
+
+$('#pickupDay, #schedule').change(function() {
+  var letter = $('#schedule').val();
+  var pickupDay = parseInt($('#pickupDay').val(), 10);
+  var schedule = selectSchedule(pickupDay, letter);
+  var year = 2015;
+  var observedHolidays = ['2015-01-01', '2015-05-25', '2015-07-04', '2015-09-07', '2015-11-26', '2015-12-25'];
+  var calendar = buildCalendar(year, observedHolidays, schedule);
+
+  $('#download').attr({
+    href: "data:text/calendar;charset=utf8," + escape(calendar),
+    download: $('#pickupDay :selected').text() + ' ' + letter + ".ics",
+  });
 }).change();
 
 </script>
