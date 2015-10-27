@@ -4,6 +4,11 @@ title: Projects
 ---
 These are fun things I’ve worked on:
 
+[Boulder Trash Day Calendar](2015) -- In the browser, generate an iCalendar file
+with [Western Disposal's collection schedule](http://www.westerndisposal.com/collection-schedule/)
+for the year. No more wondering if collection is delayed due to a holiday or if
+it's a compost or recycling week.
+
 [Alphabear Helper](/tools/alphabear-helper/) (2015) -- A tool to help you cheat
 at Alphabear or other word games.
 
