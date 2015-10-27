@@ -19,7 +19,7 @@ queries in the browser.
 and [Cinder](http://libcinder.org/) to generate cities in the style of [Donald
 Crews](http://www.amazon.com/Flying-Donald-Crews/dp/0688092357).
 
-[AlienLander](https://github.com/drewish/AlienLander) (2014) -- Trying to
+[AlienLander](https://github.com/drewish/AlienLander) (2014-2015) -- Trying to
 recreate the landing computer screen from the 1979 movie Alien.
 
 [TrianglePaint](https://github.com/drewish/TrianglePaint) (2014) -- A very basic
