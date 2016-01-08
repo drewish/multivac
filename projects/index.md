@@ -4,6 +4,10 @@ title: Projects
 ---
 These are fun things I’ve worked on:
 
+[UnionJack](https://github.com/drewish/UnionJack) (2015-2016) -- A C++ library
+for [Cinder](https://libcinder.org/) to draw a 16-segment LED displays using
+OpenGL.
+
 [Boulder Trash Day Calendar](/projects/trash-day/) (2015) -- In the browser,
 generate an iCalendar file with [Western Disposal's collection schedule](http://www.westerndisposal.com/collection-schedule/)
 for the year. No more wondering if collection is delayed due to a holiday or if
