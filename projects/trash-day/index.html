@@ -48,10 +48,10 @@ function selectSchedule(pickupDay, letter) {
   // The weeks are the first ISO week when the service takes place or false
   // if it's not included.
   var schedules = {
-    'B': { firstRecycleIsoWeek: 1, firstCompostIsoWeek: false },
-    'C': { firstRecycleIsoWeek: 2, firstCompostIsoWeek: false },
-    'D': { firstRecycleIsoWeek: 1, firstCompostIsoWeek: 2 },
-    'E': { firstRecycleIsoWeek: 2, firstCompostIsoWeek: 1 },
+    'B': { firstRecycleIsoWeek: '2015-W53', firstCompostIsoWeek: false },
+    'C': { firstRecycleIsoWeek: '2016-W01', firstCompostIsoWeek: false },
+    'D': { firstRecycleIsoWeek: '2015-W53', firstCompostIsoWeek: '2016-W01' },
+    'E': { firstRecycleIsoWeek: '2016-W01', firstCompostIsoWeek: '2015-W53' },
   };
   // NOTE: doesn't handle invalid letter.
   var schedule = schedules[letter];
@@ -64,17 +64,20 @@ function buildCalendar(year, observedHolidays, schedule) {
   var ical = [];
   var uidBase = year + ":" + schedule.day + ":" + schedule.letter;
 
-  function addEvent(action, summary, actualDay, scheduledDay) {
+  function addEvent(action, actualDay, scheduledDay) {
     ical.push("BEGIN:VEVENT");
-    ical.push("SUMMARY:" + summary);
     ical.push("UID:" + uidBase + ":" + action + "@trash-day.drewish.com");
     ical.push("SEQUENCE:0");
     // Naming of this variable could be improved since its presence means
     // replacement for recurring event.
     if (scheduledDay) {
+      ical.push("SUMMARY:" + _.capitalize(action) + " (Holiday)");
       ical.push("RECURRENCE-ID;VALUE=DATE:" + scheduledDay.format('YYYYMMDD'));
     }
     else {
+      ical.push("SUMMARY:" + _.capitalize(action));
+      // TODO: should consider repeating one of the events for years with 53
+      // because we won't fill the year.
       ical.push("RRULE:FREQ=WEEKLY;INTERVAL=2;COUNT=26");
     }
     ical.push("DTSTART;VALUE=DATE:" + actualDay.format('YYYYMMDD'));
@@ -86,29 +89,34 @@ function buildCalendar(year, observedHolidays, schedule) {
   ical.push("VERSION:2.0");
   ical.push("PRODID:-//drewish.com//trash-day//EN");
 
-  var firstRecycle = moment({year: year}).isoWeek(schedule.firstRecycleIsoWeek).day(schedule.day);
-  addEvent('recycle', 'Recycling', firstRecycle);
+  var firstRecycle = moment(schedule.firstRecycleIsoWeek, moment.ISO_8601).isoWeekday(schedule.day);
+  addEvent('recycling', firstRecycle);
 
   if (schedule.firstCompostIsoWeek) {
-    var firstCompost = moment({year: year}).isoWeek(schedule.firstCompostIsoWeek).day(schedule.day);
-    addEvent('compost', 'Compost', firstCompost);
+    var firstCompost = moment(schedule.firstCompostIsoWeek, moment.ISO_8601).isoWeekday(schedule.day);
+    addEvent('compost', firstCompost);
   }
 
+  // First week on the schedule could be are 53, 1 or 2, but all we need is
+  // odd/even. Week 2016W53 is equivalent to 2016W00 so mod by 53 then by 2.
+  var recycleWeekOffset = firstRecycle.isoWeek() % 53 % 2;
+
   _(observedHolidays)
-    .map(function(string) { return moment(string); })
+    .map(function(string) {
+      return moment(string);
+    })
     .filter(function(holiday) {
       return holiday.day() > 0 && holiday.day() <= schedule.day
     })
     .each(function(holiday) {
-      // first weeks are 0 or 1 so need to mod them down as well.
-      var isRecycleWeek = (holiday.isoWeek() % 2) === (schedule.firstRecycleIsoWeek % 2);
+      var isRecycleWeek = (holiday.isoWeek() % 53 % 2) === recycleWeekOffset;
       var scheduled = moment(holiday.day(schedule.day));
       var adjusted = moment(scheduled).add(1, 'day');
 
       if (isRecycleWeek) {
-        addEvent('recycle', 'Recycling (Holiday)', adjusted, scheduled);
+        addEvent('recycling', adjusted, scheduled);
       } else if (schedule.firstCompostIsoWeek) {
-        addEvent('compost', 'Compost (Holiday)', adjusted, scheduled);
+        addEvent('compost', adjusted, scheduled);
       }
     })
     // Force the chain to be evaluated
