@@ -82,6 +82,14 @@ function buildCalendar(year, observedHolidays, schedule) {
     }
     ical.push("DTSTART;VALUE=DATE:" + actualDay.format('YYYYMMDD'));
     ical.push("DTEND;VALUE=DATE:" + actualDay.format('YYYYMMDD'));
+
+    // Show an alarm (4 hours before midnight)
+    ical.push("BEGIN:VALARM");
+    ical.push("TRIGGER:-PT5H");
+    ical.push("DESCRIPTION:Put " + action + " out");
+    ical.push("ACTION:DISPLAY");
+    ical.push("END:VALARM");
+
     ical.push("END:VEVENT");
   }
 
