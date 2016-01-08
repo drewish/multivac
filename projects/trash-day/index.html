@@ -121,10 +121,9 @@ $('#pickupDay, #schedule').change(function() {
   var letter = $('#schedule').val();
   var pickupDay = parseInt($('#pickupDay').val(), 10);
   var schedule = selectSchedule(pickupDay, letter);
-  var year = 2015;
-  var observedHolidays = ['2015-01-01', '2015-05-25', '2015-07-04', '2015-09-07', '2015-11-26', '2015-12-25'];
+  var year = 2016;
   // They observe: New Year’s Day, Memorial Day, Independence Day, Labor Day, Thanksgiving Day, Christmas Day
-  // var observedHolidays = ['2016-01-01', '2016-05-30', '2016-07-04', '2016-09-05', '2016-11-24', '2016-12-25'];
+  var observedHolidays = ['2016-01-01', '2016-05-30', '2016-07-04', '2016-09-05', '2016-11-24', '2016-12-25'];
   var calendar = buildCalendar(year, observedHolidays, schedule);
 
   $('#download').attr({
