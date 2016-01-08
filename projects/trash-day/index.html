@@ -110,7 +110,9 @@ function buildCalendar(year, observedHolidays, schedule) {
       } else if (schedule.firstCompostIsoWeek) {
         addEvent('compost', 'Compost (Holiday)', adjusted, scheduled);
       }
-    });
+    })
+    // Force the chain to be evaluated
+    .value();
 
   ical.push("END:VCALENDAR");
 
