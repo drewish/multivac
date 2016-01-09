@@ -10,6 +10,7 @@ we're planning on remodeling the kitchen.
 <div class="flex-video widescreen">
   {% oembed https://www.youtube.com/watch?v=T_7ErkQFduQ %}
 </div>
+
 > During the intermission of a performance of Brahms Requiem, the 23 protesters
 sitting in various parts of the auditorium stood up and sang, “Requiem for Mike
 Brown.”
@@ -119,6 +120,7 @@ A330, A340, and 747-400 aircraft.
 <div class="flex-video widescreen">
   {% oembed https://www.youtube.com/watch?v=AIxsVkK-B-c %}
 </div>
+
 > Juist, which lies 12 km from the mainland and is home to around 1500 people,
 has no bridge and is currently served by a daily ferry service and occasional
 flights. DHL will fly its yellow quadcopter between Juist and the mainland for
