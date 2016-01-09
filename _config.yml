@@ -2,45 +2,55 @@ name: "drewish"
 description: "eating my own dog food"
 author: "andrew morton"
 
-source:      .
-destination: ./_site
-plugins_dir: ./_plugins
-layouts_dir: ./_layouts
-include:     ['.htaccess']
-exclude:     ['README.md', 'Rakefile', 'Gemfile', 'Gemfile.lock', 'Guardfile']
-keep_files:  ['.git','.svn']
-timezone:    nil
+# Where things are
+source:       .
+destination:  ./_site
+plugins_dir:  ./_plugins
+layouts_dir:  ./_layouts
+# data_dir:     ./_data
+includes_dir: ./_includes
+# collections:  null
 
-future:      true
-show_drafts: false
-limit_posts: 0
-highlighter: true
+# Handling Reading
+safe:         false
+include:      [".htaccess"]
+exclude:      ['README.md', 'Rakefile', 'Gemfile', 'Gemfile.lock', 'Guardfile']
+keep_files:   [".git", ".svn"]
+encoding:     "utf-8"
+markdown_ext: "markdown,mkdown,mkdn,mkd,md"
 
-permalink:     '/:year/:month/:day/:title'
-paginate:      20
-paginate_path: '/blog/page-:num'
+# Filtering Content
+# show_drafts: false
+# limit_posts: 0
+# future:      false
+# unpublished: false
 
-markdown:      redcarpet
-markdown_ext:  markdown,mkd,mkdn,md
-textile_ext:   textile
-
-encoding: utf-8
-excerpt_separator: "\n\n"
-
-safe:        false
-host:        0.0.0.0
-port:        80
-baseurl:     /
-url:         http://drewish.com
-lsi:         false
-
+# Plugins
 gems:
 - jekyll-assets
 - jekyll-paginate
 - jekyll_oembed
 
+# Conversion
+markdown:    redcarpet
+highlighter: rouge
+lsi:         false
+excerpt_separator: "\n\n"
+incremental: false
+
+# Outputting
+permalink:     "/:year/:month/:day/:title/"
+paginate_path: "/blog/page-:num/"
+paginate:      20
+timezone:      null
+
+quiet:    false
+defaults: []
+
+# Serving
+url:     https://drewish.com
+baseurl: "" # does not include hostname
+
 redcarpet:
   extensions: [smart, fenced_code_blocks, autolink, strikethrough]
 
-redcloth:
-  hard_breaks: true
