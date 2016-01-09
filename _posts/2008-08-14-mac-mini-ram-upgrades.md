@@ -17,7 +17,7 @@ use all 4GB.
 ![Activity Monitor screen shot](/files/mac_mini_with_4gb_ram.png)
 
 If you do try to do the home upgrade read through [this RAM upgrade walk through](http://www.methodshop.net/gadgets/tutorials/macmini-ram//index.shtml)
-but skip their advice for getting the case off and [watch this video instead](http://www.youtube.com/watch?v=ynQKYTaJ_zA&feature=related).
+but skip their advice for getting the case off and [watch this video instead](https://www.youtube.com/watch?v=ynQKYTaJ_zA&feature=related).
 It has a much better technique that resulted in zero scratches. Be really
 careful putting it back together though, I tried to rush that and bent some of
 the tabs in the back so it doesn't seat quite right now.

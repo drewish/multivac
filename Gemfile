@@ -5,7 +5,7 @@ gem "rake"
 gem "jekyll", '~> 3.0.1'
 
 gem "redcarpet"
-gem 'jekyll-oembed', require: 'jekyll_oembed', git: 'https://github.com/drewish/jekyll_oembed.git', branch: 'master'
+gem 'jekyll-oembed', git: 'https://github.com/drewish/jekyll_oembed.git', branch: 'master'
 
 gem 'jekyll-assets'
 gem 'jekyll-paginate'

@@ -37,6 +37,7 @@ lsi:         false
 gems:
 - jekyll-assets
 - jekyll-paginate
+- jekyll_oembed
 
 redcarpet:
   extensions: [smart, fenced_code_blocks, autolink, strikethrough]
