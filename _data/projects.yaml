@@ -1,0 +1,105 @@
+unionjack:
+  title: UnionJack
+  url: https://github.com/drewish/UnionJack
+  years: 2015-2016
+  description: A C++ library for <a href="https://libcinder.org/">Cinder</a> to draw a 16-segment LED displays using OpenGL.
+  image: projects/unionjack.png
+
+trash_day:
+  title: Boulder Trash Day Calendar
+  url: /projects/trash-day/
+  years: 2015-2016
+  description: In the browser, generate an iCalendar file with <a href="http://www.westerndisposal.com/collection-schedule/">Western Disposal's collection schedule</a> for the year. No more wondering if collection is delayed due to a holiday or if it's a compost or recycling week.
+
+alphabear_helper:
+  title: Alphabear Helper
+  url: /tools/alphabear-helper/
+  years: 2015
+  description: A tool to help you cheat at Alphabear or other word games.
+
+xpath_queries:
+  title: Quick XPath Queries
+  url: /tools/xpath/
+  years: 2015
+  description: A tool to quickly test out XPath queries in the browser.
+
+cityscape:
+  title: Cityscape
+  url: https://github.com/drewish/Cityscape
+  years: 2015
+  description: Using <a href="http://www.cgal.org/">CGAL</a> and <a href="http://libcinder.org/">Cinder</a> to generate cities in the style of <a href="http://www.amazon.com/Flying-Donald-Crews/dp/0688092357">Donald Crews</a>.
+
+alienlander:
+  title: AlienLander
+  url: https://github.com/drewish/AlienLander
+  years: 2014-2015
+  description: Trying to recreate the landing computer screen from the 1979 movie Alien.
+
+trianglepaint:
+  title: TrianglePaint
+  url: https://github.com/drewish/TrianglePaint
+  years: 2014
+  description: A very basic isometric drawing program.
+  image: projects/trianglepaint.png
+
+notes:
+  title: Learn Notes
+  url: /projects/notes
+  years: 2014
+  description: Uses an algorithm inspired by the Ward Cunninham's <a href="http://c2.com/morse/">Automatic Morse Code Teaching Machine</a> to teach you to read music.
+
+midi_monitor:
+  title: MIDI Monitor
+  url: /projects/midi-monitor
+  years: 2014
+  description: Combines the <a href="http://www.w3.org/TR/webmidi/">Web MIDI API</a> and <a href="http://www.vexflow.com/docs/tutorial.html">VexFlow</a>, a JavaScript engraving engine, to display keys pressed on the keyboard on the screen.
+
+unicoder:
+  title: Unicoder
+  url: /projects/unicoder
+  years: 2013
+  description: JavaScript to convert images into monochrome, Unicode bitmaps.
+
+timelapse:
+  title: Timelapse
+  url: /projects/time-lapse/
+  years: 2012
+  description: Videos I've shot by myself and with a friend.
+
+textflow:
+  title: textFlow
+  url: /projects/textFlow/
+  years: 2009, 2013
+  description: Ruby script to display iTunes album art as ASCII or ANSI text.
+
+vertical_rhythm:
+  title: CSS with vertical rhythm
+  url: /tools/vertical-rhythm/
+  years: 2007, 2013
+  description: Helper to generate CSS with vertical rhythm.
+
+mintymouse:
+  title: MintyMouse
+  url: https://www.flickr.com/photos/drewish/sets/72157649736835306/
+  years: 2005
+  description: I combined an Altoids tin and an optical mouse.
+  image: projects/mintymouse.png
+
+image_color2:
+  title: Image Color2
+  url: /projects/pear/Image_Color2
+  years: 2005-2006
+  description: PHP 5 color conversion library.
+
+2_sided_pov:
+  title: 2-sided POV
+  url: /projects/2-sided-pov/
+  years: 2004-2005
+  description: PIC microcontroller flashes LEDs on a rotating bicycle wheel to spell out messages.
+
+phlickr:
+  title: Phlickr
+  url: /projects/phlickr/
+  years: 2005-2006
+  description: PHP 5 Flickr client library.
+

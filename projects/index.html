@@ -1,0 +1,11 @@
+---
+layout: default
+title: Projects
+---
+<p>These are fun things I’ve worked on:</p>
+
+{% for k_v in site.data.projects %}
+{% assign project = k_v[1] %}
+<h3><a href="{{ project['url'] }}">{{ project['title'] }}</a> <small>({{ project['years'] }})</small></h3>
+<p>{{ project['description'] }}</p>
+{% endfor %}
