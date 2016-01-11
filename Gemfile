@@ -9,6 +9,7 @@ gem 'jekyll-oembed', git: 'https://github.com/drewish/jekyll_oembed.git', branch
 
 gem 'jekyll-assets'
 gem 'jekyll-paginate'
+gem 'mini_magick'
 gem 'sass'
 gem 'compass'
 gem 'uglifier'

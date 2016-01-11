@@ -1,11 +1,25 @@
 ---
-layout: default
+layout: full_width
 title: Projects
 ---
-<p>These are fun things I’ve worked on:</p>
+<div class="row">
+  <div class="small-12 columns">
+    <p>These are fun things I’ve worked on:</p>
+  </div>
+</div>
 
-{% for k_v in site.data.projects %}
-{% assign project = k_v[1] %}
-<h3><a href="{{ project['url'] }}">{{ project['title'] }}</a> <small>({{ project['years'] }})</small></h3>
-<p>{{ project['description'] }}</p>
+{% for project in site.data.projects %}
+  <div class="row">
+    <div class="small-9 columns">
+      <h3> <a href="{{ project['url'] }}">{{ project['title'] }}</a> <small>({{ project['years'] }})</small></h3>
+      <p>{{ project['description'] }}</p>
+    </div>
+    <div class="small-3 columns">
+      {% if project.image %}
+        {{ project.image | img : "magick:resize:200x200" }}
+      {% else %}
+        {% img projects/missing magick:resize:200x200 %}
+      {% endif %}
+    </div>
+  </div>
 {% endfor %}

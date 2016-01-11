@@ -75,6 +75,7 @@ GEM
     lumberjack (1.0.10)
     mercenary (0.3.5)
     method_source (0.8.2)
+    mini_magick (4.3.6)
     multi_json (1.11.2)
     nenv (0.2.0)
     notiffany (0.0.8)
@@ -117,6 +118,7 @@ DEPENDENCIES
   jekyll-assets
   jekyll-oembed!
   jekyll-paginate
+  mini_magick
   rake
   redcarpet
   sass
