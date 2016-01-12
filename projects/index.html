@@ -19,7 +19,7 @@ title: Projects
         <a class="th radius" href="{{ project['url'] }}">
           {{ project.image | img : "magick:resize:200x200" }}
         </a>
-      {% elsif false %}
+      {% else %}
         {% img projects/missing magick:resize:200x200 %}
       {% endif %}
     </div>
