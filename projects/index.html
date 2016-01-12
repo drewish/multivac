@@ -14,10 +14,12 @@ title: Projects
       <h3> <a href="{{ project['url'] }}">{{ project['title'] }}</a> <small>({{ project['years'] }})</small></h3>
       <p>{{ project['description'] }}</p>
     </div>
-    <div class="small-3 columns">
+    <div class="small-3 columns" style="margin-bottom: 1em;">
       {% if project.image %}
-        {{ project.image | img : "magick:resize:200x200" }}
-      {% else %}
+        <a class="th radius" href="{{ project['url'] }}">
+          {{ project.image | img : "magick:resize:200x200" }}
+        </a>
+      {% elsif false %}
         {% img projects/missing magick:resize:200x200 %}
       {% endif %}
     </div>
