@@ -27,8 +27,9 @@
 - key: cityscape
   title: Cityscape
   url: https://github.com/drewish/Cityscape
-  years: 2015
+  years: 2015-2015
   description: Using <a href="http://www.cgal.org/">CGAL</a> and <a href="http://libcinder.org/">Cinder</a> to generate cities in the style of <a href="http://www.amazon.com/Flying-Donald-Crews/dp/0688092357">Donald Crews</a>.
+  image: projects/cityscape.png
 
 - key: alienlander
   title: AlienLander
