@@ -68,12 +68,11 @@ When I get a particular thing working I tag it and create a release. In the rele
 ### Go read other stuff
 [On Interviewing as a Junior Dev](http://lizmrush.com/on-interviewing/) has some great reflections on finding and evaluating employers, as well as great hiring advice for employers.
 
-[Every Single Web Portfolio Site Ever
-](https://medium.com/@_oren/every-single-web-portfolio-site-ever-8fad53534d46) has a list of portfolio site cliches to avoid.
+[Every Single Web Portfolio Site Ever](https://medium.com/@_oren/every-single-web-portfolio-site-ever-8fad53534d46) has a list of portfolio site cliches to avoid.
 
-[Designing a landing page that sells
-](https://blog.activecollab.com/designing-a-landing-page-that-sells-2102afc67024#.7vugz3hc5) is worth reading on two levels: it's got great suggestions you can apply to your website and project README files but it's also a great example of how to sell yourself and your work in a blog post.
+[Designing a landing page that sells](https://blog.activecollab.com/designing-a-landing-page-that-sells-2102afc67024#.7vugz3hc5) is worth reading on two levels: it's got great suggestions you can apply to your website and project README files but it's also a great example of how to sell yourself and your work in a blog post.
 
+[How to Network, in Five Easy Steps](http://best-of-3.blogspot.com/2016/04/how-to-network-in-five-easy-steps.html) is directed at folks working in the arts but I think it applies just as well to the tech world. Stay in touch with the folks you liked in your class, they're the start of your network.
 * * *
 
 Thanks to Adrian, Kyra, Rich and Joe for their feedback on this post.
