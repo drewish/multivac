@@ -3,6 +3,7 @@ source "https://rubygems.org"
 
 gem "rake"
 gem "jekyll", '~> 3.0.1'
+gem "thin"
 
 gem "redcarpet"
 gem 'jekyll-oembed', git: 'https://github.com/drewish/jekyll_oembed.git', branch: 'master'
