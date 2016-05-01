@@ -1,15 +1,30 @@
+- key: cityscape
+  title: Cityscape
+  url: https://github.com/drewish/Cityscape
+  years: 2015-2016
+  description: |
+    Using <a href="http://www.cgal.org/">CGAL</a> and <a href="http://libcinder.org/">Cinder</a>
+    to generate cities in the style of <a href="http://www.amazon.com/Flying-Donald-Crews/dp/0688092357">Donald Crews</a>.
+  image: projects/cityscape.png
+
 - key: unionjack
   title: UnionJack
   url: https://github.com/drewish/UnionJack
   years: 2015-2016
-  description: A C++ library for <a href="https://libcinder.org/">Cinder</a> to draw a 16-segment LED displays using OpenGL.
+  description: |
+    A C++ library for <a href="https://libcinder.org/">Cinder</a> to draw a
+    16-segment LED displays using OpenGL.
   image: projects/unionjack.png
 
 - key: trash_day
   title: Boulder Trash Day Calendar
   url: /projects/trash-day/
   years: 2015-2016
-  description: In the browser, generate an iCalendar file with <a href="http://www.westerndisposal.com/collection-schedule/">Western Disposal's collection schedule</a> for the year. No more wondering if collection is delayed due to a holiday or if it's a compost or recycling week.
+  description: |
+    In the browser, generate an iCalendar file with <a href="http://www.westerndisposal.com/collection-schedule/">
+    Western Disposal's collection schedule</a> for the year. No more wondering
+    if collection is delayed due to a holiday or if it's a compost or recycling
+    week.
   image: projects/trash_day.png
 
 - key: alphabear_helper
@@ -23,13 +38,6 @@
   url: /tools/xpath/
   years: 2015
   description: A tool to quickly test out XPath queries in the browser.
-
-- key: cityscape
-  title: Cityscape
-  url: https://github.com/drewish/Cityscape
-  years: 2015-2015
-  description: Using <a href="http://www.cgal.org/">CGAL</a> and <a href="http://libcinder.org/">Cinder</a> to generate cities in the style of <a href="http://www.amazon.com/Flying-Donald-Crews/dp/0688092357">Donald Crews</a>.
-  image: projects/cityscape.png
 
 - key: alienlander
   title: AlienLander
@@ -56,6 +64,7 @@
   url: /projects/midi-monitor
   years: 2014
   description: Combines the <a href="http://www.w3.org/TR/webmidi/">Web MIDI API</a> and <a href="http://www.vexflow.com/docs/tutorial.html">VexFlow</a>, a JavaScript engraving engine, to display keys pressed on the keyboard on the screen.
+  image: projects/midi_monitor.png
 
 - key: unicoder
   title: Unicoder
@@ -95,7 +104,21 @@
   title: Image Color2
   url: /projects/pear/Image_Color2
   years: 2005-2006
-  description: PHP 5 color conversion library.
+  description: PHP 5 library for converting colors between different color models.
+
+- key: phlickr
+  title: Phlickr
+  url: /projects/phlickr/
+  years: 2005-2006
+  description: |
+    In 2005 I started using <a href="https://www.flickr.com/photos/drewish/">Flickr</a> and,
+    wanting to learn more about PHP 5, began building on an API client I called
+    <a href="https://sourceforge.net/projects/phlickr/">Phlickr</a>.
+
+    In 2006 Rob Loach and I co-authored a book on using it for various projects
+    titled <a href="http://www.apress.com/9781590596128">Building Flickr Applications with PHP</a>
+    which was published by Apress.
+  image: projects/phlickr.png
 
 - key: 2_sided_pov
   title: 2-sided POV
@@ -103,10 +126,3 @@
   years: 2004-2005
   description: PIC microcontroller flashes LEDs on a rotating bicycle wheel to spell out messages.
   image: projects/2_sided_pov.jpg
-
-- key: phlickr
-  title: Phlickr
-  url: /projects/phlickr/
-  years: 2005-2006
-  description: PHP 5 Flickr client library.
-  image: projects/phlickr.png

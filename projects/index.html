@@ -10,18 +10,24 @@ title: Projects
 
 {% for project in site.data.projects %}
   <div class="row">
-    <div class="small-9 columns">
-      <h3> <a href="{{ project['url'] }}">{{ project['title'] }}</a> <small>({{ project['years'] }})</small></h3>
-      <p>{{ project['description'] }}</p>
+    <div class="small-12 columns">
+      <h3><a href="{{ project['url'] }}">{{ project['title'] }}</a> <small>({{ project['years'] }})</small></h3>
     </div>
-    <div class="small-3 columns" style="margin-bottom: 1em;">
-      {% if project.image %}
+  </div>
+  <div class="row" style="margin-bottom: 1em;">
+    {% if project.image %}
+      <div class="small-4 columns">
         <a class="th radius" href="{{ project['url'] }}">
-          {{ project.image | img : "magick:resize:200x200" }}
+          {{ project.image | img : "magick:resize:390x390" }}
         </a>
-      {% else %}
-        {% img projects/missing magick:resize:200x200 %}
-      {% endif %}
-    </div>
+      </div>
+      <div class="small-8 columns">
+        <p>{{ project['description'] }}</p>
+      </div>
+    {% else %}
+      <div class="small-12 columns">
+        <p>{{ project['description'] }}</p>
+      </div>
+    {% endif %}
   </div>
 {% endfor %}
