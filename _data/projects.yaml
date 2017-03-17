@@ -7,6 +7,13 @@
     to generate cities in the style of <a href="http://www.amazon.com/Flying-Donald-Crews/dp/0688092357">Donald Crews</a>.
   image: projects/cityscape.png
 
+- key: rspec-rails-swagger
+  title: RSpec Rails Swagger
+  url: https://github.com/drewish/rspec-rails-swagger
+  years: 2016-2017
+  description: |
+    Generate Swagger 2.0 docs for Rails apps using RSpec request specs. Test
+    results can be captured as response examples.
 - key: unionjack
   title: UnionJack
   url: https://github.com/drewish/UnionJack
