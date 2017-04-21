@@ -1,3 +1,10 @@
+- key: plug-in-colorado
+  title: Plug In Colorado
+  url: https://soundcloud.com/plug-in-colorado
+  years: 2017
+  description: A podcast I've been working on with my wife Deana.
+  image: projects/plug_in_colorado.png
+
 - key: cityscape
   title: Cityscape
   url: https://github.com/drewish/Cityscape
@@ -14,6 +21,7 @@
   description: |
     Generate Swagger 2.0 docs for Rails apps using RSpec request specs. Test
     results can be captured as response examples.
+
 - key: unionjack
   title: UnionJack
   url: https://github.com/drewish/UnionJack
