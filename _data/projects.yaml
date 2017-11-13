@@ -1,3 +1,11 @@
+- key: no_google_calendar_alerts
+  title: No Google Calendar Alerts
+  url: https://github.com/drewish/no_google_calendar_alerts
+  years: 2017
+  description: |
+    A super simple Chrome extension to disable the Javascript pop up alerts in Google Calendar.
+  image: projects/no_google_calendar_alerts.png
+
 - key: plug-in-colorado
   title: Plug In Colorado
   url: https://soundcloud.com/plug-in-colorado
