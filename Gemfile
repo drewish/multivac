@@ -16,3 +16,4 @@ gem 'compass'
 gem 'uglifier'
 
 gem 'guard-jekyll-plus'
+gem 'bundler-audit'
