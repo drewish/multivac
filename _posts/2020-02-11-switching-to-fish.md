@@ -35,3 +35,10 @@ Like other modern shells fish supports command completion. You can have it parse
 ```
 fish_update_completions
 ```
+
+If you have a directory you want to permanently add to to fish's search path–in this case I want to add [rbenv's shims](https://github.com/rbenv/rbenv)–it's easy:
+```
+set -U fish_user_paths ~/.rbenv/shims $fish_user_paths
+```
+The `set` man page has a good explanation of `-U`:
+> `-U` or `--universal` causes the specified shell variable to be given a universal scope. If this option is supplied, the variable will be shared between all the current user's fish instances on the current computer, and will be preserved across restarts of the shell.
