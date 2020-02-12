@@ -38,7 +38,7 @@ GEM
       forwardable-extended (~> 2.5)
     fastimage (2.0.1)
       addressable (~> 2)
-    ffi (1.9.17)
+    ffi (1.12.2)
     formatador (0.2.5)
     forwardable-extended (2.6.0)
     guard (2.13.0)
