@@ -2,7 +2,7 @@
 layout: post
 title: Switching to fish
 ---
-I've used tcsh as my terminal shell since I'd started using FreeBSD back in 2001. I tried switching to bash a few times but found it pretty irritating.
+I've used [tcsh](https://github.com/tcsh-org/tcsh) as my terminal shell since I'd started using [FreeBSD](https://www.freebsd.org) back in 2001. I tried switching to bash a few times but found it pretty irritating.
 
 Last year at [The Big Elixir](https://www.thebigelixir.com) one of the speakers made a pitch for trying out [fish](https://fishshell.com) and a few weeks back I finally made the switch. I started this page to document what I'd done to get everything setup and help remember all the cool functionality I've come across.
 
@@ -12,10 +12,10 @@ So if you want to get started it's pretty easy if you've already got [homebrew](
 brew install fish
 ```
 
-Add it to the list of allowed shells by editing `/etc/shells` and appending:
+Append it to the list of allowed shells in `/etc/shells`:
 
 ```
-/usr/local/bin/fish
+echo /usr/local/bin/fish | sudo tee -a /etc/shells
 ```
 
 Then you can switch your default shell:
