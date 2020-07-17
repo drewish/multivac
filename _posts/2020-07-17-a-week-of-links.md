@@ -2,10 +2,10 @@
 layout: post
 title: A week of links
 ---
-After 7 years, It was sad to leave Recurly last week. One of the things I'll
+After 7 years, it was sad to leave Recurly last week. One of the things I'll
 miss the most was sharing links with the folks who hung out in the #andrew-morton-barde
-slack channel. I've decided to start doing the weekly blog posts again so I have
-a new outlet for what I would have shared there.
+Slack channel. I've decided to start doing the weekly blog posts again so I have
+a new outlet for the links I would have shared there.
 
 ### Corona from home
 
