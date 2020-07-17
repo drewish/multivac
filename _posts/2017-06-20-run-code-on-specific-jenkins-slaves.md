@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Run code on specific Jenkins slaves
+title: Run code on specific Jenkins hosts
 ---
 I needed to update some code in a GitHub repo that's checked out as part of a
 Jenkins pipeline. I could have just run the job over and over until it had run
