@@ -134,7 +134,7 @@ defined someone else’s solution before you adopt it:
 
 ### Fun
 [I made a M1 abrams main cattle tank](https://www.reddit.com/r/aww/comments/cv7ldt/i_made_a_m1_abrams_main_cattle_tank/):
-{% oembed https://www.reddit.com/r/aww/comments/cv7ldt/i_made_a_m1_abrams_main_cattle_tank/ %}
+![cat in cardboard M1 Abrams tank]({% asset_path links/cat-m1-abrams.jpg %})
 
 [For Aspiring Performers, The NBA Is The Best Place To Be A Mascot ](https://fivethirtyeight.com/features/for-aspiring-performers-the-nba-is-the-best-place-to-be-a-mascot/):
 > FiveThirtyEight analyzed each primary mascot in five North American 
