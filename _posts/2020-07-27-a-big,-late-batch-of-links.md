@@ -2,6 +2,8 @@
 layout: post
 title: A big, late batch of links
 ---
+I'm getting ths up a few days later than I'd intended so it's bigger than usual. Hope you enjoy!
+
 ### Politics
 
 [AOC’s Powerful and Historic Floor Speech](https://www.bloomberg.com/opinion/articles/2020-07-23/aoc-floor-speech-about-yoho-s-sexism-shows-her-political-talent):
@@ -83,7 +85,8 @@ title: A big, late batch of links
 > satisfied that he had told the truth.
 
 ### Technology
-The video is so good because they designed a product that would work with the technology of the era and is actually pretty compelling
+The video is so good because they designed a compelling product that is feasible
+to build with late 80's technology:
 <div class="flex-video widescreen">
   {% oembed https://m.youtube.com/watch?v=3yIqr5ysUBI %}
 </div>
@@ -100,7 +103,8 @@ The video is so good because they designed a product that would work with the te
 > (i.e., cocaine) thousands of miles past the most technologically advanced 
 > and well-resourced nation on Earth to their distributors in North America. 
 
-[India, Jio, and the Four Internets](https://stratechery.com/2020/india-jio-and-the-four-internets/) — India is poised to have a big effect on the internet:
+[India, Jio, and the Four Internets](https://stratechery.com/2020/india-jio-and-the-four-internets/)
+— India is poised to have a big effect on the internet:
 > That is exactly what Jio did: it spent that $32 billion building a 
 > network that covered all of India, launched with an offer for three 
 > months of free data and free voice, and once that was up, kept the free 
@@ -109,19 +113,21 @@ The video is so good because they designed a product that would work with the te
 > money up front, then make it up on volume because of a superior cost 
 > structure enabled by the zero-marginal nature of technology. 
 
-[Tempering Expectations for GPT-3 and OpenAI’s API](https://minimaxir.com/2020/07/gpt3-expectations/) — If you saw a bunch of GPT3 tweets go by and have no idea what they’re about here’s the hype reducing answer:
+[Tempering Expectations for GPT-3 and OpenAI’s API](https://minimaxir.com/2020/07/gpt3-expectations/)
+— If you saw a bunch of GPT3 tweets go by and have no idea what they’re about here’s the hype reducing answer:
 > However, a 30-40% success rate implies a 60-70% failure rate, which 
 > is patently unsuitable for a production application. If it takes seconds 
 > to generate a React component and it takes on average 3 tries to get 
 > something usable, it might be more pragmatic to just create the 
 > component the hard, boring way.
 
-[IPv4, IPv6, and a sudden change in attitude](https://apenwarr.ca/log/20200708) – Some great background on why IPv6 adoption is always 5 years away:
+[IPv4, IPv6, and a sudden change in attitude](https://apenwarr.ca/log/20200708) — Some great background on why IPv6 adoption is always 5 years away:
 > Or we can ask that question another way. Why are there so many web pages that advise you to solve your connectivity problem by disabling IPv6?
 > 
 > Because automatic failover is a very hard problem.
 
 [Etcd, or, why modern software makes me sad](https://www.roguelazer.com/2020/07/etcd-or-why-modern-software-makes-me-sad/)
+— I can't quite pick a quote but make sure you read all the footnotes.
 
 [You don't need no Service Mesh](https://serce.me/posts/23-07-2020-you-dont-need-no-service-mesh/)
 — A good reminder to check that you have the same the constraints that 
