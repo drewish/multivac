@@ -1,11 +1,13 @@
 ---
 layout: post
-title: The Disaster Continues
+title: "Links: The Disaster Continues"
 ---
 I guess as a disclaimer for this first story I’ll mention I took a
-position at Amazon.
+position at Amazon. We'll see how much it reduces the number of links to
+[Matt Stoller](https://mattstoller.substack.com/) and
+[Scott Galloway](https://www.profgalloway.com/).
 
-[MacKenzie Scott is donating her billions much faster than her ex Jeff Bezos - Vox](https://www.vox.com/future-perfect/21348052/mackenzie-bezos-scott-donating-billions-ex-jeff-bezos-amazon)
+[MacKenzie Scott is donating her billions much faster than her ex Jeff Bezos](https://www.vox.com/future-perfect/21348052/mackenzie-bezos-scott-donating-billions-ex-jeff-bezos-amazon)
 – I’m impressed by so many things about her approach: She’s moving
 quickly, using simple process, giving money to groups run by those with
 the lived experiences of the people they serve, and she’s letting them
@@ -115,12 +117,12 @@ left unrestricted to provide them with maximum flexibility.”
 > became so clear that he could easily have been me.
 
 [James Hong: The actor with 600+ credits and counting](https://www.cnn.com/2020/08/02/entertainment/james-hong-actor-movie-credits-trnd/index.html)
-– One bit really highlighted the importance of creating your own spaces:
+– Two bits really highlighted the importance of creating your own spaces:
 > Realizing that Hollywood wouldn't be able to provide the roles Asian
 > Americans deserved, Hong set out to carve his own space. Along with
 > actor Mako Iwamatsu, Hong helped organize an Asian American acting
 > group in Los Angeles.
->
+> […]
 > East West Players has nurtured great talent over its 55 years. Actors
 > such as Randall Park, George Takei, John Cho and Daniel Dae Kim have
 > all been associated with the theater. And according to East West
@@ -134,7 +136,7 @@ left unrestricted to provide them with maximum flexibility.”
 – Frustrating how clearly they explained something I've thought about
 for a long time:
 > Prefer to push fixes upstream instead of working around problems
-> downstream
+> downstream.
 
 [Turning the IDE Inside Out with Datalog](https://petevilter.me/post/datalog-typechecking/):
 > tl;dr: I made a prototype IDE in which language semantics are specified
