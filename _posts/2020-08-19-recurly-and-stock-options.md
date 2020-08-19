@@ -6,9 +6,9 @@ I'm a week late with it, but I did want to comment on the news that [Recurly was
 
 It was a very welcome surprise for me, since the deal completed inside the 30-day period I had to exercise my stock options. I had only exercised a small portion, as doing so fully would have cost $115k and come with a $50k alternative minimum tax bill. Neither of which were in our budget. So leaving Recurly meant giving up that possibility of a future windfall. It's a strange feeling to have written something like that off and then days later find out that it could, in fact, be very valuable… but only if circumstances entirely outside your control align by an arbitrary date. Well, it made for a few sleepless nights.
 
-Even having seen the upside, in the future I'll be hesitant to tie a big portion of my compensation up in options with the 30-day period. The exception would be if I was planning to exercise them immediately or had a bonus to help offset the cost. It sounds like 90-days (for ISOs) or multiple years (for NSOs) are becoming the norm so I'm hopeful it'll be less of an issue next time I jump back in the startup pool.
+Even having seen the upside, in the future I'll be hesitant to take a position where a large portion of my compensation would be options with only 30-days to exercise them. The exception would be if I was planning to exercise them immediately or had a bonus to help offset the cost. It sounds like 90-days (for ISOs) or multiple years (for NSOs) are becoming the norm so I'm hopeful it'll be less of an issue next time I jump back in the startup pool.
 
-To all the folks that either stuck it out or came up with the money, my sincere congratulations. As one colleague put it:
+To all the folks that went through the unnatural act of creating a company and either stuck with it to the end or came up with the money before they left, my sincere congratulations. As one colleague put it:
 > Man, you gotta be grateful for how lucky we are. I was thinking back
 > about all the things I could have done differently. In a way it’s like,
 > even people who win the lottery still made a bad financial decision. Just
