@@ -1,3 +1,11 @@
+- key: planner
+  title: Time Block Planner
+  url: https://github.com/drewish/planner
+  years: 2021-2022
+  description: |
+    A ruby script to generate my version of <a href="https://www.timeblockplanner.com/">Cal Newport's time block planner</a>.
+  image: projects/planner.png
+
 - key: no_google_calendar_alerts
   title: No Google Calendar Alerts
   url: https://github.com/drewish/no_google_calendar_alerts
