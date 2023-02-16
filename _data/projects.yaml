@@ -105,6 +105,13 @@
   description: JavaScript to convert images into monochrome, Unicode bitmaps.
   image: projects/unicoder.png
 
+- key: logo_js
+  title: Logo JS
+  url: https://drewish.github.io/logo_js/
+  years: 2011-2013
+  description: A simple Logo interpreter written in JavaScript which draws the turtle's path using SVG.
+  image: projects/logo_js.png
+
 - key: timelapse
   title: Timelapse
   url: /projects/time-lapse/
