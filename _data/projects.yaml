@@ -1,7 +1,7 @@
 - key: planner
   title: Time Block Planner
   url: https://github.com/drewish/planner
-  years: 2021-2022
+  years: 2021-2023
   description: |
     A ruby script to generate my version of <a href="https://www.timeblockplanner.com/">Cal Newport's time block planner</a>.
   image: projects/planner.png
