@@ -18,7 +18,7 @@ title: Projects
     {% if project.image %}
       <div class="small-4 columns">
         <a class="th radius" href="{{ project['url'] }}">
-          {{ project.image | img : "magick:resize:390x390" }}
+          <img src="{{ project.image | prepend: '/assets/images/' | resize: '390x390>' }}" alt="{{ project.name }}">
         </a>
       </div>
       <div class="small-8 columns">

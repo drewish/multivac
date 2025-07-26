@@ -8,7 +8,8 @@ gem "thin", '~> 1.8.0'
 gem "redcarpet"
 gem 'jekyll-oembed', git: 'https://github.com/drewish/jekyll_oembed.git', branch: 'master'
 
-gem 'jekyll-assets'
+
+gem "jekyll-resize", git: "https://github.com/MichaelCurrin/jekyll-resize"
 gem 'jekyll-paginate'
 gem 'mini_magick'
 

@@ -29,6 +29,7 @@ markdown_ext: "markdown,mkdown,mkdn,mkd,md"
 plugins:
 - jekyll-paginate
 - jekyll_oembed
+- jekyll-resize
 
 # Conversion
 markdown:    kramdown

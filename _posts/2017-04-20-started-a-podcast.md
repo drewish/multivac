@@ -3,7 +3,7 @@ layout: post
 title: Started a Podcast
 ---
 
-{% img 'projects/plug_in_colorado.png' magick:resize:390x390 alt:'Plug In Colorado Logo' %}
+<img src="{{ 'projects/plug_in_colorado.png' | prepend: '/assets/images/' | resize: '390x390>' }}" alt="Plug In Colorado Logo">
 
 Deana and I have started a podcast called [Plug In Colorado](https://soundcloud.com/plug-in-colorado).
 We've been interview some of the interesting folks we've met since moving out to

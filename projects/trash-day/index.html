@@ -41,7 +41,8 @@ layout: default
   </div>
 </div>
 
-{% javascript time %}
+<script src="{{ '/assets/js/lodash.min.js' | relative_url }}"></script>
+<script src="{{ '/assets/js/moment-2.10.6.min.js' | relative_url }}"></script>
 <script type="text/javascript">
 
 function selectSchedule(pickupDay, letter) {
@@ -126,9 +127,7 @@ function buildCalendar(year, observedHolidays, schedule) {
       } else if (schedule.firstCompostIsoWeek) {
         addEvent('compost', adjusted, scheduled);
       }
-    })
-    // Force the chain to be evaluated
-    .value();
+    });
 
   ical.push("END:VCALENDAR");
 
