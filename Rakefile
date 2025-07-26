@@ -14,7 +14,7 @@ end
 
 desc "Automatically generate site at :4000 for local dev"
 task :dev do
-  system "bundle exec guard"
+  system "jekyll serve"
 end
 
 desc "Remove _site from directory before committing"

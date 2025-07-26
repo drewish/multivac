@@ -27,12 +27,11 @@ markdown_ext: "markdown,mkdown,mkdn,mkd,md"
 
 # Plugins
 plugins:
-- jekyll-assets
 - jekyll-paginate
 - jekyll_oembed
 
 # Conversion
-markdown:    redcarpet
+markdown:    kramdown
 highlighter: rouge
 lsi:         false
 excerpt_separator: "\n\n"
