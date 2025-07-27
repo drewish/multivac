@@ -3,29 +3,29 @@ layout: full_width
 title: Projects
 ---
 <div class="row">
-  <div class="small-12 columns">
+  <div class="small-12 column">
     <p>These are fun things I’ve worked on:</p>
   </div>
 </div>
 
 {% for project in site.data.projects %}
   <div class="row">
-    <div class="small-12 columns">
+    <div class="small-12 column">
       <h3><a href="{{ project['url'] }}">{{ project['title'] }}</a> <small>({{ project['years'] }})</small></h3>
     </div>
   </div>
   <div class="row" style="margin-bottom: 1em;">
     {% if project.image %}
-      <div class="small-4 columns">
+      <div class="small-4 column">
         <a class="th radius" href="{{ project['url'] }}">
           <img src="{{ project.image | prepend: '/assets/images/' | resize: '390x390>' }}" alt="{{ project.name }}">
         </a>
       </div>
-      <div class="small-8 columns">
+      <div class="small-8 column">
         <p>{{ project['description'] }}</p>
       </div>
     {% else %}
-      <div class="small-12 columns">
+      <div class="small-12 column">
         <p>{{ project['description'] }}</p>
       </div>
     {% endif %}

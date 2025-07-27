@@ -11,15 +11,15 @@ He loves photos of streetlights, the way analog photography encourages
 deliberate composition and makes the results more precious.
 
 <div class="row">
-  <div class="small-4 columns">{% oembed http://www.flickr.com/photos/drewish/3095122678/ %}</div>
-  <div class="small-4 columns">{% oembed http://www.flickr.com/photos/drewish/3094280371/ %}</div>
-  <div class="small-4 columns">{% oembed http://www.flickr.com/photos/drewish/3094275993/ %}</div>
+  <div class="small-4 column">{% oembed http://www.flickr.com/photos/drewish/3095122678/ %}</div>
+  <div class="small-4 column">{% oembed http://www.flickr.com/photos/drewish/3094280371/ %}</div>
+  <div class="small-4 column">{% oembed http://www.flickr.com/photos/drewish/3094275993/ %}</div>
 </div>
 
 ### The Site
 
 - [Jekyll](http://jekyllrb.com/) is the publishing engine.
-- [Foundation 4](http://foundation.zurb.com/) provides a responsive grid and
+- [Foundation 6](http://foundation.zurb.com/) provides a responsive grid and
   pleasant typography.
 - [Lato](http://www.google.com/fonts/specimen/Lato),
   [Merriweather](http://www.google.com/fonts/specimen/Merriweather) and
