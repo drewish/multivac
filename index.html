@@ -17,18 +17,18 @@ title: blog index
   <hr>
 {% endfor %}
 <!-- Pagination links -->
-<div class="pagination-centered">
+<nav aria-label="Pagination" class="text-center">
   <ul class="pagination">
     {% if paginator.previous_page %}
-      <li class="arrow"><a href="{{ paginator.previous_page_path }}">&laquo;</a></li>
+      <li class="pagination-previous"><a href="{{ paginator.previous_page_path }}" aria-label="Previous page">&laquo;</a></li>
     {% else %}
-      <li class="arrow unavailable"><a href="#">&laquo;</a></li>
+      <li class="pagination-previous disabled">Previous <span class="show-for-sr">page</span></li>
     {% endif %}
-    <li>Page {{ paginator.page }} of {{ paginator.total_pages }}</li>
+    <li class="current">Page {{ paginator.page }} of {{ paginator.total_pages }}</li>
     {% if paginator.next_page %}
-      <li class="arrow"><a href="{{ paginator.next_page_path }}">&raquo;</a></li>
+      <li class="pagination-next"><a href="{{ paginator.next_page_path }}" aria-label="Next page">&raquo;</a></li>
     {% else %}
-      <li class="arrow unavailable"><a href="#">&raquo;</a></li>
+      <li class="pagination-next disabled">Next <span class="show-for-sr">page</span></li>
     {% endif %}
   </ul>
-</div>
+</nav>

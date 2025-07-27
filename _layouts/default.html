@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
   {% include _html_head.html %}
-  <body>
-    {% include _page_header.html %}
-    <div class="row">
-      <div class="column">
-        <h2 class="subheader">{{ page.title }}</h2>
-        {{ content }}
+  <body class="grid-container">
+    <div class="grid-margin-x">
+      {% include _page_header.html %}
+      <div class="grid-x">
+        <div class="cell">
+          <h2 class="subheader">{{ page.title }}</h2>
+          {{ content }}
+        </div>
       </div>
+      {% include _page_footer.html %}
     </div>
-    {% include _page_footer.html %}
   </body>
   {% include _html_footer.html %}
 </html>

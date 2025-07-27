@@ -10,10 +10,10 @@ wife, two sons and their two dogs.
 He loves photos of streetlights, the way analog photography encourages
 deliberate composition and makes the results more precious.
 
-<div class="row">
-  <div class="small-4 column">{% oembed http://www.flickr.com/photos/drewish/3095122678/ %}</div>
-  <div class="small-4 column">{% oembed http://www.flickr.com/photos/drewish/3094280371/ %}</div>
-  <div class="small-4 column">{% oembed http://www.flickr.com/photos/drewish/3094275993/ %}</div>
+<div class="grid-x grid-margin-x">
+  <div class="small-4 cell">{% oembed http://www.flickr.com/photos/drewish/3095122678/ %}</div>
+  <div class="small-4 cell">{% oembed http://www.flickr.com/photos/drewish/3094280371/ %}</div>
+  <div class="small-4 cell">{% oembed http://www.flickr.com/photos/drewish/3094275993/ %}</div>
 </div>
 
 ### The Site

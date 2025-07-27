@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
   {% include _html_head.html %}
-  <body>
-    {% include _page_header.html %}
-    <div class="row">
-      <article class="column">
-        <h2 class="subheader">
-          {{ page.title }} &nbsp;
-          <small style="white-space: nowrap;">{{ page.date | date_to_long_string }}</small>
-        </h2>
-        {% include _page_media.html post=page %}
-        {{ content }}
-        <p>
-          <a href="/">← Back to the top</a>
-        </p>
-      </article>
+  <body class="grid-container">
+    <div class="grid-margin-x">
+      {% include _page_header.html %}
+      <div class="grid-x">
+        <article class="cell">
+          <h2 class="subheader">
+            {{ page.title }} &nbsp;
+            <small style="white-space: nowrap;">{{ page.date | date_to_long_string }}</small>
+          </h2>
+          {% include _page_media.html post=page %}
+          {{ content }}
+          <p>
+            <a href="/">← Back to the top</a>
+          </p>
+        </article>
+      </div>
+      {% include _page_footer.html %}
     </div>
-    {% include _page_footer.html %}
   </body>
   {% include _html_footer.html %}
 </html>

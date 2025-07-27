@@ -6,9 +6,9 @@ I've been playing around with [VSCOcam](http://vsco.co/vscocam) for the last
 week or so and, with a brand new blog, it seemed like a good time to post a
 review.
 
-<div class="row">
-  <div class="small-6 columns"><img src="http://drewish.vsco.co/i/522f4df9586808eb4400010f?w=640&r=1"></div>
-  <div class="small-6 columns"><img src="http://drewish.vsco.co/i/522f4de45968083340000045?w=640&r=1"></div>
+<div class="grid-x">
+  <div class="small-6 cell"><img src="http://drewish.vsco.co/i/522f4df9586808eb4400010f?w=640&r=1"></div>
+  <div class="small-6 cell"><img src="http://drewish.vsco.co/i/522f4de45968083340000045?w=640&r=1"></div>
 </div>
 
 ### What I love
