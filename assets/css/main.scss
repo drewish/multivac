@@ -9,14 +9,15 @@ $grid-container-padding: 15px; // Foundation 4 default
 $body-font-family: "Merriweather", serif;
 $header-font-family: "Lato", serif;
 $global-weight-normal: 300; // Set default font weight to 300
+$header-color: #222;
+$header-small-font-color: #6f6f6f;
+$hr-border: 1px solid #ddd;
 
 // Import Foundation 6 from vendor directory
 @import "vendor/foundation/foundation";
 
 // Include Foundation components
-@include foundation-global-styles;
-@include foundation-xy-grid-classes;
-@include foundation-typography;
+@include foundation-everything; // Include all Foundation components for now
 
 // Import site partials
 @import "normalize";

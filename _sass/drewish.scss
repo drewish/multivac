@@ -44,31 +44,8 @@ header h1, header a {
   font-weight: 400;
 }
 
-.top-menu {
-  font-family: "Lato", serif;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  text-align: right;
-  margin-top: 2.5em; /* Always apply the top margin to align with h1 baseline */
-
-  li {
-    display: inline-block;
-    margin-left: 1em;
-  }
-
-  li:first-child {
-    margin-left: 0;
-  }
-
-  a {
-    text-decoration: none;
-    color: inherit;
-  }
+.menu {
+    margin-top: 2em; /* Always apply the top margin to align with h1 baseline */
 }
 
-/* Header fonts - Foundation 6 doesn't automatically apply $header-font-family */
-h1, h2, h3, h4, h5, h6 {
-  font-family: "Lato", serif;
-  font-weight: 300;
-}
+

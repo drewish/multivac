@@ -16,19 +16,15 @@ title: blog index
   <a href="{{ post.url }}" title="{{post.title}}">Read more →</a>
   <hr>
 {% endfor %}
-<!-- Pagination links -->
-<nav aria-label="Pagination" class="text-center">
-  <ul class="pagination">
+
+<nav aria-label="Pagination">
+  <ul class="pagination text-center">
     {% if paginator.previous_page %}
-      <li class="pagination-previous"><a href="{{ paginator.previous_page_path }}" aria-label="Previous page">&laquo;</a></li>
-    {% else %}
-      <li class="pagination-previous disabled">Previous <span class="show-for-sr">page</span></li>
+      <li class="pagination-previous"><a href="{{ paginator.previous_page_path }}" aria-label="Previous page"><span class="show-for-sr">Previous page</span></a></li>
     {% endif %}
-    <li class="current">Page {{ paginator.page }} of {{ paginator.total_pages }}</li>
+    <li><span class="show-for-sr">You're on page</span> {{ paginator.page }} of {{ paginator.total_pages }}</li>
     {% if paginator.next_page %}
-      <li class="pagination-next"><a href="{{ paginator.next_page_path }}" aria-label="Next page">&raquo;</a></li>
-    {% else %}
-      <li class="pagination-next disabled">Next <span class="show-for-sr">page</span></li>
+      <li class="pagination-next"><a href="{{ paginator.next_page_path }}" aria-label="Next page"><span class="show-for-sr">Next page</span></a></li>
     {% endif %}
   </ul>
 </nav>
