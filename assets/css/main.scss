@@ -1,58 +1,25 @@
 ---
 ---
 
+// Foundation 6 Sass variables - set BEFORE importing Foundation
+$grid-container: 700px; // Foundation 4 default
+$grid-container-padding: 15px; // Foundation 4 default
+
+// Font overrides to match your site design
+$body-font-family: "Merriweather", serif;
+$header-font-family: "Lato", serif;
+$global-weight-normal: 300; // Set default font weight to 300
+
+// Import Foundation 6 from vendor directory
+@import "vendor/foundation/foundation";
+
+// Include Foundation components
+@include foundation-global-styles;
+@include foundation-xy-grid-classes;
+@include foundation-typography;
+
+// Import site partials
 @import "normalize";
 @import "syntax";
+@import "drewish";
 
-/* Custom subheader styling (Foundation 6 removed this class) */
-.subheader {
-  line-height: 1.4;
-  color: #6f6f6f;
-  font-weight: 300;
-  margin-top: 0.2em;
-  margin-bottom: 0.5em;
-}
-
-/* Code styling */
-div.highlight {
-  margin-bottom: 1.25em;
-  padding: 0 1.25em 0 1.1875em;
-}
-
-code {
-  line-height: 1.6;
-}
-
-/* Put a little space below videos and images */
-.flex-video, .oembed.photo {
-  margin-bottom: 1.25em;
-}
-
-header h1, header a {
-  font-weight: 400;
-}
-
-.top-menu {
-  font-family: "Lato", serif;
-  @media only screen and (min-width: 768px) {
-    margin-top: 2.5em;
-  }
-}
-
-/* Override Foundation 6 defaults to match Foundation 4 styling */
-body {
-  font-family: "Merriweather", serif !important;
-  font-weight: 300 !important;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-family: "Lato", serif !important;
-  font-weight: 300 !important;
-}
-
-/* Restore the max-width container like Foundation 4 had */
-.row {
-  max-width: 43.75rem !important; /* 700px equivalent (Foundation 4 default) */
-  margin: 0 auto !important;
-  padding: 0 0.9375rem !important; /* Add padding like Foundation 4 */
-}

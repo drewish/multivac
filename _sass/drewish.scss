@@ -1,9 +1,7 @@
 // Make sure the charset is set appropriately
 @charset "UTF-8";
 
-// Foundation 6 is now loaded via CDN in _html_head.html
-
-// Custom subheader styling (Foundation 6 removed this class)
+/* Custom subheader styling (Foundation 6 removed this class) */
 .subheader {
   line-height: 1.4;
   color: #6f6f6f;
@@ -12,7 +10,22 @@
   margin-bottom: 0.5em;
 }
 
-// Code styling
+/* Thumbnail styling to replace Foundation 4's th radius classes */
+.thumbnail {
+  border: 4px solid #ffffff;
+  border-radius: 3px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);
+  display: inline-block;
+  line-height: 0;
+  max-width: 100%;
+  transition: all 200ms ease-out;
+}
+
+.thumbnail:hover, .thumbnail:focus {
+  box-shadow: 0 0 6px 1px rgba(0, 140, 186, 0.5);
+}
+
+/* Code styling */
 div.highlight {
   margin-bottom: 1.25em;
   padding: 0 1.25em 0 1.1875em;
@@ -22,7 +35,7 @@ code {
   line-height: 1.6;
 }
 
-// Put a little space below videos and images
+/* Put a little space below videos and images */
 .flex-video, .oembed.photo {
   margin-bottom: 1.25em;
 }
@@ -33,25 +46,29 @@ header h1, header a {
 
 .top-menu {
   font-family: "Lato", serif;
-  @media only screen and (min-width: 768px) {
-    margin-top: 2.5em;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: right;
+  margin-top: 2.5em; /* Always apply the top margin to align with h1 baseline */
+
+  li {
+    display: inline-block;
+    margin-left: 1em;
+  }
+
+  li:first-child {
+    margin-left: 0;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
   }
 }
 
-/* Override Foundation 6 defaults to match Foundation 4 styling */
-body {
-  font-family: "Merriweather", serif !important;
-  font-weight: 300 !important;
-}
-
+/* Header fonts - Foundation 6 doesn't automatically apply $header-font-family */
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Lato", serif !important;
-  font-weight: 300 !important;
-}
-
-/* Restore the max-width container like Foundation 4 had */
-.row {
-  max-width: 43.75rem !important; /* 700px equivalent (Foundation 4 default) */
-  margin: 0 auto !important;
-  padding: 0 0.9375rem !important; /* Add padding like Foundation 4 */
+  font-family: "Lato", serif;
+  font-weight: 300;
 }
