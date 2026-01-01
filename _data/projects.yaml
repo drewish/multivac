@@ -1,3 +1,10 @@
+- key: keyboards
+  title: Keyboard Cases
+  url: https://github.com/drewish/keyboards
+  years: 2025-2026
+  description: Using Fusion to design and a CNC router to manufacture custom keyboard cases.
+  image: projects/keyboard.png
+
 - key: planner
   title: Time Block Planner
   url: https://github.com/drewish/planner
