@@ -21,7 +21,7 @@
   transition: all 200ms ease-out;
 }
 
-.thumbnail:hover, .thumbnail:focus {
+a .thumbnail:hover, a .thumbnail:focus {
   box-shadow: 0 0 6px 1px rgba(0, 140, 186, 0.5);
 }
 
@@ -44,8 +44,54 @@ header h1, header a {
   font-weight: 400;
 }
 
+/* Menu alignment - left on mobile, right on medium+ screens */
 .menu {
     margin-top: 2em; /* Always apply the top margin to align with h1 baseline */
 }
 
+/* On mobile, reduce spacing and align menu to the left */
+@media screen and (max-width: 639px) {
+  header .menu {
+    justify-content: flex-start;
+    margin-top: 0.25em; /* Reduce spacing between header and menu */
+    margin-left: 0;
+    padding-left: 0; /* Remove default padding */
+  }
 
+  /* Remove left padding from first menu item to align with h1 */
+  header .menu li:first-child a {
+    padding-left: 0;
+  }
+}
+
+/* Prevent menu from wrapping on medium screens */
+@media screen and (min-width: 640px) {
+  header .menu {
+    flex-wrap: nowrap;
+    white-space: nowrap;
+  }
+
+  header .menu li {
+    flex-shrink: 0;
+  }
+
+  header .menu a {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+}
+
+/* Mobile padding fix - ensure content doesn't touch screen edges */
+/* Apply padding at all screen sizes to prevent content from touching edges */
+body.grid-container {
+  padding-left: 15px !important;
+  padding-right: 15px !important;
+}
+
+/* Increase padding on medium screens and up for better readability */
+@media screen and (min-width: 640px) {
+  body.grid-container {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+}
