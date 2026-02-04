@@ -2,7 +2,7 @@
 layout: post
 title: Some things I've leaned from Jiu Jitsu
 ---
-On January 10th, 20206, I received my purple belt. I started training Brazilian Jiu Jitsu at [Easton in Boulder](https://eastonbjj.com) at the end of 2018. I was inspired to try it out after listening to a bunch of episodes of Jocko Podcast. They continually talked about how great it was, and they were right.
+On January 10th, 2026, I received my purple belt. I started training Brazilian Jiu Jitsu at [Easton in Boulder](https://eastonbjj.com) at the end of 2018. I was inspired to try it out after listening to a bunch of episodes of Jocko Podcast. They continually talked about how great it was, and they were right.
 
 ![Screenshot]({% asset_path blog/purple_belt.jpeg %})
 
